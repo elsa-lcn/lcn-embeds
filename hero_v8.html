@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#0a0f1e;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'DM Sans',system-ui,sans-serif;}
+.stage{position:relative;width:100%;max-width:1080px;height:580px;overflow:hidden;background:#F4F2EE;border-radius:4px;border:1px solid #D8D4CC;}
+.layer{position:absolute;inset:0;width:100%;height:100%;}
+.docs-row{position:absolute;top:50%;left:50%;transform:translate(-50%,-52%);display:flex;align-items:center;gap:80px;}
+.doc-wrap{display:flex;flex-direction:column;align-items:flex-start;gap:9px;}
+.pill{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border-radius:2px;font-family:'DM Sans',sans-serif;}
+.pill-b{background:#1A1A1A;color:#FFFFFF;border:none;}
+.pill-a{background:#FFFFFF;color:#1A1A1A;border:1px solid #1A1A1A;}
+.doc{position:relative;width:196px;height:286px;border-radius:3px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.10),0 4px 16px rgba(0,0,0,.08);border:1px solid #D0CCC4;}
+.doc-inner{position:absolute;inset:0;background:#FFFFFF;}
+.doc-cv{position:absolute;inset:0;width:100%;height:100%;}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <canvas class="layer" id="cvBg"></canvas>
+  <div class="docs-row">
+    <div class="doc-wrap">
+      <span class="pill pill-b">✕ Avant</span>
+      <div class="doc" id="docB">
+        <div class="doc-inner"></div>
+        <canvas class="doc-cv" id="cvB"></canvas>
+      </div>
+    </div>
+    <div class="doc-wrap">
+      <span class="pill pill-a">✓ Après</span>
+      <div class="doc" id="docA">
+        <div class="doc-inner"></div>
+        <canvas class="doc-cv" id="cvA"></canvas>
+      </div>
+    </div>
+  </div>
+  <canvas class="layer" id="cvFly"></canvas>
+</div>
+<script>
+const stage=document.getElementById('stage');
+const cvBg=document.getElementById('cvBg'),bx=cvBg.getContext('2d');
+const cvB=document.getElementById('cvB'),cb=cvB.getContext('2d');
+const cvA=document.getElementById('cvA'),ca=cvA.getContext('2d');
+const cvFly=document.getElementById('cvFly'),cf=cvFly.getContext('2d');
+
+const DPR=window.devicePixelRatio||1;
+function scaleCtx(ctx){ctx.setTransform(DPR,0,0,DPR,0,0);}
+function resize(){
+  [cvBg,cvFly].forEach(c=>{
+    const w=stage.offsetWidth,h=stage.offsetHeight;
+    c.width=w*DPR;c.height=h*DPR;
+    c.style.width=w+'px';c.style.height=h+'px';
+  });
+  [['docB',cvB],['docA',cvA]].forEach(([id,cv])=>{
+    const el=document.getElementById(id);
+    const w=el.clientWidth,h=el.clientHeight;
+    cv.width=w*DPR;cv.height=h*DPR;
+    cv.style.width=w+'px';cv.style.height=h+'px';
+  });
+  // Re-apply DPR scale to all contexts after resize
+  [bx,cf,cb,ca].forEach(scaleCtx);
+}
+resize();
+window.addEventListener('resize',()=>{resize();reset();});
+
+const NAVY='#344C94',ROUGE='#C0392B';
+
+const TH={
+  h1:{h:9,c:'#BCC9EE',lc:'#5A7BC4',shimmer:'#D4DEFF'},
+  h2:{h:7,c:'#BDD6BD',lc:'#5A9A5A',shimmer:'#D4EED4'},
+  corps:{h:5,c:'#C8D3E0',lc:'#7A95B0',shimmer:'#E0E8F4'},
+  corps2:{h:5,c:'#CDD8E6',lc:'#7A95B0',shimmer:'#E0E8F4'},
+  liste:{h:5,c:'#EDD4CF',lc:'#C0706A',shimmer:'#FAE8E4'},
+  inutile:{h:5,c:'#F2B8B0',lc:'#CC5050'},
+  note:{h:5,c:'#EDE4C2',lc:'#B0980A',shimmer:'#FAF4D4'},
+};
+
+const WORDS=['Jargon','Densité','Redondance','Charge cognitive','Complexité','Opacité','Lourdeur','Flou'];
+let wordIdx=0;
+
+const ROWS_B=[
+  {t:'inutile',w:.53,x:.06,gap:3},{t:'corps',w:.92,x:.01,gap:3},
+  {t:'corps2',w:.78,x:.07,gap:3},{t:'corps',w:.60,x:.20,gap:3},
+  {t:'h2',w:.46,x:.34,gap:3},{t:'corps',w:.77,x:.06,gap:3},
+  {t:'inutile',w:.37,x:.25,gap:3},{t:'corps2',w:.88,x:.02,gap:3},
+  {t:'liste',w:.61,x:.10,gap:3},{t:'corps',w:.85,x:.03,gap:3},
+  {t:'corps2',w:.50,x:.30,gap:3},{t:'h1',w:.66,x:.15,gap:3},
+  {t:'corps2',w:.91,x:.01,gap:3},{t:'note',w:.42,x:.39,gap:3},
+  {t:'corps',w:.83,x:.04,gap:3},{t:'inutile',w:.50,x:.12,gap:3},
+  {t:'liste',w:.58,x:.23,gap:3},{t:'corps',w:.90,x:.01,gap:3},
+  {t:'h2',w:.41,x:.08,gap:3},{t:'corps2',w:.74,x:.08,gap:3},
+  {t:'inutile',w:.35,x:.45,gap:3},{t:'corps',w:.86,x:.03,gap:3},
+  {t:'liste',w:.63,x:.14,gap:3},{t:'corps2',w:.78,x:.05,gap:3},
+  {t:'corps',w:.92,x:.01,gap:3},{t:'note',w:.47,x:.31,gap:3},
+  {t:'inutile',w:.41,x:.19,gap:3},{t:'corps',w:.68,x:.08,gap:3},
+  {t:'corps2',w:.84,x:.03,gap:3},{t:'corps',w:.81,x:.04,gap:3},
+  {t:'liste',w:.55,x:.17,gap:3},{t:'corps',w:.89,x:.02,gap:0},
+];
+
+// After: skeleton-style — clear hierarchy, generous spacing
+// Each row has a 'group' so we can draw visual group separators
+const ROWS_A=[
+  {t:'h1',   w:.76, x:.07, gap:14, group:'title'},
+  {t:'h2',   w:.55, x:.07, gap:8,  group:'s1'},
+  {t:'corps',w:.88, x:.07, gap:4,  group:'s1'},
+  {t:'corps',w:.82, x:.07, gap:4,  group:'s1'},
+  {t:'corps',w:.70, x:.07, gap:14, group:'s1'},
+  {t:'liste', w:.72, x:.10, gap:4, group:'list'},
+  {t:'liste', w:.64, x:.10, gap:4, group:'list'},
+  {t:'liste', w:.56, x:.10, gap:14,group:'list'},
+  {t:'h2',   w:.52, x:.07, gap:8,  group:'s2'},
+  {t:'corps',w:.86, x:.07, gap:4,  group:'s2'},
+  {t:'corps',w:.76, x:.07, gap:4,  group:'s2'},
+  {t:'note', w:.50, x:.07, gap:0,  group:'note'},
+];
+
+function buildRows(defs,cw,ch,pad=12){
+  // cw/ch are physical pixels; work in CSS pixels
+  cw=cw/DPR;ch=ch/DPR;
+  let y=pad,res=[];
+  defs.forEach((d,i)=>{
+    const th=TH[d.t];
+    res.push({...d,th,x:pad+d.x*(cw-2*pad),y,w:d.w*(cw-2*pad),h:th.h,
+      inutile:d.t==='inutile',_i:i,
+      word:d.t==='inutile'?WORDS[(wordIdx++)%WORDS.length]:null});
+    y+=th.h+(d.gap||3);
+  });
+  return res;
+}
+
+function rr(ctx,x,y,w,h,r,fill,stroke,sw){
+  if(w<=0||h<=0)return;
+  r=Math.min(r,h/2,w/2);
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.arcTo(x+w,y,x+w,y+r,r);
+  ctx.lineTo(x+w,y+h-r);ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+  ctx.lineTo(x+r,y+h);ctx.arcTo(x,y+h,x,y+h-r,r);
+  ctx.lineTo(x,y+r);ctx.arcTo(x,y,x+r,y,r);ctx.closePath();
+  if(fill){ctx.fillStyle=fill;ctx.fill();}
+  if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=sw||1;ctx.stroke();}
+}
+
+function eio(t){return t<.5?2*t*t:-1+(4-2*t)*t;}
+function eo3(t){return 1-Math.pow(1-t,3);}
+function lerp(a,b,t){return a+(b-a)*t;}
+function clamp(v,mn,mx){return Math.max(mn,Math.min(mx,v));}
+
+let rowsB,rowsA,tick=0,phase='show';
+let framedIdx=-1,flyItems=[],particles=[];
+let arrivedA=[],progressA=[],shimmerT=0;
+let afterIdx=0,annotations=[];
+
+function initAfter(){arrivedA=ROWS_A.map(()=>false);progressA=ROWS_A.map(()=>0);}
+
+function stagePos(el){
+  const sr=stage.getBoundingClientRect(),er=el.getBoundingClientRect();
+  return{x:er.left-sr.left,y:er.top-sr.top};
+}
+
+function buildAnnotations(){
+  annotations=[];
+  if(!rowsB)return;
+  const dp=stagePos(document.getElementById('docB'));
+  const tagged=rowsB.filter(r=>r.inutile||r.t==='h1'||r.t==='h2');
+  const labelX=10;
+  const LH=18; // min vertical gap between pill centres
+  let usedY=[];
+
+  tagged.forEach((r,i)=>{
+    const anchorX=dp.x;
+    const anchorY=dp.y+r.y+r.h/2;
+    const isI=r.inutile;
+    const label=isI?(r.word||'Inutile'):(r.t==='h1'?'Titre principal':'Titre section');
+
+    // Start from anchor, then push away from already-placed labels
+    let labelY=clamp(anchorY,24,stage.offsetHeight-22);
+    // Resolve collisions: push down if too close to a previous label
+    let changed=true,iter=0;
+    while(changed&&iter<20){
+      changed=false;
+      for(const y of usedY){
+        if(Math.abs(labelY-y)<LH){
+          labelY=y+LH*(labelY>=y?1:-1);
+          labelY=clamp(labelY,24,stage.offsetHeight-22);
+          changed=true;
+        }
+      }
+      iter++;
+    }
+    usedY.push(labelY);
+    annotations.push({row:r,anchorX,anchorY,labelX,labelY,label,isI,alpha:0,target:0});
+  });
+}
+
+function drawAnnotations(framedCount){
+  cf.save();
+  cf.font=`600 9.5px DM Sans,system-ui,sans-serif`;
+  annotations.forEach(ann=>{
+    ann.target=ann.row._i<=framedCount?1:0;
+    const spd=ann.target<ann.alpha?.18:.025;
+    ann.alpha=lerp(ann.alpha,ann.target,spd);
+    if(ann.alpha<.015)return;
+    const a=ann.alpha;
+    const col=ann.isI?'192,57,43':'52,76,148';
+    const tc=ann.isI?'#FFCFC7':'#C0D4F8';
+    cf.font=`600 9.5px DM Sans,system-ui,sans-serif`;
+    const lw=Math.max(cf.measureText(ann.label).width+20, ann.label.length*5.8+20);
+    const lx=ann.labelX,ly=ann.labelY,lh=15;
+
+    // Anchor dot
+    cf.globalAlpha=a*.95;
+    cf.fillStyle=ann.isI?'#C0392B':'#344C94';
+    cf.beginPath();cf.arc(ann.anchorX,ann.anchorY,2.2,0,Math.PI*2);cf.fill();
+
+    // Connector line
+    cf.globalAlpha=a*.6;
+    cf.strokeStyle=ann.isI?'rgba(192,57,43,.7)':'rgba(52,76,148,.6)';
+    cf.lineWidth=.7;
+    cf.setLineDash([2,3.5]);
+    cf.beginPath();
+    cf.moveTo(ann.anchorX,ann.anchorY);
+    const midX=lx+lw+4;
+    cf.lineTo(midX,ann.anchorY);
+    if(Math.abs(ann.labelY-ann.anchorY)>4)cf.lineTo(midX,ann.labelY);
+    cf.lineTo(lx+lw,ly);
+    cf.stroke();
+    cf.setLineDash([]);
+
+    // Pill background — light fill for legibility on dark bg
+    cf.globalAlpha=a;
+    const pillBg=ann.isI?'rgba(26,10,8,.92)':'rgba(8,12,30,.90)';
+    const pillBorder=ann.isI?'rgba(192,57,43,.7)':'rgba(52,76,148,.6)';
+    const pillText=ann.isI?'#FFCBC0':'#C0D4FF';
+    rr(cf,lx,ly-lh/2,lw,lh,7,pillBg,null);
+    cf.strokeStyle=pillBorder;cf.lineWidth=.8;
+    rr(cf,lx,ly-lh/2,lw,lh,7,null,pillBorder,.8);
+
+    // Label text — dark on light
+    cf.fillStyle=pillText;
+    cf.textBaseline='middle';
+    cf.fillText(ann.label,lx+8,ly);
+  });
+  cf.restore();
+}
+
+// ── Skeleton shimmer for the "après" doc ──────────────────────────
+function drawAfterSkeleton(){
+  if(!rowsA)return;
+  // Draw all rows as skeleton (unloaded) state first if nothing arrived
+  const anyArrived=arrivedA.some(Boolean);
+  // We always draw the skeleton base, then overlay arrived rows
+  shimmerT+=0.018;
+  const cw=cvA.width;
+  const cssW=cw/DPR;
+
+  ca.clearRect(0,0,cvA.width,cvA.height);
+
+  // Skeleton base for unarrived rows (subtle shimmer)
+  rowsA.forEach((r,i)=>{
+    if(arrivedA[i])return;
+    // Skeleton base color
+    const baseC='rgba(230,235,242,0.55)';
+    rr(ca,r.x,r.y,r.w,r.h,3,baseC,null);
+    // Shimmer wave
+    const shimX=(shimmerT*cssW*1.4)%(cssW*2.2)-cssW*.4;
+    const grad=ca.createLinearGradient(shimX-40,0,shimX+40,0);
+    grad.addColorStop(0,'rgba(255,255,255,0)');
+    grad.addColorStop(0.5,'rgba(255,255,255,0.35)');
+    grad.addColorStop(1,'rgba(255,255,255,0)');
+    ca.save();
+    ca.beginPath();
+    // clip to this row
+    ca.rect(r.x,r.y,r.w,r.h);ca.clip();
+    ca.fillStyle=grad;ca.fillRect(r.x,r.y,r.w,r.h);
+    ca.restore();
+  });
+
+  // Arrived rows: solid color, fade in from left
+  rowsA.forEach((r,i)=>{
+    if(!arrivedA[i])return;
+    progressA[i]=Math.min(1,(progressA[i]||0)+.045);
+    const p=eo3(progressA[i]);
+    const th=r.th;
+    ca.save();ca.globalAlpha=p;
+    // For liste rows: offset bar right to leave room for bullet
+    const isListe=r.t==='liste';
+    const barX=isListe?r.x+8:r.x;
+    const barW=isListe?r.w*p-8:r.w*p;
+    rr(ca,barX,r.y,Math.max(0,barW),r.h,3,th.c,null);
+    if(th.shimmer&&p>0.5){
+      const sx=barX+barW*0.6;
+      const sg=ca.createLinearGradient(sx,r.y,sx+barW*.4,r.y+r.h);
+      sg.addColorStop(0,'rgba(255,255,255,0)');
+      sg.addColorStop(1,`${th.shimmer}44`);
+      ca.fillStyle=sg;ca.fill();
+    }
+    // Red bullet for liste rows
+    if(isListe&&p>0.3){
+      ca.globalAlpha=p;
+      ca.fillStyle='#C0392B';
+      ca.beginPath();
+      ca.arc(r.x+2.5,r.y+r.h/2,2.2,0,Math.PI*2);
+      ca.fill();
+    }
+    ca.restore();
+  });
+
+  // Draw subtle group spacing indicators (horizontal rules between groups)
+  // Find transitions between groups
+  let lastGroup=null;
+  rowsA.forEach((r,i)=>{
+    if(!arrivedA[i])return;
+    if(lastGroup&&lastGroup!==r.group){
+      const yLine=r.y-5;
+      ca.save();ca.globalAlpha=0.08;ca.strokeStyle='#8090B0';ca.lineWidth=.5;
+      ca.beginPath();ca.moveTo(r.x,yLine);ca.lineTo(r.x+r.w,yLine);ca.stroke();
+      ca.restore();
+    }
+    lastGroup=r.group;
+  });
+}
+
+class Pt{
+  constructor(x,y,c){
+    this.x=x;this.y=y;this.c=c;
+    // Shard: random polygon with 3-5 jagged vertices
+    const n=3+Math.floor(Math.random()*3);
+    this.pts=[];
+    const baseR=3+Math.random()*9;
+    for(let i=0;i<n;i++){
+      const ang=(i/n)*Math.PI*2+Math.random()*.7;
+      const r=baseR*(0.4+Math.random()*.9);
+      this.pts.push([Math.cos(ang)*r,Math.sin(ang)*r]);
+    }
+    // Motion: fast initial burst, then drift
+    const ang=Math.random()*Math.PI*2;
+    const spd=1.5+Math.random()*4.5;
+    this.vx=Math.cos(ang)*spd;
+    this.vy=Math.sin(ang)*spd-2;
+    this.vr=(Math.random()-.5)*.18; // rotation vel
+    this.rot=Math.random()*Math.PI*2;
+    this.a=1;this.life=0;this.ml=28+Math.random()*22;
+    this.sx=1;this.sy=1; // stretch axes for motion blur feel
+  }
+  upd(){
+    this.life++;
+    this.vx*=.91;this.vy=this.vy*.91+.06;
+    this.x+=this.vx;this.y+=this.vy;
+    this.rot+=this.vr;this.vr*=.95;
+    // Squash on decel for kinetic feel
+    const spd=Math.hypot(this.vx,this.vy);
+    this.sx=1+spd*.04;this.sy=1-spd*.02;
+    this.a=Math.max(0,1-Math.pow(this.life/this.ml,1.4));
+  }
+  draw(ctx){
+    if(this.pts.length<2)return;
+    ctx.save();
+    ctx.globalAlpha=this.a;
+    ctx.translate(this.x,this.y);
+    ctx.rotate(this.rot);
+    ctx.scale(this.sx,this.sy);
+    ctx.fillStyle=this.c;
+    ctx.beginPath();
+    ctx.moveTo(this.pts[0][0],this.pts[0][1]);
+    for(let i=1;i<this.pts.length;i++)ctx.lineTo(this.pts[i][0],this.pts[i][1]);
+    ctx.closePath();ctx.fill();
+    ctx.restore();
+  }
+  dead(){return this.life>=this.ml;}
+}
+
+class Fly{
+  constructor(row,ai,sx,sy){
+    this.row=row;this.ai=ai;this.inutile=row.inutile;
+    this.sx=sx;this.sy=sy;
+    const dp=stagePos(document.getElementById('docA'));
+    const ar=rowsA[ai<0?0:Math.min(ai,rowsA.length-1)];
+    this.tx=ai<0?stage.offsetWidth*.38+(Math.random()-.5)*50:dp.x+ar.x;
+    this.ty=ai<0?stage.offsetHeight*.44+(Math.random()-.5)*30:dp.y+ar.y;
+    this.tw=ar?ar.w:60;this.th=ar?ar.h:5;
+    this.t=0;
+    // Inutile: slower to allow reading the word
+    this.spd=this.inutile?(.004+Math.random()*.002):(.018+Math.random()*.007);
+    this.done=false;this.exploded=false;
+    // Explode at 0.82–0.92 of travel — word fully readable up to that point
+    this.xT=this.inutile?(.82+Math.random()*.10):2;
+    this.arcY=(Math.random()>.5?1:-1)*(30+Math.random()*28);
+    this.color=row.th.c;this.word=row.word;
+    // Varied z-scale — grow faster early, plateau near end for reading time
+    this.zScale=this.inutile?(1.6+Math.random()*1.2):1;
+    this.zDelay=Math.random()*.08;
+    // Peak hold: fraction of xT where item stays at max size before exploding
+    this.holdStart=this.inutile?(this.xT-.18):2;
+  }
+  cx(){return lerp(this.sx,this.tx,eio(Math.min(this.t,1)));}
+  cy(){return lerp(this.sy,this.ty,eio(Math.min(this.t,1)))+Math.sin(Math.PI*Math.min(this.t,1))*this.arcY;}
+  zProg(){return eo3(clamp((this.t-this.zDelay)/(this.xT-this.zDelay),0,1));}
+  upd(){
+    if(this.done)return;
+    this.t+=this.spd;
+    if(this.inutile&&this.t>=this.xT&&!this.exploded){
+      const cx=this.cx(),cy=this.cy(),zp=this.zProg();
+      const sc=1+zp*(this.zScale-1);
+      const hw=this.tw*sc/2,hh=this.th*sc/2;
+      const nShards=12+Math.floor(Math.random()*8);
+      for(let i=0;i<nShards;i++){
+        const ang=(i/nShards)*Math.PI*2+Math.random()*.4;
+        const r=hw*(0.3+Math.random()*.9);
+        particles.push(new Pt(cx+hw+Math.cos(ang)*r,cy+hh+Math.sin(ang)*r*.5,
+          Math.random()>.4?this.color:this.row.th.lc));
+      }
+      this.exploded=true;this.done=true;
+    }
+    if(!this.inutile&&this.t>=1){this.t=1;this.done=true;if(this.ai>=0&&this.ai<arrivedA.length)arrivedA[this.ai]=true;}
+  }
+  draw(ctx){
+    if(this.done)return;
+    const x=this.cx(),y=this.cy();
+    const zp=this.inutile?this.zProg():0;
+    const sc=1+zp*(this.zScale-1);
+    // Fade only in the last 0.12 before explosion — word visible until the very end
+    const fadeAl=this.inutile?Math.max(0,1-clamp((this.t-this.holdStart)/.12,0,1)):1;
+    const w=this.tw*sc,h=this.th*sc;
+    const ox=x-(w-this.tw)/2,oy=y-(h-this.th)/2;
+    ctx.save();ctx.globalAlpha=fadeAl;
+    rr(ctx,ox,oy,w,h,3*Math.min(sc,3),this.color,null);
+    if(this.inutile&&this.word&&zp>.06){
+      const fs=clamp(5+zp*15,5,20);
+      // Word alpha: fades in early, stays solid, fades at holdStart
+      const wordIn=clamp((zp-.06)/.2,0,1);
+      ctx.globalAlpha=wordIn*fadeAl;
+      ctx.fillStyle=this.row.th.lc;
+      ctx.font=`700 ${fs}px DM Sans,system-ui,sans-serif`;
+      ctx.textBaseline='middle';ctx.textAlign='center';
+      ctx.fillText(this.word,ox+w/2,oy+h/2);
+    }
+    ctx.restore();
+  }
+}
+
+function drawBefore(showFrames){
+  cb.clearRect(0,0,cvB.width,cvB.height);
+  if(!rowsB)return;
+  // KEY CHANGE: always draw ALL rows — flying items appear as ghosts on doc
+  // We separate: original bar always visible; flying clone is drawn on cvFly
+  const inFlight=new Set(flyItems.filter(f=>!f.done&&!f.exploded).map(f=>f.row._i));
+  const exploded=new Set(flyItems.filter(f=>f.exploded).map(f=>f.row._i));
+
+  rowsB.forEach(r=>{
+    const isFramed=showFrames&&r._i<=framedIdx;
+    const isGhost=phase==='fly'&&(inFlight.has(r._i)||exploded.has(r._i));
+
+    if(isFramed&&!isGhost){
+      cb.save();cb.globalAlpha=.12;
+      rr(cb,r.x-1,r.y-1,r.w+2,r.h+2,4,r.inutile?'rgba(192,57,43,.6)':'rgba(52,76,148,.4)',null);
+      cb.restore();
+    }
+
+    // Always draw the bar — ghost if flying (dimmed), normal otherwise
+    cb.save();
+    if(isGhost) cb.globalAlpha=exploded.has(r._i)?0:.35;
+    rr(cb,r.x,r.y,r.w,r.h,3,r.th.c,null);
+    if(isFramed&&!isGhost){
+      rr(cb,r.x-.5,r.y-.5,r.w+1,r.h+1,3.5,null,
+        r.inutile?'rgba(192,57,43,.65)':'rgba(52,76,148,.5)',.7);
+    }
+    cb.restore();
+  });
+}
+
+let gridPts=[];
+function initGrid(){
+  gridPts=[];
+  const W=cvBg.width,H=cvBg.height;
+  for(let c=0;c<22;c++)for(let r=0;r<13;r++)
+    gridPts.push({x:(c/21)*W,y:(r/12)*H,phase:Math.random()*Math.PI*2,
+      spd:.0025+Math.random()*.003,amp:.4+Math.random()*.6,base:.5+Math.random()*.5});
+}
+
+function drawBg(){
+  const W=cvBg.width/DPR,H=cvBg.height/DPR;
+  // Base: warm off-white
+  bx.fillStyle='#F4F2EE';bx.fillRect(0,0,W,H);
+
+  // Fine grid — very subtle warm grey, editorial baseline grid feel
+  bx.save();
+  bx.strokeStyle='rgba(180,172,158,.28)';bx.lineWidth=.5;
+  const GS=32;
+  for(let x=0;x<W+GS;x+=GS){bx.beginPath();bx.moveTo(Math.round(x)+.5,0);bx.lineTo(Math.round(x)+.5,H);bx.stroke();}
+  for(let y=0;y<H+GS;y+=GS){bx.beginPath();bx.moveTo(0,Math.round(y)+.5);bx.lineTo(W,Math.round(y)+.5);bx.stroke();}
+  bx.restore();
+
+  // Subtle warm vignette — centre is slightly lighter
+  const grd=bx.createRadialGradient(W*.5,H*.5,0,W*.5,H*.5,Math.max(W,H)*.65);
+  grd.addColorStop(0,'rgba(255,253,248,.5)');
+  grd.addColorStop(1,'rgba(210,204,192,.18)');
+  bx.fillStyle=grd;bx.fillRect(0,0,W,H);
+
+  // Animated grid dots — very faint, warm
+  gridPts.forEach(p=>{
+    p.phase+=p.spd;const pulse=Math.sin(p.phase)*p.amp;
+    bx.globalAlpha=(.04+Math.abs(pulse)*.06)*p.base;
+    bx.fillStyle='#8C7A60';
+    bx.beginPath();bx.arc(p.x,p.y,.4+Math.abs(pulse)*.3,0,Math.PI*2);bx.fill();
+  });
+  bx.globalAlpha=1;
+}
+
+function startFraming(){
+  phase='frame';framedIdx=-1;buildAnnotations();
+  const iv=setInterval(()=>{framedIdx++;
+    if(framedIdx>=rowsB.length-1){clearInterval(iv);phase='hold';tick=0;}
+  },52);
+}
+
+function startFly(){
+  phase='fly';afterIdx=0;
+  annotations.forEach(a=>{a.target=0;});  // fade out via lerp
+  const dp=stagePos(document.getElementById('docB'));
+  rowsB.forEach((r,i)=>setTimeout(()=>{
+    const ai=r.inutile?-1:afterIdx++;
+    flyItems.push(new Fly(r,ai,dp.x+r.x,dp.y+r.y));
+  },i*72));
+}
+
+function reset(){
+  tick=0;framedIdx=-1;flyItems=[];particles=[];afterIdx=0;wordIdx=0;annotations=[];shimmerT=0;initAfter();
+  rowsB=buildRows(ROWS_B,cvB.width,cvB.height);
+  rowsA=buildRows(ROWS_A,cvA.width,cvA.height);
+  // rows coords are now in CSS pixels — correct
+  phase='show';
+}
+
+function drawAfterReveal(){
+  // Only fires during pause phase
+  // tick resets to 0 at start of pause
+  const docEl=document.getElementById('docA');
+  const dp=stagePos(docEl);
+  const dw=docEl.offsetWidth, dh=docEl.offsetHeight;
+  const PAD=2;
+
+  // Phase 1 (tick 0–40): scan line sweeps down
+  if(tick<40){
+    const prog=tick/40;
+    const scanY=dp.y+prog*dh;
+    cf.save();
+    // Crisp horizontal line — sharp, no blur
+    cf.globalAlpha=clamp(1-prog*.3,.5,1);
+    cf.strokeStyle='#1A1A1A';
+    cf.lineWidth=1;
+    cf.beginPath();
+    cf.moveTo(dp.x,scanY);cf.lineTo(dp.x+dw,scanY);
+    cf.stroke();
+    // Thin trailing gradient below line
+    const grad=cf.createLinearGradient(0,scanY-12,0,scanY);
+    grad.addColorStop(0,'rgba(255,255,255,0)');
+    grad.addColorStop(1,'rgba(26,26,26,.05)');
+    cf.fillStyle=grad;
+    cf.fillRect(dp.x,scanY-12,dw,12);
+    cf.restore();
+  }
+
+  // Phase 2 (tick 40–80): hard border flash — sharp registration mark style
+  if(tick>=40&&tick<100){
+    const p=clamp((tick-40)/20,0,1); // fade in
+    const p2=tick>70?clamp((tick-70)/30,0,1):0; // fade out
+    const a=eo3(p)*(1-p2*.7);
+    cf.save();
+    cf.globalAlpha=a;
+    // Corner marks only — Wolf Olins / Sagmeister registration style
+    const mkLen=14, mkW=2.5;
+    const corners=[
+      [dp.x-PAD,      dp.y-PAD,       1, 1],
+      [dp.x+dw+PAD,   dp.y-PAD,      -1, 1],
+      [dp.x-PAD,      dp.y+dh+PAD,    1,-1],
+      [dp.x+dw+PAD,   dp.y+dh+PAD,   -1,-1],
+    ];
+    cf.strokeStyle='#1A1A1A';cf.lineWidth=mkW;cf.lineCap='square';
+    corners.forEach(([cx,cy,sx,sy])=>{
+      cf.beginPath();cf.moveTo(cx,cy);cf.lineTo(cx+sx*mkLen,cy);cf.stroke();
+      cf.beginPath();cf.moveTo(cx,cy);cf.lineTo(cx,cy+sy*mkLen);cf.stroke();
+    });
+    // Full border — thin, crisp
+    cf.strokeStyle='rgba(26,26,26,.2)';cf.lineWidth=.8;
+    cf.strokeRect(dp.x-PAD,dp.y-PAD,dw+PAD*2,dh+PAD*2);
+    cf.restore();
+  }
+
+  // Phase 3 (tick 100+): persistent corner marks, dim — like a locked frame
+  if(tick>=100){
+    const a=clamp(1-(tick-100)/80,0,.35);
+    if(a<.01)return;
+    const mkLen=10,mkW=1.5;
+    cf.save();cf.globalAlpha=a;
+    cf.strokeStyle='rgba(26,26,26,.6)';cf.lineWidth=mkW;cf.lineCap='square';
+    const corners=[
+      [dp.x-PAD,      dp.y-PAD,       1, 1],
+      [dp.x+dw+PAD,   dp.y-PAD,      -1, 1],
+      [dp.x-PAD,      dp.y+dh+PAD,    1,-1],
+      [dp.x+dw+PAD,   dp.y+dh+PAD,   -1,-1],
+    ];
+    corners.forEach(([cx,cy,sx,sy])=>{
+      cf.beginPath();cf.moveTo(cx,cy);cf.lineTo(cx+sx*mkLen,cy);cf.stroke();
+      cf.beginPath();cf.moveTo(cx,cy);cf.lineTo(cx,cy+sy*mkLen);cf.stroke();
+    });
+    cf.restore();
+  }
+}
+
+function loop(){
+  requestAnimationFrame(loop);tick++;
+  drawBg();cf.clearRect(0,0,cvFly.width,cvFly.height);
+
+  if(phase==='show'){
+    drawBefore(false);
+    // Show skeleton immediately for "après"
+    drawAfterSkeleton();
+    if(tick>65)startFraming();
+  }
+  if(phase==='frame'){
+    drawBefore(true);
+    drawAnnotations(framedIdx);
+    drawAfterSkeleton();
+  }
+  if(phase==='hold'){
+    drawBefore(true);
+    drawAnnotations(framedIdx);
+    drawAfterSkeleton();
+    // Wait ~90 frames (1.5s) for annotations to lerp to full alpha + reading time
+    if(tick>90)startFly();
+  }
+  if(phase==='fly'){
+    flyItems.forEach(f=>f.upd());particles.forEach(p=>p.upd());
+    particles=particles.filter(p=>!p.dead());
+    flyItems.forEach(f=>f.draw(cf));particles.forEach(p=>p.draw(cf));
+    drawBefore(false);
+    drawAfterSkeleton();
+    if(tick<=30&&annotations.some(a=>a.alpha>.015))drawAnnotations(framedIdx);
+    if(flyItems.length===rowsB.length&&flyItems.every(f=>f.done)&&particles.length===0){phase='pause';tick=0;}
+  }
+  if(phase==='pause'){
+    drawAfterSkeleton();
+    drawAfterReveal();
+    if(tick>280)reset();
+  }
+}
+
+initGrid();reset();loop();
+</script>
+</body>
+</html>
