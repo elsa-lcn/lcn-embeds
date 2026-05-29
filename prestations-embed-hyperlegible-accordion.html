@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-bg-main:   #F8FAFC;
+      --lcn-bg-light:  #F5F6F0;
+      --lcn-cream:     #F2E8DA;
+      --lcn-sky:       #CCEDFB;
+      --lcn-white:     #FFFFFF;
+      --lcn-body:      #0F172A;
+      --lcn-night:     #1A2340;
+      --lcn-text:      #334155;
+      --lcn-border:    #E5E7EB;
+      --lcn-navy:      #344C94;
+      --lcn-kaki:      #6B7F2A;
+      --lcn-kaki-dark: #4F5E23;
+      --lcn-rouge:     #C0392B;
+      --claire-navy:   #2B4590;
+      --claire-gold:   #E8B84B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; }
+
+    body {
+      font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+      font-size: 16px;
+      color: var(--lcn-text);
+      background: transparent;
+      padding: 48px 20px;
+    }
+
+    /* ── HEADER DE SECTION ── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--lcn-navy);
+      margin-bottom: 14px;
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--lcn-text);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── BANNIÈRE MÉTHODE ── */
+    .methode-banner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(204, 237, 251, 0.35);
+      border: 1px solid rgba(204, 237, 251, 0.7);
+      border-radius: 12px;
+      padding: 14px 20px;
+      margin-bottom: 40px;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .methode-banner .badge {
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--lcn-navy);
+      color: var(--lcn-white);
+      border-radius: 100px;
+      padding: 4px 12px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .methode-banner p {
+      font-size: 17px;
+      color: var(--lcn-text);
+      line-height: 1.5;
+    }
+
+    /* ── CARDS ── */
+    .prestations-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 760px;
+      margin: 0 auto 56px;
+    }
+
+    .prestation-card {
+      background: var(--lcn-white);
+      border: 1px solid var(--lcn-border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    /* Card Score CLAIRE® : fond night */
+    .prestation-card--featured {
+      background: var(--lcn-night);
+      border-color: var(--lcn-night);
+    }
+
+    .card-header {
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--lcn-border);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(107, 127, 42, 0.06);
+    }
+
+    .prestation-card--featured .card-header {
+      border-bottom-color: rgba(255,255,255,0.1);
+    }
+
+    .card-number {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--lcn-sky);
+      background: var(--lcn-night);
+      border-radius: 100px;
+      padding: 4px 10px;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .prestation-card--featured .card-number {
+      background: rgba(204,237,251,0.15);
+      color: var(--lcn-sky);
+    }
+
+    .card-header-text h2 {
+      font-size: clamp(20px, 2.6vw, 26px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+      color: var(--lcn-night);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .prestation-card--featured .card-header-text h2 {
+      color: var(--lcn-white);
+    }
+
+    .tag-gratuit {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(107,127,42,0.12);
+      color: var(--lcn-kaki);
+      border: 1px solid rgba(107,127,42,0.22);
+      letter-spacing: 0;
+    }
+
+    .card-tagline {
+      font-size: 13.5px;
+      color: var(--lcn-text);
+      line-height: 1.5;
+    }
+
+    .prestation-card--featured .card-tagline {
+      color: rgba(255,255,255,0.65);
+    }
+
+    .card-body {
+      padding: 16px 20px;
+    }
+
+    /* Colonnes contenu */
+    .content-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .content-block h3 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--lcn-navy);
+      margin-bottom: 10px;
+    }
+
+    .prestation-card--featured .content-block h3 {
+      color: var(--lcn-sky);
+    }
+
+    .content-block ul {
+      list-style: none;
+    }
+
+    .content-block ul li {
+      font-size: 17px;
+      color: var(--lcn-text);
+      padding: 5px 0 5px 20px;
+      position: relative;
+      line-height: 1.45;
+    }
+
+    .prestation-card--featured .content-block ul li {
+      color: rgba(255,255,255,0.75);
+    }
+
+    .content-block ul li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      font-size: 7px;
+      color: var(--lcn-navy);
+      top: 7px;
+    }
+
+    .prestation-card--featured .content-block ul li::before {
+      color: var(--lcn-sky);
+    }
+
+    /* Footer chips */
+    .card-footer {
+      padding: 12px 20px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-top: 1px solid var(--lcn-border);
+    }
+
+    .prestation-card--featured .card-footer {
+      border-top-color: rgba(255,255,255,0.1);
+    }
+
+    .info-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--lcn-bg-main);
+      border: 1px solid var(--lcn-border);
+      border-radius: 100px;
+      padding: 6px 14px;
+    }
+
+    .prestation-card--featured .info-chip {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .chip-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lcn-text);
+      opacity: 0.55;
+    }
+
+    .prestation-card--featured .chip-label {
+      color: rgba(255,255,255,0.5);
+      opacity: 1;
+    }
+
+    .chip-sep {
+      width: 1px;
+      height: 11px;
+      background: var(--lcn-border);
+    }
+
+    .prestation-card--featured .chip-sep {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .chip-value {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--lcn-night);
+    }
+
+    .prestation-card--featured .chip-value {
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* Charte list */
+    .charte-items-list {
+      list-style: none;
+    }
+
+    .charte-items-list li {
+      font-size: 17px;
+      color: var(--lcn-text);
+      padding: 9px 0 9px 20px;
+      position: relative;
+      border-bottom: 1px solid var(--lcn-border);
+      line-height: 1.4;
+    }
+
+    .charte-items-list li:last-child { border-bottom: none; }
+
+    .charte-items-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      font-size: 7px;
+      color: var(--lcn-navy);
+      top: 12px;
+    }
+
+    /* ── PROCESSUS ── */
+    .process-section {
+      max-width: 760px;
+      margin: 0 auto 48px;
+    }
+
+    .process-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--lcn-navy);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      position: relative;
+    }
+
+    .process-connector {
+      position: absolute;
+      height: 1px;
+      background: var(--lcn-border);
+      z-index: 0;
+      top: 0;
+      left: 0;
+    }
+
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 6px;
+    }
+
+    .step-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(204, 237, 251, 0.35);
+      border: 1px solid rgba(204, 237, 251, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--lcn-navy);
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--lcn-night);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--lcn-text);
+      line-height: 1.5;
+      opacity: 0.7;
+    }
+
+    /* ── CTA ── */
+    .cta-block {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--lcn-night);
+      border-radius: 20px;
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .cta-text p:first-child {
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--lcn-white);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .cta-text p:last-child {
+      font-size: 17px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+
+    .lcn-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      border: 2px solid var(--lcn-white);
+      background: var(--lcn-white);
+      color: var(--lcn-night);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .lcn-btn:hover {
+      background: transparent;
+      color: var(--lcn-white);
+    }
+
+    .lcn-wrapper {
+      font-size: 21px;
+      width: 100%;
+    }
+
+
+    /* ── ACCORDÉON ── */
+    .card-body,
+    .card-footer {
+      display: block;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+      opacity: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .card-footer {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .card-body.open,
+    .card-footer.open {
+      max-height: 800px;
+      opacity: 1;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .accordion-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1px solid var(--lcn-navy);
+      background: transparent;
+      color: var(--lcn-navy);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .accordion-btn:hover {
+      background: var(--lcn-navy);
+      color: var(--lcn-white);
+    }
+
+    .accordion-btn .btn-arrow {
+      font-size: 11px;
+      transition: transform 0.2s ease;
+    }
+
+    .accordion-btn.open .btn-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      body { padding: 32px 12px; }
+      .content-columns { grid-template-columns: 1fr; }
+      .card-header { flex-direction: column; gap: 10px; }
+      .card-body { padding: 16px; }
+      .card-footer { padding: 12px 16px 16px; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 20px 10px; }
+      .process-steps::before { display: none; }
+      .cta-block { flex-direction: column; align-items: flex-start; padding: 28px 20px; }
+      .methode-banner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body><div class="lcn-wrapper">
+
+<!-- ── BANNIÈRE MÉTHODE ── -->
+  <div class="methode-banner">
+    <span class="badge">Méthode CLAIRE®</span>
+    <p>Toutes nos prestations s'appuient sur la méthode CLAIRE®, notre référentiel d'analyse de la clarté et de l'accessibilité cognitive des contenus.</p>
+  </div>
+
+  <!-- ── PRESTATIONS ── -->
+  <div class="prestations-grid">
+
+    <!-- 01 : SCORE CLAIRE® -->
+    <div class="prestation-card">
+      <div class="card-header">
+        <span class="card-number">01</span>
+        <div class="card-header-text">
+          <h2>Score CLAIRE® <span class="tag-gratuit">Gratuit</span></h2>
+          <p class="card-tagline">Avant toute prestation, mesurez la clarté de vos contenus axe par axe. Un score global, des scores par axe, trois recommandations prioritaires.</p>
+          <button class="accordion-btn" onclick="toggleCard(this)" aria-expanded="false">Voir le détail <span class="btn-arrow">↓</span></button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="content-columns">
+          <div class="content-block">
+            <h3>Ce que vous recevez</h3>
+            <ul>
+              <li>Un score global sur 10</li>
+              <li>Un score par axe CLAIRE®</li>
+              <li>Trois recommandations prioritaires et actionnables</li>
+            </ul>
+          </div>
+          <div class="content-block">
+            <h3>Supports analysés</h3>
+            <ul>
+              <li>Site web : soumettez une URL</li>
+              <li>Document : envoyez un PDF ou Word</li>
+              <li>Tout autre support sur demande</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="info-chip">
+          <span class="chip-label">Livrable</span>
+          <span class="chip-sep"></span>
+          <span class="chip-value">Rapport de score ✦ une page, lisible en 3 minutes</span>
+        </div>
+        <div class="info-chip">
+          <span class="chip-label">Délai</span>
+          <span class="chip-sep"></span>
+          <span class="chip-value">48 à 72 heures ouvrées</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 : CONCEPTION DE CONTENUS -->
+    <div class="prestation-card">
+      <div class="card-header">
+        <span class="card-number">02</span>
+        <div class="card-header-text">
+          <h2>Conception de contenus en langage clair</h2>
+          <p class="card-tagline">Vos supports sont retravaillés en profondeur, ou créés entièrement, pour être compris dès la première lecture.</p>
+          <button class="accordion-btn" onclick="toggleCard(this)" aria-expanded="false">Voir le détail <span class="btn-arrow">↓</span></button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="content-columns">
+          <div class="content-block">
+            <h3>Deux modalités</h3>
+            <ul>
+              <li>Refonte de contenus existants : fond, forme, structure et design</li>
+              <li>Création de nouveaux contenus : de la structure au texte final</li>
+            </ul>
+          </div>
+          <div class="content-block">
+            <h3>Supports concernés</h3>
+            <ul>
+              <li>Sites web, pages de destination</li>
+              <li>Documents PDF, formulaires, courriers</li>
+              <li>Supports print et numérique</li>
+              <li>Contenus internes (onboarding, RH, process)</li>
+              <li>Signalétique et médiation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="info-chip">
+          <span class="chip-label">Livrable</span>
+          <span class="chip-sep"></span>
+          <span class="chip-value">Support retravaillé ou créé, prêt à diffuser</span>
+        </div>
+        <div class="info-chip">
+          <span class="chip-label">Délai</span>
+          <span class="chip-sep"></span>
+          <span class="chip-value">Défini ensemble en début de mission</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 : CHARTE -->
+    <div class="prestation-card">
+      <div class="card-header">
+        <span class="card-number">03</span>
+        <div class="card-header-text">
+          <h2>Charte éditoriale en langage clair</h2>
+          <p class="card-tagline">Un guide opérationnel pour que tous vos collaborateurs produisent des contenus cohérents et accessibles, en autonomie.</p>
+          <button class="accordion-btn" onclick="toggleCard(this)" aria-expanded="false">Voir le détail <span class="btn-arrow">↓</span></button>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="charte-items-list">
+          <li>Éléments de langage propres à l'organisation</li>
+          <li>Ton et mode d'adresse</li>
+          <li>Vocabulaire privilégié et termes à éviter</li>
+          <li>Modalités de structuration et de mise en page</li>
+          <li>Règles de lisibilité</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <div class="info-chip">
+          <span class="chip-label">Livrable</span>
+          <span class="chip-sep"></span>
+          <span class="chip-value">Document opérationnel utilisable par toutes les équipes</span>
+        </div>
+        <div class="info-chip">
+          <span class="chip-label">Délai</span>
+          <span class="chip-sep"></span>
+          <span class="chip-value">3 à 6 semaines</span>
+        </div>
+        <div class="info-chip">
+          <span class="chip-label">Option</span>
+          <span class="chip-sep"></span>
+          <span class="chip-value">Coordination avec un graphiste pour les éléments visuels</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── PROCESSUS ── -->
+  <div class="process-section">
+    <p class="process-label">Comment ça se passe ✦ 4 étapes pour toutes nos missions</p>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-dot">1</div>
+        <p class="step-title">Questionnaire de cadrage guidé</p>
+        <p class="step-desc">Objectifs, publics cibles et contraintes définis avant le début de la mission.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-dot">2</div>
+        <p class="step-title">Version finalisée</p>
+        <p class="step-desc">Une première version complète et aboutie vous est livrée. Pas une ébauche.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-dot">3</div>
+        <p class="step-title">Annotations client</p>
+        <p class="step-desc">Vous annotez directement le document avec vos retours et ajustements.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-dot">4</div>
+        <p class="step-title">Version finale unique</p>
+        <p class="step-desc">Une version finale intégrant l'ensemble de vos retours. C'est la version définitive.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CTA ── -->
+  <div class="cta-block">
+    <div class="cta-text">
+      <p>Une communication claire, ça se construit.</p>
+      <p>Premier échange gratuit, sans engagement. 30 minutes pour comprendre ce qui freine vos lecteurs et repartir avec des pistes d'action.</p>
+    </div>
+    <a href="#" class="lcn-btn">Réserver un échange →</a>
+  </div>
+  <script>
+    function drawConnector() {
+      const steps = document.querySelectorAll('.process-steps');
+      steps.forEach(function(container) {
+        container.querySelectorAll('.process-connector').forEach(function(el) { el.remove(); });
+
+        const dots = container.querySelectorAll('.step-dot');
+        if (dots.length < 2) return;
+
+        const containerRect = container.getBoundingClientRect();
+
+        for (var i = 0; i < dots.length - 1; i++) {
+          const fromRect = dots[i].getBoundingClientRect();
+          const toRect = dots[i + 1].getBoundingClientRect();
+
+          const x1 = fromRect.right - containerRect.left;
+          const x2 = toRect.left - containerRect.left;
+          const y = fromRect.top - containerRect.top + fromRect.height / 2;
+
+          const line = document.createElement('div');
+          line.className = 'process-connector';
+          line.style.top = y + 'px';
+          line.style.left = x1 + 'px';
+          line.style.width = (x2 - x1) + 'px';
+          container.appendChild(line);
+        }
+      });
+    }
+
+    window.addEventListener('load', drawConnector);
+    window.addEventListener('resize', drawConnector);
+  </script>
+
+  <script>
+    function toggleCard(btn) {
+      var card = btn.closest('.prestation-card');
+      var body = card.querySelector('.card-body');
+      var footer = card.querySelector('.card-footer');
+      var isOpen = btn.classList.contains('open');
+
+      if (isOpen) {
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.innerHTML = 'Voir le détail <span class="btn-arrow">↓</span>';
+        body.classList.remove('open');
+        if (footer) footer.classList.remove('open');
+      } else {
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.innerHTML = 'Refermer <span class="btn-arrow">↓</span>';
+        body.classList.add('open');
+        if (footer) footer.classList.add('open');
+      }
+    }
+  </script>
+</div></body>
+</html>
