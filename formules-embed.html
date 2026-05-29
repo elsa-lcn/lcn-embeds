@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-night:    #1A2340;
+      --lcn-body:     #0F172A;
+      --lcn-text:     #334155;
+      --lcn-navy:     #344C94;
+      --lcn-sky:      #CCEDFB;
+      --lcn-bg-main:  #F8FAFC;
+      --lcn-bg-light: #F5F6F0;
+      --lcn-cream:    #F2E8DA;
+      --lcn-white:    #FFFFFF;
+      --lcn-border:   #E5E7EB;
+      --lcn-rouge:    #C0392B;
+      --lcn-kaki:     #6B7F2A;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; }
+
+    body {
+      font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+      font-size: 21px;
+      color: var(--lcn-text);
+      background: transparent;
+      padding: 0 70px 48px;
+    }
+
+    /* ── GRILLE ── */
+    .formules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    /* ── CARDS ── */
+    .formule-card {
+      background: var(--lcn-white);
+      border: 1px solid var(--lcn-border);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-header {
+      background: rgba(107, 127, 42, 0.06);
+      border-bottom: 1px solid var(--lcn-border);
+      padding: 28px 32px 24px;
+    }
+
+    .card-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--lcn-navy);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--lcn-night);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .card-body {
+      padding: 28px 32px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card-desc {
+      font-size: 21px;
+      color: var(--lcn-text);
+      line-height: 1.6;
+    }
+
+    .card-detail {
+      font-size: 16px;
+      color: var(--lcn-text);
+      opacity: 0.7;
+      line-height: 1.55;
+    }
+
+    /* Durées */
+    .durees {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .duree-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--lcn-bg-main);
+      border: 1px solid var(--lcn-border);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--lcn-night);
+      width: fit-content;
+    }
+
+    .duree-chip .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--lcn-navy);
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    .card-footer {
+      border-top: 1px solid var(--lcn-border);
+      padding: 16px 32px 24px;
+    }
+
+    .tarif-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--lcn-text);
+      opacity: 0.5;
+      margin-bottom: 5px;
+    }
+
+    .tarif-value {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--lcn-night);
+      line-height: 1.45;
+    }
+
+    /* ── TABLET ── */
+    @media (max-width: 1199px) {
+      body { font-size: 18px; padding: 0 32px 40px; }
+      .card-desc { font-size: 18px; }
+      .card-title { font-size: 22px; }
+      .formules-grid { gap: 16px; }
+      .card-body { padding: 22px 24px; }
+      .card-header { padding: 22px 24px 18px; }
+      .card-footer { padding: 14px 24px 20px; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 580px) {
+      body { font-size: 17px; padding: 0 16px 32px; }
+      .formules-grid { grid-template-columns: 1fr; }
+      .card-desc { font-size: 17px; }
+      .card-title { font-size: 20px; }
+      .card-body { padding: 18px 16px; }
+      .card-header { padding: 18px 16px 14px; }
+      .card-footer { padding: 12px 16px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="formules-grid">
+
+    <!-- À LA MISSION -->
+    <div class="formule-card">
+      <div class="card-header">
+        <p class="card-label">Formule</p>
+        <h2 class="card-title">À la mission</h2>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Un support à clarifier, un document à réécrire ? Nous intervenons sur un périmètre défini, avec un livrable précis.</p>
+        <p class="card-detail">Idéal pour un besoin ponctuel : une page web, un courrier, une plaquette, un formulaire.</p>
+      </div>
+      <div class="card-footer">
+        <p class="tarif-label">Tarif</p>
+        <p class="tarif-value">Adapté au volume et à la complexité du support</p>
+      </div>
+    </div>
+
+    <!-- EN CONTINU -->
+    <div class="formule-card">
+      <div class="card-header">
+        <p class="card-label">Formule</p>
+        <h2 class="card-title">En continu</h2>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Vous produisez régulièrement des contenus ? Nous intervenons en flux, pour maintenir un niveau de clarté constant sur l'ensemble de vos supports.</p>
+        <div class="durees">
+          <div class="duree-chip"><span class="dot"></span>Formule 3 mois</div>
+          <div class="duree-chip"><span class="dot"></span>Formule 6 mois</div>
+          <div class="duree-chip"><span class="dot"></span>Formule 12 mois</div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <p class="tarif-label">Tarif</p>
+        <p class="tarif-value">Mensuel fixe, sans engagement de renouvellement automatique</p>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
