@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-bg-main: #F8FAFC;  --lcn-bg-light: #F5F6F0;
+      --lcn-cream: #F2E8DA;    --lcn-sky: #CCEDFB;
+      --lcn-white: #FFFFFF;    --lcn-body: #0F172A;
+      --lcn-night: #1A2340;    --lcn-text: #334155;
+      --lcn-border: #E5E7EB;   --lcn-navy: #344C94;
+      --lcn-kaki: #6B7F2A;     --lcn-kaki-dark: #4F5E23;
+      --lcn-rouge: #C0392B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      color: var(--lcn-text);
+      background: transparent;
+      padding: 0 0 48px;
+    }
+
+    /* ── INTRO ── */
+    .methode-intro {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    .methode-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--lcn-night);
+      color: var(--lcn-sky);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .methode-intro-text {
+      font-size: 16px;
+      color: var(--lcn-text);
+      line-height: 1.6;
+    }
+
+    /* ── GRILLE 6 AXES ── */
+    .axes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .axe-card {
+      background: var(--lcn-white);
+      border: 1px solid var(--lcn-border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .axe-lettre-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .axe-lettre {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--lcn-night);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      width: 28px;
+      flex-shrink: 0;
+    }
+
+    .axe-nom {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lcn-navy);
+      letter-spacing: 0.01em;
+    }
+
+    .axe-desc {
+      font-size: 13px;
+      color: var(--lcn-text);
+      line-height: 1.5;
+      opacity: 0.85;
+    }
+
+    /* Axe web (7e) */
+    .axe-card--web {
+      background: rgba(204, 237, 251, 0.25);
+      border-color: rgba(204, 237, 251, 0.7);
+      grid-column: span 3;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .axe-card--web .axe-lettre-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .axe-card--web .axe-lettre {
+      font-size: 18px;
+    }
+
+    .tag-web {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--lcn-sky);
+      color: var(--lcn-night);
+      white-space: nowrap;
+    }
+
+    .axe-card--web .axe-desc {
+      padding-top: 2px;
+    }
+
+    /* ── CTA ── */
+    .methode-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .methode-cta-text {
+      font-size: 15px;
+      color: var(--lcn-text);
+      line-height: 1.5;
+    }
+
+    .lcn-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      border: 2px solid var(--lcn-navy);
+      background: transparent;
+      color: var(--lcn-navy);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .lcn-btn:hover {
+      background: var(--lcn-navy);
+      color: var(--lcn-white);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      body { padding: 0 0 32px; }
+      .axes-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .axe-card--web { grid-column: span 2; flex-direction: column; }
+      .axe-card--web .axe-lettre-row { flex-direction: row; align-items: center; }
+      .methode-intro { flex-direction: column; gap: 12px; }
+      .methode-cta { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INTRO -->
+  <div class="methode-intro">
+    <span class="methode-badge">Méthode CLAIRE®</span>
+    <p class="methode-intro-text">Un référentiel développé par Langage clair et net, basé sur les 6 principes essentiels pour une communication claire et efficace. Il est composé d'une centaine de critères, qui structurent chaque prestation de l'agence, de l'analyse à la conception.</p>
+  </div>
+
+  <!-- GRILLE DES AXES -->
+  <div class="axes-grid">
+
+    <div class="axe-card">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">C</span>
+        <span class="axe-nom">Clarté</span>
+      </div>
+      <p class="axe-desc">Les mots et les tournures ne créent aucune ambiguïté. Le lecteur n'a pas besoin d'une deuxième lecture.</p>
+    </div>
+
+    <div class="axe-card">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">L</span>
+        <span class="axe-nom">Lisibilité</span>
+      </div>
+      <p class="axe-desc">La qualité visuelle fluidifie la lecture : typographie, espacements, longueur des phrases, contrastes.</p>
+    </div>
+
+    <div class="axe-card">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">A</span>
+        <span class="axe-nom">Accessibilité</span>
+      </div>
+      <p class="axe-desc">Le contenu est compris par le plus grand nombre, quels que soient les contraintes visuelles, cognitives ou motrices.</p>
+    </div>
+
+    <div class="axe-card">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">I</span>
+        <span class="axe-nom">Intelligibilité</span>
+      </div>
+      <p class="axe-desc">Le lecteur se repère sans effort : titres hiérarchisés, paragraphes bien découpés, logique d'ensemble.</p>
+    </div>
+
+    <div class="axe-card">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">R</span>
+        <span class="axe-nom">Responsabilité éditoriale</span>
+      </div>
+      <p class="axe-desc">Un ton humain et direct. Le lecteur est traité en interlocuteur : inclusivité, guidage, anticipation de ses besoins.</p>
+    </div>
+
+    <div class="axe-card">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">E</span>
+        <span class="axe-nom">Ergonomie cognitive</span>
+      </div>
+      <p class="axe-desc">La dépense d'énergie cognitive du lecteur est réduite au minimum. Lire est confortable, pas épuisant.</p>
+    </div>
+
+    <!-- 7e axe : web uniquement -->
+    <div class="axe-card axe-card--web">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">+</span>
+        <span class="axe-nom">Expérience interactive</span>
+        <span class="tag-web">Web uniquement</span>
+      </div>
+      <p class="axe-desc">Un axe spécialement conçu pour les contenus web. Permet de vérifier que les comportements interactifs ne freinent pas la compréhension. Éléments analysés : l'expérience de navigation, le rôle des composants interactifs, le confort de lecture quel que soit le format d'écran.</p>
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="methode-cta">
+    <a href="#" class="lcn-btn">En savoir plus →</a>
+  </div>
+
+</body>
+</html>
