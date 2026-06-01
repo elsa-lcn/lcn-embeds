@@ -307,23 +307,14 @@
       flex-wrap: wrap;
     }
 
-    .badge-img-placeholder {
-      width: 100px;
-      height: 120px;
-      background: var(--lcn-navy);
-      border-radius: 16px 16px 50% 50% / 16px 16px 40px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .badge-img-wrapper {
       flex-shrink: 0;
+      width: 100px;
     }
 
-    .badge-img-placeholder span {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--lcn-sky);
-      text-align: center;
-      letter-spacing: 0.05em;
+    .badge-img-wrapper svg {
+      width: 100%;
+      height: auto;
     }
 
     .badge-text { flex: 1; min-width: 240px; }
@@ -622,9 +613,81 @@
 
   <!-- ── BADGE ── -->
   <div class="badge-section">
-    <div class="badge-img-placeholder">
-      <span>Badge<br>CLAIRE®</span>
-    </div>
+    <div class="badge-img-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 216" width="180" height="216" role="img" aria-label="Badge Méthode CLAIRE® — Langage clair et net">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;500;700&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Forme principale -->
+  <path d="M20,8 Q8,8 8,20 L8,144 L90,208 L172,144 L172,20 Q172,8 160,8 Z" fill="#344C94"/>
+
+  <!-- Bordure intérieure parallèle -->
+  <path d="M30,20 Q22,20 22,28 L22,138 L90,192 L158,138 L158,28 Q158,20 150,20 Z" fill="none" stroke="#CCEDFB" stroke-width="1"/>
+
+  <!-- LANGAGE -->
+  <text
+    x="90" y="48"
+    font-family="DM Sans, Arial, sans-serif"
+    font-size="8.5"
+    font-weight="300"
+    fill="#F2E8DA"
+    text-anchor="middle"
+    letter-spacing="2">LANGAGE</text>
+
+  <!-- CLAIR ET NET -->
+  <text
+    x="90" y="61"
+    font-family="DM Sans, Arial, sans-serif"
+    font-size="7.5"
+    font-weight="300"
+    fill="#F2E8DA"
+    text-anchor="middle"
+    letter-spacing="2">CLAIR ET NET</text>
+
+  <!-- Ligne séparatrice -->
+  <line x1="34" y1="72" x2="146" y2="72" stroke="#CCEDFB" stroke-width="0.75" opacity="0.35"/>
+
+  <!-- MÉTHODE -->
+  <text
+    x="90" y="100"
+    font-family="DM Sans, Arial, sans-serif"
+    font-size="9.5"
+    font-weight="500"
+    fill="#CCEDFB"
+    text-anchor="middle"
+    letter-spacing="3">MÉTHODE</text>
+
+  <!-- CLAIRE -->
+  <text
+    x="86" y="132"
+    font-family="DM Sans, Arial, sans-serif"
+    font-size="24"
+    font-weight="700"
+    fill="#FFFFFF"
+    text-anchor="middle"
+    letter-spacing="-0.5">CLAIRE</text>
+
+  <!-- ® -->
+  <text
+    x="131" y="117"
+    font-family="DM Sans, Arial, sans-serif"
+    font-size="12"
+    font-weight="400"
+    fill="#CCEDFB"
+    text-anchor="start">&#174;</text>
+
+  <!-- Ornement ✦ ✦ ✦ -->
+  <text
+    x="90" y="155"
+    font-family="DM Sans, Arial, sans-serif"
+    font-size="10"
+    fill="#CCEDFB"
+    text-anchor="middle"
+    opacity="0.45">&#10022;  &#10022;  &#10022;</text>
+
+</svg></div>
     <div class="badge-text">
       <h2 class="badge-title">Le badge CLAIRE®</h2>
       <p class="badge-desc">Langage clair et net attribue le badge CLAIRE® aux supports conçus selon les principes du langage clair et de l'accessibilité cognitive. Le badge signale à vos lecteurs qu'un contenu clair a été pensé pour eux.</p>
