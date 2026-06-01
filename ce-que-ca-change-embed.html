@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-night: #1A2340; --lcn-body: #0F172A; --lcn-text: #334155;
+      --lcn-navy: #344C94;  --lcn-sky: #CCEDFB;
+      --lcn-bg-main: #F8FAFC; --lcn-bg-light: #F5F6F0;
+      --lcn-cream: #F2E8DA; --lcn-white: #FFFFFF; --lcn-border: #E5E7EB;
+      --lcn-rouge: #C0392B; --lcn-kaki: #6B7F2A; --lcn-kaki-dark: #4F5E23;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      color: var(--lcn-text);
+      background: transparent;
+      padding: 0;
+    }
+
+    /* ── GRILLE ── */
+    .change-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      width: 100%;
+      border: 1px solid var(--lcn-border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    /* ── HEADERS ── */
+    .change-header {
+      padding: 16px 24px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .change-header--avant {
+      background: var(--lcn-rouge);
+      color: var(--lcn-white);
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .change-header--apres {
+      background: var(--lcn-kaki);
+      color: var(--lcn-white);
+    }
+
+    .header-icon {
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    /* ── COLONNES ── */
+    .change-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .change-col--avant {
+      border-right: 1px solid var(--lcn-border);
+    }
+
+    /* ── ITEMS ── */
+    .change-item {
+      padding: 16px 24px;
+      font-size: 15px;
+      line-height: 1.55;
+      border-bottom: 1px solid var(--lcn-border);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .change-item:last-child {
+      border-bottom: none;
+    }
+
+    .change-col--avant .change-item {
+      color: var(--lcn-text);
+      background: var(--lcn-white);
+    }
+
+    .change-col--avant .change-item:nth-child(even) {
+      background: rgba(204, 237, 251, 0.3);
+    }
+
+    .change-col--apres .change-item {
+      color: var(--lcn-text);
+      background: var(--lcn-white);
+    }
+
+    .change-col--apres .change-item:nth-child(even) {
+      background: rgba(204, 237, 251, 0.3);
+    }
+
+    .item-icon {
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      opacity: 0.6;
+    }
+
+    .change-col--avant .item-icon { color: var(--lcn-rouge); }
+    .change-col--apres .item-icon { color: var(--lcn-kaki); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      .change-grid {
+        grid-template-columns: 1fr;
+        border-radius: 16px;
+      }
+      .change-col--avant {
+        border-right: none;
+        border-bottom: 1px solid var(--lcn-border);
+      }
+      .change-header--avant {
+        border-right: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="change-grid">
+
+    <!-- AVANT -->
+    <div class="change-col change-col--avant">
+      <div class="change-header change-header--avant">
+        <span class="header-icon">✕</span>
+        <span>Avant</span>
+      </div>
+      <div class="change-item">
+        <span class="item-icon">✦</span>
+        <span>Contenus denses, peu lus. Vos lecteurs survolent sans retenir.</span>
+      </div>
+      <div class="change-item">
+        <span class="item-icon">✦</span>
+        <span>Jargon et style complexe. Vos lecteurs ne se sentent pas concernés.</span>
+      </div>
+      <div class="change-item">
+        <span class="item-icon">✦</span>
+        <span>Lecteurs qui abandonnent. Démarches non complétées, formulaires mal remplis.</span>
+      </div>
+      <div class="change-item">
+        <span class="item-icon">✦</span>
+        <span>Une communication qui exclut sans le vouloir.</span>
+      </div>
+    </div>
+
+    <!-- APRÈS -->
+    <div class="change-col change-col--apres">
+      <div class="change-header change-header--apres">
+        <span class="header-icon">✓</span>
+        <span>Après</span>
+      </div>
+      <div class="change-item">
+        <span class="item-icon">✦</span>
+        <span>Message compris dès la première lecture. Même par les publics éloignés de l'écrit.</span>
+      </div>
+      <div class="change-item">
+        <span class="item-icon">✦</span>
+        <span>Une relation de confiance avec vos publics. Ils reviennent.</span>
+      </div>
+      <div class="change-item">
+        <span class="item-icon">✦</span>
+        <span>Moins de réclamations, moins de relances. Vos équipes respirent.</span>
+      </div>
+      <div class="change-item">
+        <span class="item-icon">✦</span>
+        <span>Une crédibilité renforcée et un engagement RSE concret.</span>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
