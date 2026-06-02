@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avant / Après Asso — Langage clair et net</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blanc: #F8F8F5;
+    --bleu-marine: #1E3163;
+    --vert: #4A6741;
+    --vert-clair: #D6E8D0;
+    --gris: #6B7280;
+    --noir: #1A1A1A;
+    --border: #E0E0D8;
+    --rouge: #8B2020;
+    --rouge-clair: #FDF5F5;
+    --rouge-border: #E8D0D0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--blanc);
+    color: var(--noir);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--vert);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 400;
+    color: var(--bleu-marine);
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 1.15;
+  }
+
+  h2 em { font-style: italic; color: var(--vert); }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--gris);
+    text-align: center;
+    margin-bottom: 36px;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  /* ── CARD ── */
+  .card {
+    width: 100%;
+    max-width: 620px;
+    background: white;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 8px 48px rgba(30, 49, 99, 0.09);
+  }
+
+  /* ── TABS ── */
+  .tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tab {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  .tab-avant {
+    background: #F5EAEA;
+    color: var(--rouge);
+    border-right: 1px solid var(--border);
+  }
+
+  .tab-apres {
+    background: var(--vert-clair);
+    color: var(--vert);
+  }
+
+  .tab.active.tab-avant {
+    background: var(--rouge-clair);
+    border-bottom: 3px solid var(--rouge);
+  }
+
+  .tab.active.tab-apres {
+    background: #F4FAF3;
+    border-bottom: 3px solid var(--vert);
+  }
+
+  .tab:not(.active) {
+    opacity: 0.6;
+  }
+
+  .tab-badge {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .tab-avant .tab-badge { background: var(--rouge); color: white; }
+  .tab-apres .tab-badge { background: var(--vert); color: white; }
+
+  /* ── PANELS ── */
+  .panel {
+    display: none;
+    padding: 28px 32px;
+    animation: fadeIn 0.25s ease;
+  }
+
+  .panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-avant-bg { background: var(--rouge-clair); }
+  .panel-apres-bg { background: #F4FAF3; }
+
+  /* ── DOC META ── */
+  .doc-meta {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .panel-avant-bg .doc-meta { color: #B08080; }
+  .panel-apres-bg .doc-meta { color: #7DA870; }
+
+  .doc-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  .panel-avant-bg .doc-title { color: #6B3A3A; }
+  .panel-apres-bg .doc-title { color: var(--bleu-marine); }
+
+  /* ── AVANT CONTENT ── */
+  .avant-card {
+    background: white;
+    border: 1px solid var(--rouge-border);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+
+  .avant-text {
+    font-size: 13.5px;
+    line-height: 1.9;
+    color: #555;
+    font-style: italic;
+  }
+
+  .flag {
+    background: #FDECEA;
+    border-radius: 3px;
+    padding: 1px 3px;
+    color: var(--rouge);
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: rgba(139,32,32,0.35);
+    position: relative;
+    cursor: help;
+  }
+
+  .flag-tip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--rouge);
+    color: white;
+    font-size: 10px;
+    font-style: normal;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 50;
+  }
+
+  .flag:hover .flag-tip { display: block; }
+
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--rouge-border);
+  }
+
+  .tag-red {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: #FDECEA;
+    color: var(--rouge);
+  }
+
+  /* ── APRÈS CONTENT ── */
+  .apres-card {
+    background: white;
+    border: 1px solid #C5DCC0;
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+
+  .apres-section {
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #E4F0E2;
+  }
+
+  .apres-section:last-of-type {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  .apres-micro-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--vert);
+    margin-bottom: 7px;
+  }
+
+  .two-col-action {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .apres-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #EBF5E8;
+    border-radius: 8px;
+    padding: 12px 16px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .apres-headline {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--bleu-marine);
+  }
+
+  .apres-stat-num {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--vert);
+  }
+
+  .apres-stat-label {
+    font-size: 12px;
+    color: var(--noir);
+  }
+
+  .action-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .action-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 13px;
+    color: var(--noir);
+    line-height: 1.5;
+  }
+
+  .action-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--vert);
+    color: white;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .doc-meta-outer {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gris);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .cta-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cta-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--noir);
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 20px;
+    background: var(--vert);
+    color: white;
+    display: inline-block;
+  }
+
+  .tags-row-green {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed #C5DCC0;
+  }
+
+  .tag-green {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: #EBF5E8;
+    color: var(--vert);
+  }
+
+  /* ── STATS ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border);
+    background: white;
+  }
+
+  .stat {
+    padding: 18px 16px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--vert);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--gris);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 580px) {
+    .panel { padding: 20px 16px; }
+    .stats-row { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat:last-child { border-bottom: none; }
+    body { padding: 32px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="section-label">✦ Résultat concret</div>
+<h2>Le langage clair,<br><em>c'est visible immédiatement.</em></h2>
+<p class="subtitle">Cliquez sur "Avant" et "Après" pour voir la transformation. Même message, même mission — mais une communication que tout le monde peut comprendre.</p>
+
+<div class="doc-meta-outer">Association d'aide sociale — Campagne de sensibilisation</div>
+
+<div class="card">
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab tab-avant active" onclick="switchTab('avant')">
+      <div class="tab-badge">✕</div>
+      Avant
+    </button>
+    <button class="tab tab-apres" onclick="switchTab('apres')">
+      <div class="tab-badge">✓</div>
+      Après
+    </button>
+  </div>
+
+  <!-- AVANT PANEL -->
+  <div class="panel panel-avant-bg active" id="panel-avant">
+    <div class="doc-title">Notre mission</div>
+    <div class="avant-card">
+      <p class="avant-text">
+        Dans le cadre de notre
+        <span class="flag">mission d'accompagnement<span class="flag-tip">Jargon institutionnel</span></span>
+        des publics en situation de précarité et d'exclusion sociale, notre association
+        <span class="flag">mobilise l'ensemble de ses ressources humaines et matérielles<span class="flag-tip">Formule creuse</span></span>
+        afin de
+        <span class="flag">mettre en œuvre des actions visant à favoriser<span class="flag-tip">3 verbes pour 1 idée</span></span>
+        la réinsertion
+        <span class="flag">socioprofessionnelle<span class="flag-tip">Jargon inaccessible</span></span>
+        des personnes bénéficiaires de nos
+        <span class="flag">dispositifs d'aide et d'assistance<span class="flag-tip">Bureaucratique</span></span>.<br>
+        <span class="flag">Cette démarche s'inscrit pleinement<span class="flag-tip">Formule vague</span></span> dans notre
+        <span class="flag">projet associatif<span class="flag-tip">Jargon interne</span></span> et nos
+        <span class="flag">valeurs fondatrices d'inclusion et de solidarité<span class="flag-tip">Redondant et creux</span></span>.
+      </p>
+      <div class="tags-row">
+        <span class="tag-red">Phrase unique de 52 mots</span>
+        <span class="tag-red">Jargon institutionnel</span>
+        <span class="tag-red">Zéro empathie</span>
+        <span class="tag-red">Aucun appel à l'action</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- APRÈS PANEL -->
+  <div class="panel panel-apres-bg" id="panel-apres">
+    <div class="doc-title">Notre mission</div>
+    <div class="apres-card">
+      <div class="apres-section">
+        <p class="apres-headline">Nous aidons les personnes en situation d'exclusion à retrouver un emploi et une vie stable.</p>
+      </div>
+      <div class="apres-section">
+        <div class="apres-micro-label">Notre action cette année</div>
+        <div class="two-col-action">
+          <div class="apres-stat">
+            <span class="apres-stat-num">500</span>
+            <span class="apres-stat-label">personnes accompagnées</span>
+          </div>
+          <div class="action-list">
+            <div class="action-line">
+              <div class="action-dot">→</div>
+              <span>pour trouver un logement</span>
+            </div>
+            <div class="action-line">
+              <div class="action-dot">→</div>
+              <span>pour reprendre confiance en elles</span>
+            </div>
+            <div class="action-line">
+              <div class="action-dot">→</div>
+              <span>pour retrouver un emploi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="apres-section">
+        <div class="apres-micro-label" style="text-align:center;">Vous pouvez agir avec nous</div>
+        <div class="cta-box" style="align-items:center; text-align:center;">
+          <div class="cta-title">Rejoignez-nous →</div>
+          <div class="cta-actions" style="justify-content:center;">
+            <span class="cta-btn">Faire un don</span>
+            <span class="cta-btn">Devenir bénévole</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat">
+      <span class="stat-num">52 → 16</span>
+      <span class="stat-label">mots dans la phrase<br>la plus longue</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">0 → 2</span>
+      <span class="stat-label">actions proposées<br>au lecteur</span>
+    </div>
+    <div class="stat" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+      <span class="stat-num">41s → 13s</span>
+      <span class="stat-label">temps de lecture estimé<br>(méthode Kandel-Moles)</span>
+    </div>
+  </div>
+
+</div>
+
+<p style="margin-top:16px; font-size:11px; color:#9CA3AF; text-align:center;">Exemple illustratif — les données présentées sont fictives.</p>
+
+<script>
+  function switchTab(tab) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelector('.tab-' + tab).classList.add('active');
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
