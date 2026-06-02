@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-bg-main: #F8FAFC;  --lcn-bg-light: #F5F6F0;
+      --lcn-cream: #F2E8DA;    --lcn-sky: #CCEDFB;
+      --lcn-white: #FFFFFF;    --lcn-body: #0F172A;
+      --lcn-night: #1A2340;    --lcn-text: #334155;
+      --lcn-border: #E5E7EB;   --lcn-navy: #344C94;
+      --lcn-kaki: #6B7F2A;     --lcn-kaki-dark: #4F5E23;
+      --lcn-rouge: #C0392B;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; }
+    body { font-family: "DM Sans", system-ui, sans-serif; font-size: 16px; color: var(--lcn-text); background: transparent; padding: 0; }
+    .timeline { display: flex; flex-direction: column; gap: 0; margin-top: 24px; border: 1px solid var(--lcn-border); border-radius: 16px; overflow: hidden; }
+    .timeline-item { display: flex; align-items: flex-start; gap: 20px; padding: 20px 24px; border-bottom: 1px solid var(--lcn-border); }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-date { font-size: 13px; font-weight: 700; color: var(--lcn-navy); white-space: nowrap; min-width: 70px; padding-top: 2px; }
+    .timeline-content { font-size: 14.5px; color: var(--lcn-text); line-height: 1.55; }
+    .timeline-content strong { color: var(--lcn-night); font-weight: 600; }
+    .cta-block { background: var(--lcn-night); border-radius: 20px; padding: 36px 40px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-top: 48px; }
+    .cta-text p:first-child { font-size: 18px; font-weight: 700; color: var(--lcn-white); margin-bottom: 6px; letter-spacing: -0.01em; }
+    .cta-text p:last-child { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+    .cta-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .lcn-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 100px; font-family: "DM Sans", sans-serif; font-weight: 600; font-size: 15px; text-decoration: none; transition: all 0.2s ease; white-space: nowrap; cursor: pointer; }
+    .lcn-btn--primary { background: var(--lcn-white); border: 2px solid var(--lcn-white); color: var(--lcn-night); }
+    .lcn-btn--primary:hover { background: transparent; color: var(--lcn-white); }
+    .lcn-btn--outline { background: transparent; border: 2px solid rgba(255,255,255,0.4); color: var(--lcn-white); }
+    .lcn-btn--outline:hover { border-color: var(--lcn-white); }
+    @media (max-width: 580px) { .cta-block { flex-direction: column; align-items: flex-start; padding: 28px 20px; } .timeline-item { flex-direction: column; gap: 6px; } }
+    .section { margin-bottom: 48px; }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--lcn-navy); margin-bottom: 14px; }
+    .section-title { font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: var(--lcn-night); letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 16px; }
+    .section-body { font-size: 16px; color: var(--lcn-text); line-height: 1.65; max-width: 680px; }
+    .section-body p + p { margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <div class="section">
+    <p class="section-label">✦ Une pratique qui se généralise</p>
+    <h2 class="section-title">Le langage clair n'est plus une option.</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-date">Juin 2023</span>
+        <p class="timeline-content">Le langage clair est <strong>reconnu officiellement</strong> grâce à la publication de la norme internationale ISO 24495-1.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">Juin 2025</span>
+        <p class="timeline-content">Une <strong>deuxième norme</strong> est parue, consacrée spécifiquement aux contenus juridiques (ISO 24495-2).</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">En cours</span>
+        <p class="timeline-content"><strong>D'autres normes sont en préparation</strong> pour développer le langage clair dans un maximum de secteurs professionnels.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">Aujourd'hui</span>
+        <p class="timeline-content">Le langage clair est de plus en plus utilisé, tant dans les organisations publiques que privées, et dans tous les secteurs.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-text">
+      <p>Prêt à passer à la communication claire ?</p>
+      <p>Premier échange gratuit, sans engagement. 30 minutes pour comprendre ce qui freine vos lecteurs et repartir avec des pistes d'action.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="#" class="lcn-btn lcn-btn--primary">Je prends rendez-vous</a>
+      <a href="#" class="lcn-btn lcn-btn--outline">Je découvre les prestations</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-bg-main: #F8FAFC;  --lcn-bg-light: #F5F6F0;
+      --lcn-cream: #F2E8DA;    --lcn-sky: #CCEDFB;
+      --lcn-white: #FFFFFF;    --lcn-body: #0F172A;
+      --lcn-night: #1A2340;    --lcn-text: #334155;
+      --lcn-border: #E5E7EB;   --lcn-navy: #344C94;
+      --lcn-kaki: #6B7F2A;     --lcn-kaki-dark: #4F5E23;
+      --lcn-rouge: #C0392B;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; }
+    body { font-family: "DM Sans", system-ui, sans-serif; font-size: 16px; color: var(--lcn-text); background: transparent; padding: 0; }
+    .iso-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+    .iso-card { background: var(--lcn-white); border: 1px solid var(--lcn-border); border-radius: 16px; padding: 22px 24px; }
+    .iso-card--full { grid-column: span 2; background: rgba(204,237,251,0.25); border-color: rgba(204,237,251,0.6); }
+    .iso-card-label { font-size: 10px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--lcn-navy); margin-bottom: 8px; }
+    .iso-card-title { font-size: 15px; font-weight: 700; color: var(--lcn-night); margin-bottom: 8px; line-height: 1.3; }
+    .iso-card-body { font-size: 14px; color: var(--lcn-text); line-height: 1.55; }
+    @media (max-width: 580px) { .iso-grid { grid-template-columns: 1fr; } .iso-card--full { grid-column: span 1; } }
+    .section { margin-bottom: 48px; }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--lcn-navy); margin-bottom: 14px; }
+    .section-title { font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: var(--lcn-night); letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 16px; }
+    .section-body { font-size: 16px; color: var(--lcn-text); line-height: 1.65; max-width: 680px; }
+    .section-body p + p { margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <div class="section">
+    <p class="section-label">✦ Ce que dit la norme internationale</p>
+    <h2 class="section-title">Une discipline reconnue et encadrée.</h2>
+    <p class="section-body">La norme ISO 24495-1 donne une reconnaissance internationale au langage clair. Elle pose deux principes qui changent tout.</p>
+    <div class="iso-grid">
+      <div class="iso-card">
+        <p class="iso-card-label">Principe 1</p>
+        <p class="iso-card-title">Le lecteur réel, pas le lecteur idéal</p>
+        <p class="iso-card-body">La norme impose de concevoir pour le lecteur réel : celui qui lit vite, sous stress, entre deux tâches, parfois peu à l'aise avec l'écrit. Pas pour le lecteur idéal qu'on imagine disponible et concentré.</p>
+      </div>
+      <div class="iso-card">
+        <p class="iso-card-label">Principe 2</p>
+        <p class="iso-card-title">Comprendre ne suffit pas. Il faut pouvoir agir.</p>
+        <p class="iso-card-body">Un contenu est clair si le lecteur peut l'utiliser pour faire ce qu'il doit faire. La compréhension n'est pas la fin. C'est le moyen.</p>
+      </div>
+      <div class="iso-card iso-card--full">
+        <p class="iso-card-label">Ce que ça change</p>
+        <p class="iso-card-title">Un renversement de posture</p>
+        <p class="iso-card-body">La norme ISO 24495-1 introduit un principe radical : le lecteur idéal — concentré, disponible, expert — n'existe pas. Les contenus doivent pouvoir fonctionner dans toutes les conditions. Ce n'est pas au lecteur de s'adapter au contenu. C'est au contenu de s'adapter au lecteur — à tous les lecteurs, dans toutes leurs situations.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

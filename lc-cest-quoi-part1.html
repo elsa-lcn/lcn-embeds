@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-bg-main: #F8FAFC;  --lcn-bg-light: #F5F6F0;
+      --lcn-cream: #F2E8DA;    --lcn-sky: #CCEDFB;
+      --lcn-white: #FFFFFF;    --lcn-body: #0F172A;
+      --lcn-night: #1A2340;    --lcn-text: #334155;
+      --lcn-border: #E5E7EB;   --lcn-navy: #344C94;
+      --lcn-kaki: #6B7F2A;     --lcn-kaki-dark: #4F5E23;
+      --lcn-rouge: #C0392B;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; }
+    body { font-family: "DM Sans", system-ui, sans-serif; font-size: 16px; color: var(--lcn-text); background: transparent; padding: 0; }
+    .accroche { background: var(--lcn-night); border-radius: 20px; padding: 40px 48px; margin-bottom: 48px; }
+    .accroche-title { font-size: clamp(24px, 3.5vw, 36px); font-weight: 700; color: var(--lcn-white); letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 20px; }
+    .accroche-body { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.65; max-width: 580px; }
+    .definition-block { background: var(--lcn-cream); border-radius: 20px; padding: 32px 36px; margin-top: 24px; }
+    .definition-question { font-size: 17px; font-weight: 700; color: var(--lcn-night); margin-bottom: 16px; line-height: 1.4; }
+    .definition-body { font-size: 16px; color: var(--lcn-text); line-height: 1.65; }
+    .definition-body p + p { margin-top: 10px; }
+    .definition-conclusion { margin-top: 20px; font-size: 16px; font-weight: 700; color: var(--lcn-kaki); }
+    @media (max-width: 580px) { .accroche { padding: 28px 20px; } .definition-block { padding: 24px 20px; } }
+    .section { margin-bottom: 48px; }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--lcn-navy); margin-bottom: 14px; }
+    .section-title { font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: var(--lcn-night); letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 16px; }
+    .section-body { font-size: 16px; color: var(--lcn-text); line-height: 1.65; max-width: 680px; }
+    .section-body p + p { margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <div class="accroche">
+    <h1 class="accroche-title">Comprendre ne devrait pas être un effort.</h1>
+    <p class="accroche-body">Pourtant, la plupart des contenus que nous lisons chaque jour demandent un effort de déchiffrage. Pas parce que les sujets sont complexes. Parce que les contenus ne sont pas conçus pour être compris.</p>
+  </div>
+
+  <div class="section">
+    <p class="section-label">✦ Définition</p>
+    <h2 class="section-title">Le langage clair, c'est quoi ?</h2>
+    <p class="section-body">Le langage clair, c'est une méthode de communication qui part d'une question simple :</p>
+    <div class="definition-block">
+      <p class="definition-question">"Est-ce que mon lecteur peut vraiment utiliser ce que j'écris ?"</p>
+      <div class="definition-body">
+        <p>Le principe : chaque mot, chaque phrase, chaque choix de mise en page est pensé pour réduire l'effort de lecture.</p>
+        <p>Résultat : le lecteur se repère dans le document en un coup d'oeil et comprend immédiatement les informations.</p>
+      </div>
+      <p class="definition-conclusion">Zéro effort. Impact maximum.</p>
+    </div>
+  </div>
+</body>
+</html>
