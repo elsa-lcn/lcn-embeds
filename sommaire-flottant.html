@@ -14,15 +14,21 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      font-family: 'DM Sans', system-ui, sans-serif;
-      background: transparent;
+    html, body {
       width: 260px;
-      height: 100%;
-      position: relative;
+      height: 500px;
+      background: transparent;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      overflow: hidden;
     }
 
-    /* ── BOUTON — ancré en bas ── */
+    .wrapper {
+      position: relative;
+      width: 260px;
+      height: 500px;
+    }
+
+    /* ── BOUTON ── */
     .sommaire-trigger {
       position: absolute;
       bottom: 0;
@@ -66,7 +72,7 @@
     .sommaire-trigger.open .trigger-icon span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .sommaire-trigger.open .trigger-icon span:nth-child(3) { transform: rotate(-45deg) translate(3px, -3px); }
 
-    /* ── PANNEAU — ancré au-dessus du bouton ── */
+    /* ── PANNEAU ── */
     .sommaire-panel {
       position: absolute;
       bottom: 52px;
@@ -85,7 +91,7 @@
     }
 
     .sommaire-panel.open {
-      max-height: 500px;
+      max-height: 440px;
       opacity: 1;
       pointer-events: auto;
     }
@@ -132,46 +138,49 @@
   </style>
 </head>
 <body>
+  <div class="wrapper">
 
-  <!-- PANNEAU — au-dessus du bouton -->
-  <div class="sommaire-panel" id="panel">
-    <nav class="panel-nav">
-      <a href="#difference" class="nav-link" onclick="closeSommaire()">
-        <span class="nav-num">01</span><span class="nav-label">Une différence immédiate</span>
-      </a>
-      <a href="#ce-que-ca-change" class="nav-link" onclick="closeSommaire()">
-        <span class="nav-num">02</span><span class="nav-label">Ce que ça change</span>
-      </a>
-      <a href="#pour-qui" class="nav-link" onclick="closeSommaire()">
-        <span class="nav-num">03</span><span class="nav-label">Pour qui ?</span>
-      </a>
-      <div class="nav-divider"></div>
-      <a href="#prestations" class="nav-link" onclick="closeSommaire()">
-        <span class="nav-num">04</span><span class="nav-label">Les prestations</span>
-      </a>
-      <a href="#methode-claire" class="nav-link" onclick="closeSommaire()">
-        <span class="nav-num">05</span><span class="nav-label">La méthode CLAIRE®</span>
-      </a>
-      <a href="#tous-les-contenus" class="nav-link" onclick="closeSommaire()">
-        <span class="nav-num">06</span><span class="nav-label">Tous les contenus</span>
-      </a>
-      <div class="nav-divider"></div>
-      <a href="#questions" class="nav-link" onclick="closeSommaire()">
-        <span class="nav-num">07</span><span class="nav-label">Des questions ?</span>
-      </a>
-      <a href="#rendez-vous" class="nav-link nav-link--cta" onclick="closeSommaire()">
-        <span class="nav-num">08</span><span class="nav-label">Prenons rendez-vous →</span>
-      </a>
-    </nav>
+    <!-- PANNEAU -->
+    <div class="sommaire-panel" id="panel">
+      <nav class="panel-nav">
+        <a href="#difference" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">01</span><span class="nav-label">Une différence immédiate</span>
+        </a>
+        <a href="#ce-que-ca-change" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">02</span><span class="nav-label">Ce que ça change</span>
+        </a>
+        <a href="#pour-qui" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">03</span><span class="nav-label">Pour qui ?</span>
+        </a>
+        <div class="nav-divider"></div>
+        <a href="#prestations" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">04</span><span class="nav-label">Les prestations</span>
+        </a>
+        <a href="#methode-claire" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">05</span><span class="nav-label">La méthode CLAIRE®</span>
+        </a>
+        <a href="#tous-les-contenus" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">06</span><span class="nav-label">Tous les contenus</span>
+        </a>
+        <div class="nav-divider"></div>
+        <a href="#questions" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">07</span><span class="nav-label">Des questions ?</span>
+        </a>
+        <a href="#rendez-vous" class="nav-link nav-link--cta" onclick="closeSommaire()">
+          <span class="nav-num">08</span><span class="nav-label">Prenons rendez-vous →</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- BOUTON -->
+    <button class="sommaire-trigger" id="trigger" onclick="toggleSommaire()">
+      <span class="trigger-icon">
+        <span></span><span></span><span></span>
+      </span>
+      Sommaire
+    </button>
+
   </div>
-
-  <!-- BOUTON — en bas -->
-  <button class="sommaire-trigger" id="trigger" onclick="toggleSommaire()">
-    <span class="trigger-icon">
-      <span></span><span></span><span></span>
-    </span>
-    Sommaire
-  </button>
 
   <script>
     function toggleSommaire() {
@@ -187,6 +196,5 @@
       document.getElementById('trigger').classList.remove('open');
     }
   </script>
-
 </body>
 </html>
