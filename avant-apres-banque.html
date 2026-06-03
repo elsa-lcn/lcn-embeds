@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avant / Après Banque — Langage clair et net</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lcn-white:        #FFFFFF;
+    --lcn-black:        #1A1A1A;
+    --lcn-cream:        #F7F4EF;
+    --lcn-coral:        #E8604C;
+    --lcn-coral-light:  #FDF1EF;
+    --lcn-coral-border: #F0CECA;
+    --lcn-green:        #2D9B6F;
+    --lcn-green-light:  #EBF7F2;
+    --lcn-green-border: #B8DFD0;
+    --lcn-mid-gray:     #6B6B6B;
+    --lcn-light-gray:   #E8E8E8;
+    --lcn-border:       #E5E2DC;
+    --stat-red:         #A63228;
+    --stat-green:       #2D9B6F;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--lcn-cream);
+    color: var(--lcn-black);
+    padding: 48px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 700;
+    color: var(--lcn-black);
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  h2 em {
+    font-style: normal;
+    font-weight: 300;
+    color: var(--lcn-mid-gray);
+  }
+
+  .subtitle {
+    font-size: 16px;
+    color: var(--lcn-mid-gray);
+    text-align: center;
+    margin-bottom: 36px;
+    max-width: 480px;
+    line-height: 1.65;
+  }
+
+  .doc-meta-outer {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--lcn-mid-gray);
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    width: 100%;
+    max-width: 780px;
+    background: var(--lcn-white);
+    border-radius: 20px;
+    border: 1px solid var(--lcn-border);
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(26, 26, 26, 0.07);
+  }
+
+  /* ── TABS ── */
+  .tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--lcn-border);
+  }
+
+  .tab {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .tab-avant {
+    background: #FAF0EE;
+    color: var(--lcn-coral);
+    border-right: 1px solid var(--lcn-border);
+  }
+
+  .tab-apres {
+    background: var(--lcn-green-light);
+    color: var(--lcn-green);
+  }
+
+  .tab.active.tab-avant {
+    background: var(--lcn-coral-light);
+    border-bottom: 3px solid var(--lcn-coral);
+  }
+
+  .tab.active.tab-apres {
+    background: var(--lcn-green-light);
+    border-bottom: 3px solid var(--lcn-green);
+  }
+
+  .tab:not(.active) { opacity: 0.55; }
+
+  .tab-badge {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .tab-avant .tab-badge { background: var(--lcn-coral); color: var(--lcn-white); }
+  .tab-apres .tab-badge { background: var(--lcn-green); color: var(--lcn-white); }
+
+  /* ── PANELS (grille superposée = hauteur fixe) ── */
+  .panels-wrapper {
+    display: grid;
+    grid-template-rows: 1fr;
+  }
+
+  .panel {
+    grid-row: 1;
+    grid-column: 1;
+    padding: 28px 32px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+    visibility: hidden;
+  }
+
+  .panel.active {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .panel-avant-bg { background: var(--lcn-coral-light); }
+  .panel-apres-bg { background: var(--lcn-green-light); }
+
+  .doc-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  .panel-avant-bg .doc-title { color: var(--lcn-black); }
+  .panel-apres-bg .doc-title { color: var(--lcn-black); }
+
+  /* ── AVANT ── */
+  .avant-card {
+    background: var(--lcn-white);
+    border: 1px solid var(--lcn-coral-border);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+
+  .avant-text {
+    font-size: 13.5px;
+    line-height: 1.9;
+    color: #555;
+    font-style: italic;
+  }
+
+  .flag {
+    background: #FDECEA;
+    border-radius: 3px;
+    padding: 1px 3px;
+    color: var(--lcn-coral);
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: rgba(232, 96, 76, 0.35);
+    position: relative;
+    cursor: help;
+  }
+
+  .flag-tip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--lcn-black);
+    color: var(--lcn-white);
+    font-size: 10px;
+    font-style: normal;
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+    z-index: 50;
+  }
+
+  .flag:hover .flag-tip { display: block; }
+
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--lcn-coral-border);
+  }
+
+  .tag-red {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: #FDECEA;
+    color: var(--lcn-coral);
+  }
+
+  /* ── APRÈS ── */
+  .apres-card {
+    background: var(--lcn-white);
+    border: 1px solid var(--lcn-green-border);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+
+  .apres-section {
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--lcn-green-border);
+  }
+
+  .apres-section:last-of-type {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  .apres-micro-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lcn-green);
+    margin-bottom: 7px;
+  }
+
+  .apres-sentence {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: var(--lcn-black);
+  }
+
+  .apres-sentence strong {
+    color: var(--lcn-black);
+    font-weight: 700;
+  }
+
+  /* Tableau données */
+  .data-table {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--lcn-green-border);
+  }
+
+  .data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 14px;
+    font-size: 13px;
+    background: var(--lcn-green-light);
+  }
+
+  .data-row:last-child {
+    border-top: 1px solid var(--lcn-green-border);
+    background: var(--lcn-white);
+  }
+
+  .data-row .val-rouge {
+    font-weight: 700;
+    color: var(--stat-red);
+  }
+
+  .data-row .val-noir {
+    font-weight: 700;
+    color: var(--lcn-black);
+  }
+
+  .data-row .val-sub {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--lcn-mid-gray);
+    margin-left: 4px;
+  }
+
+  /* Actions box */
+  .actions-box {
+    background: var(--lcn-green-light);
+    border-radius: 8px;
+    padding: 12px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .action-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 13px;
+    color: var(--lcn-black);
+    line-height: 1.5;
+  }
+
+  .action-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--lcn-green);
+    color: var(--lcn-white);
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .tags-row-green {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--lcn-green-border);
+  }
+
+  .tag-green {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: var(--lcn-green-light);
+    color: var(--lcn-green);
+  }
+
+  /* ── STATS ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--lcn-border);
+    background: var(--lcn-white);
+  }
+
+  .stat {
+    padding: 18px 16px;
+    text-align: center;
+    border-right: 1px solid var(--lcn-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--lcn-black);
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-num .n-before { color: var(--stat-red); }
+  .stat-num .n-arrow  { color: var(--lcn-black); margin: 0 2px; }
+  .stat-num .n-after  { color: var(--stat-green); }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--lcn-mid-gray);
+    line-height: 1.45;
+  }
+
+  .footer-note {
+    margin-top: 16px;
+    font-size: 11px;
+    color: #B0B0A8;
+    text-align: center;
+  }
+
+  @media (max-width: 580px) {
+    body { padding: 32px 12px; }
+    .panel { padding: 20px 16px; }
+    .panels-wrapper { grid-template-columns: 1fr; }
+    .panel { grid-column: 1; }
+    .stats-row { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--lcn-border); }
+    .stat:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<h2>Un courrier bancaire.<br><em>2 façons de l'écrire.</em></h2>
+<p class="subtitle">Cliquez sur <span style="color:var(--lcn-coral);font-weight:700;">Avant</span> et <span style="color:var(--lcn-green);font-weight:700;">Après</span> pour voir la transformation.</p>
+
+<p class="doc-meta-outer" style="font-size:15px;font-weight:700;color:var(--lcn-black);letter-spacing:0.02em;">Refus de prêt</p>
+
+<div class="card">
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab tab-avant active" onclick="switchTab('avant')">
+      <div class="tab-badge">✕</div>
+      Avant
+    </button>
+    <button class="tab tab-apres" onclick="switchTab('apres')">
+      <div class="tab-badge">✓</div>
+      Après
+    </button>
+  </div>
+
+  <div class="panels-wrapper">
+
+    <!-- AVANT -->
+    <div class="panel panel-avant-bg active" id="panel-avant">
+      <div class="doc-title">Réponse à votre demande de financement</div>
+      <div class="avant-card">
+        <p class="avant-text">
+          Suite à l'étude de votre dossier par nos
+          <span class="flag">services compétents<span class="flag-tip">Jargon inutile</span></span>,
+          et au regard des éléments transmis dans le cadre de
+          <span class="flag">l'instruction de votre demande<span class="flag-tip">Redondant</span></span>,
+          nous sommes
+          <span class="flag">dans l'obligation de<span class="flag-tip">Tournure passive et froide</span></span>
+          vous informer que votre demande de financement
+          <span class="flag">ne peut être accordée en l'état<span class="flag-tip">Voix passive — qui décide ?</span></span>,
+          au motif que les garanties présentées sont jugées
+          <span class="flag">insuffisantes<span class="flag-tip">Sans information actionnable</span></span>
+          <span class="flag">eu égard aux<span class="flag-tip">Jargon juridique</span></span>
+          critères d'<span class="flag">octroi<span class="flag-tip">Jargon technique</span></span>
+          en vigueur au sein de notre établissement.
+        </p>
+        <p class="avant-text" style="margin-top:14px;">
+          En effet,
+          <span class="flag">conformément aux dispositions réglementaires applicables<span class="flag-tip">Jargon juridique</span></span>,
+          il appartient à nos services d'évaluer la
+          <span class="flag">capacité de remboursement<span class="flag-tip">Jargon financier</span></span>
+          des demandeurs ainsi que la solidité des garanties proposées.
+          À l'issue de cette analyse, il s'avère que le
+          <span class="flag">ratio<span class="flag-tip">Jargon financier</span></span>
+          entre le montant du financement sollicité et la valeur des
+          <span class="flag">actifs présentés en garantie<span class="flag-tip">Jargon financier</span></span>
+          ne satisfait pas aux
+          <span class="flag">exigences minimales requises<span class="flag-tip">Redondant : minimales et requises disent la même chose</span></span>.
+        </p>
+        <div class="tags-row">
+          <span class="tag-red">Voix passive</span>
+          <span class="tag-red">Jargon administratif et financier</span>
+          <span class="tag-red">Phrases longues et denses</span>
+          <span class="tag-red">Zéro action possible</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- APRÈS -->
+    <div class="panel panel-apres-bg" id="panel-apres">
+      <div class="doc-title">Réponse à votre demande de financement</div>
+      <div class="apres-card">
+        <div class="apres-section">
+          <p class="apres-sentence">
+            Nous avons étudié votre demande de prêt. <strong>Malheureusement, nous ne pouvons pas vous accorder ce prêt.</strong> La raison : les biens que vous avez proposés en garantie ne sont pas suffisants.
+          </p>
+          <div class="data-table">
+            <div class="data-row">
+              <span>Prêt demandé</span>
+              <span class="val-noir">150 000 €</span>
+            </div>
+            <div class="data-row">
+              <span>Valeur de vos biens</span>
+              <span class="val-rouge">97 500 € <span class="val-sub">(65 %)</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="apres-section">
+          <div class="apres-micro-label">Ce que vous pouvez faire</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;">
+            <div class="actions-box">
+              <div class="action-line">
+                <div class="action-dot">1</div>
+                <span>Nous soumettre de nouvelles garanties</span>
+              </div>
+              <div class="action-line">
+                <div class="action-dot">2</div>
+                <span>Contacter votre conseiller pour en discuter</span>
+              </div>
+            </div>
+            <div style="border:1px solid var(--lcn-green-border);border-radius:8px;padding:12px 14px;background:var(--lcn-white);display:flex;flex-direction:column;gap:6px;">
+              <p style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--lcn-green);margin-bottom:4px;">Votre conseiller</p>
+              <p style="font-size:13px;font-weight:700;color:var(--lcn-black);">Marie Dupont</p>
+              <p style="font-size:12px;color:var(--lcn-mid-gray);">📞 01 23 45 67 89</p>
+              <p style="font-size:12px;color:var(--lcn-mid-gray);">✉ m.dupont@banque.fr</p>
+              <p style="font-size:12px;color:var(--lcn-mid-gray);">Disponible du lundi au vendredi, 9h–18h</p>
+            </div>
+          </div>
+        </div>
+        <div class="tags-row-green">
+          <span class="tag-green">Voix active</span>
+          <span class="tag-green">Ton respectueux</span>
+          <span class="tag-green">Données lisibles</span>
+          <span class="tag-green">Actions concrètes</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panels-wrapper -->
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat">
+      <span class="stat-num"><span class="n-before">65</span><span class="n-arrow">→</span><span class="n-after">14</span></span>
+      <span class="stat-label">mots par phrase</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num"><span class="n-before">0</span><span class="n-arrow">→</span><span class="n-after">2</span></span>
+      <span class="stat-label">actions proposées<br>au lecteur</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num"><span class="n-before">64s</span><span class="n-arrow">→</span><span class="n-after">19s</span></span>
+      <span class="stat-label">temps de lecture estimé<br>(méthode Kandel-Moles)</span>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+  function switchTab(tab) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelector('.tab-' + tab).classList.add('active');
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+</script>
+
+<p style="font-size:13px;color:var(--lcn-mid-gray);margin-top:16px;text-align:center;">→ Même information, mais une expérience de lecture radicalement différente.</p>
+</body>
+</html>
