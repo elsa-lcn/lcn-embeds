@@ -8,9 +8,8 @@
   <style>
     :root {
       --lcn-night: #1A2340; --lcn-text: #334155;
-      --lcn-navy: #344C94;  --lcn-sky: #CCEDFB;
+      --lcn-navy: #344C94;
       --lcn-white: #FFFFFF; --lcn-border: #E5E7EB;
-      --lcn-bg-main: #F8FAFC;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -18,14 +17,60 @@
     body {
       font-family: 'DM Sans', system-ui, sans-serif;
       background: transparent;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
+      width: 260px;
+      height: 100%;
+      position: relative;
     }
 
-    /* ── PANNEAU ── */
+    /* ── BOUTON — ancré en bas ── */
+    .sommaire-trigger {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--lcn-night);
+      color: var(--lcn-white);
+      border: none;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(26, 35, 64, 0.25);
+      transition: background 0.2s ease;
+      z-index: 2;
+    }
+
+    .sommaire-trigger:hover { background: var(--lcn-navy); }
+
+    .trigger-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .trigger-icon span {
+      display: block;
+      width: 14px;
+      height: 1.5px;
+      background: var(--lcn-white);
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .sommaire-trigger.open .trigger-icon span:nth-child(1) { transform: rotate(45deg) translate(3px, 3px); }
+    .sommaire-trigger.open .trigger-icon span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .sommaire-trigger.open .trigger-icon span:nth-child(3) { transform: rotate(-45deg) translate(3px, -3px); }
+
+    /* ── PANNEAU — ancré au-dessus du bouton ── */
     .sommaire-panel {
+      position: absolute;
+      bottom: 52px;
+      right: 0;
       width: 260px;
       background: var(--lcn-white);
       border: 1px solid var(--lcn-border);
@@ -36,6 +81,7 @@
       opacity: 0;
       pointer-events: none;
       transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease-out;
+      z-index: 1;
     }
 
     .sommaire-panel.open {
@@ -81,57 +127,13 @@
       margin: 4px 16px;
     }
 
-    .nav-link--cta {
-      margin-top: 2px;
-    }
-
     .nav-link--cta .nav-label { color: var(--lcn-navy); font-weight: 600; }
     .nav-link--cta:hover { background: rgba(52, 76, 148, 0.1); }
-
-    /* ── BOUTON ── */
-    .sommaire-trigger {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 18px;
-      background: var(--lcn-night);
-      color: var(--lcn-white);
-      border: none;
-      border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 4px 16px rgba(26, 35, 64, 0.25);
-      transition: all 0.2s ease;
-    }
-
-    .sommaire-trigger:hover { background: var(--lcn-navy); }
-
-    .trigger-icon {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      flex-shrink: 0;
-    }
-
-    .trigger-icon span {
-      display: block;
-      width: 14px;
-      height: 1.5px;
-      background: var(--lcn-white);
-      border-radius: 2px;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .sommaire-trigger.open .trigger-icon span:nth-child(1) { transform: rotate(45deg) translate(3px, 3px); }
-    .sommaire-trigger.open .trigger-icon span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .sommaire-trigger.open .trigger-icon span:nth-child(3) { transform: rotate(-45deg) translate(3px, -3px); }
   </style>
 </head>
 <body>
 
-  <!-- PANNEAU -->
+  <!-- PANNEAU — au-dessus du bouton -->
   <div class="sommaire-panel" id="panel">
     <nav class="panel-nav">
       <a href="#difference" class="nav-link" onclick="closeSommaire()">
@@ -163,7 +165,7 @@
     </nav>
   </div>
 
-  <!-- BOUTON -->
+  <!-- BOUTON — en bas -->
   <button class="sommaire-trigger" id="trigger" onclick="toggleSommaire()">
     <span class="trigger-icon">
       <span></span><span></span><span></span>
