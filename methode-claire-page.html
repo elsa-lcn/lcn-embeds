@@ -252,49 +252,52 @@
     }
 
     /* ── TABLEAU CE QUE CA CHANGE ── */
-    .change-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .change-col {
+    .change-table {
+      width: 100%;
+      border-collapse: collapse;
       border-radius: 16px;
       overflow: hidden;
       border: 1px solid var(--lcn-border);
+      table-layout: fixed;
+      margin-top: 24px;
     }
 
-    .change-col-header {
+    .change-table thead th {
       padding: 14px 20px;
       font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.03em;
+      text-align: left;
+      width: 50%;
     }
 
-    .change-col--lecteurs .change-col-header {
+    .th-lecteurs {
       background: var(--lcn-navy);
       color: var(--lcn-sky);
+      border-right: 1px solid rgba(255,255,255,0.1);
     }
 
-    .change-col--org .change-col-header {
+    .th-org {
       background: var(--lcn-night);
       color: var(--lcn-sky);
     }
 
-    .change-item {
+    .change-table tbody td {
       padding: 12px 20px;
       font-size: 14px;
       color: var(--lcn-text);
       line-height: 1.5;
       border-bottom: 1px solid var(--lcn-border);
+      vertical-align: top;
     }
 
-    .change-item:last-child { border-bottom: none; }
+    .change-table tbody tr:last-child td { border-bottom: 1px solid var(--lcn-border); }
 
-    .change-item:nth-child(even) {
+    .change-table tbody tr:nth-child(even) td {
       background: var(--lcn-bg-main);
     }
+
+    .td-lecteurs { border-right: 1px solid var(--lcn-border); }
 
     /* ── BADGE ── */
     .badge-section {
@@ -428,7 +431,7 @@
       .axe-card--web { grid-column: span 2; }
       .fondements-grid { grid-template-columns: 1fr; }
       .fondement-card--full { grid-column: span 1; }
-      .change-grid { grid-template-columns: 1fr; }
+      .change-table, .change-table thead, .change-table tbody, .change-table tr, .change-table th, .change-table td { display: block; width: 100%; } .change-table thead th { border-bottom: 1px solid rgba(255,255,255,0.2); } .td-lecteurs { border-right: none; }
       .badge-section { padding: 28px 20px; flex-direction: column; align-items: flex-start; gap: 24px; }
       .cta-block { padding: 28px 20px; flex-direction: column; align-items: flex-start; }
     }
@@ -588,27 +591,36 @@
     <p class="section-label">✦ Les résultats</p>
     <h2 class="section-title">Ce que ça change concrètement.</h2>
 
-    <div class="change-grid">
-
-      <div class="change-col change-col--lecteurs">
-        <div class="change-col-header">Pour vos lecteurs</div>
-        <div class="change-item">Un message compris dès la première lecture</div>
-        <div class="change-item">Moins d'effort, moins de confusion, moins d'abandon</div>
-        <div class="change-item">Moins de perte de temps</div>
-        <div class="change-item">Plus d'autonomie</div>
-        <div class="change-item">Une relation de confiance avec votre organisation</div>
-      </div>
-
-      <div class="change-col change-col--org">
-        <div class="change-col-header">Pour votre organisation</div>
-        <div class="change-item">Des publics plus larges et plus réceptifs</div>
-        <div class="change-item">Une crédibilité institutionnelle qui se remarque</div>
-        <div class="change-item">Moins d'erreurs et de réclamations à gérer</div>
-        <div class="change-item">Un engagement RSE concret en faveur de l'accessibilité cognitive</div>
-        <div class="change-item">Des contenus internes qui allègent la charge cognitive et contribuent à la qualité de vie au travail</div>
-      </div>
-
-    </div>
+    <table class="change-table">
+      <thead>
+        <tr>
+          <th class="th-lecteurs">Pour vos lecteurs</th>
+          <th class="th-org">Pour votre organisation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-lecteurs">Un message compris dès la première lecture</td>
+          <td>Des publics plus larges et plus réceptifs</td>
+        </tr>
+        <tr>
+          <td class="td-lecteurs">Moins d'effort, moins de confusion, moins d'abandon</td>
+          <td>Une crédibilité institutionnelle qui se remarque</td>
+        </tr>
+        <tr>
+          <td class="td-lecteurs">Moins de perte de temps</td>
+          <td>Moins d'erreurs et de réclamations à gérer</td>
+        </tr>
+        <tr>
+          <td class="td-lecteurs">Plus d'autonomie</td>
+          <td>Un engagement RSE concret en faveur de l'accessibilité cognitive</td>
+        </tr>
+        <tr>
+          <td class="td-lecteurs">Une relation de confiance avec votre organisation</td>
+          <td>Des contenus internes qui allègent la charge cognitive et contribuent à la qualité de vie au travail</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- ── BADGE ── -->
@@ -702,8 +714,8 @@
       <p>Premier échange gratuit, sans engagement. 30 minutes pour comprendre ce qui freine vos lecteurs et repartir avec des pistes d'action.</p>
     </div>
     <div class="cta-btns">
-      <a href="#" class="lcn-btn lcn-btn--primary">Je prends rendez-vous</a>
-      <a href="#" class="lcn-btn lcn-btn--outline">Je découvre les prestations</a>
+      <a href="/#rendez-vous" class="lcn-btn lcn-btn--primary">Je prends rendez-vous</a>
+      <a href="/prestations" class="lcn-btn lcn-btn--outline">Je découvre les prestations</a>
     </div>
   </div>
 
