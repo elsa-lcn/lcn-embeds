@@ -23,14 +23,17 @@
       padding: 0;
     }
 
+    .change-table-wrapper {
+      border: 1px solid var(--lcn-border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
     .change-table {
       width: 100%;
       border-collapse: collapse;
       border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid var(--lcn-border);
       table-layout: fixed;
-      outline: 1px solid var(--lcn-border);
     }
 
     /* ── HEADERS ── */
@@ -104,7 +107,7 @@
 </head>
 <body>
 
-  <table class="change-table">
+  <div class="change-table-wrapper"><table class="change-table">
     <thead>
       <tr>
         <th class="th-avant">✕ Ce que nous vous évitons</th>
@@ -169,7 +172,7 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 
 </body>
 </html>
