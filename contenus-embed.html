@@ -40,9 +40,11 @@
     .contenus-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto 1fr;
       gap: 20px;
       width: 100%;
       min-width: 0;
+      align-items: stretch;
     }
 
     /* ── CARDS ── */
@@ -57,6 +59,10 @@
       background: rgba(107, 127, 42, 0.06);
       border-bottom: 1px solid var(--lcn-border);
       padding: 20px 24px;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .card-title {
@@ -75,7 +81,9 @@
     }
 
     /* Sous-catégorie */
-    .subcategory { display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center; }
+    .subcategory { display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center; width: 100%; padding-bottom: 20px; }
+
+    .subcategory:last-child { padding-bottom: 0; }
 
     .subcategory-title {
       font-size: 13px;
@@ -84,12 +92,14 @@
       margin-bottom: 8px;
       letter-spacing: 0.03em;
       background: rgba(52, 76, 148, 0.08);
-      border-radius: 100px;
-      padding: 4px 14px;
-      display: inline-block;
+      border-radius: 8px;
+      padding: 6px 0;
+      display: block;
+      width: 100%;
+      text-align: center;
     }
 
-    .subcategory-list {}
+    .subcategory-list { width: 100%; }
 
     .subcategory-item {
       font-size: 19px;
@@ -128,32 +138,37 @@
     <!-- DOCUMENT OPÉRATIONNEL -->
     <div class="contenu-card">
       <div class="card-header">
-        <h2 class="card-title">Document opérationnel</h2>
+        <h2 class="card-title">Contenus administratifs, opérationnels et internes</h2>
       </div>
       <div class="card-body">
         <div class="subcategory">
-          <p class="subcategory-title">Administratif</p>
+          <p class="subcategory-title">Courrier et communication externe</p>
           <div class="subcategory-list">
             <div class="subcategory-item">Courrier</div>
+            <div class="subcategory-item">Convocation</div>
+            <div class="subcategory-item">Notification de décision</div>
+            <div class="subcategory-item">Courrier de relance</div>
+          </div>
+        </div>
+        <div class="subcategory">
+          <p class="subcategory-title">Documents opérationnels</p>
+          <div class="subcategory-list">
             <div class="subcategory-item">Formulaire</div>
             <div class="subcategory-item">Notice explicative</div>
+            <div class="subcategory-item">Contrat</div>
           </div>
         </div>
         <div class="subcategory">
-          <p class="subcategory-title">Institutionnel</p>
+          <p class="subcategory-title">Vie interne</p>
           <div class="subcategory-list">
-            <div class="subcategory-item">Rapport d'activité</div>
-            <div class="subcategory-item">Compte-rendu</div>
-            <div class="subcategory-item">Dossier thématique</div>
-            <div class="subcategory-item">Livre blanc</div>
-          </div>
-        </div>
-        <div class="subcategory">
-          <p class="subcategory-title">Informatif</p>
-          <div class="subcategory-list">
-            <div class="subcategory-item">Règlement intérieur</div>
             <div class="subcategory-item">Livret d'accueil</div>
-            <div class="subcategory-item">Guide pratique</div>
+            <div class="subcategory-item">Règlement intérieur</div>
+            <div class="subcategory-item">Statuts</div>
+            <div class="subcategory-item">Compte-rendu</div>
+            <div class="subcategory-item">Note de direction</div>
+            <div class="subcategory-item">Document d'onboarding</div>
+            <div class="subcategory-item">Process interne</div>
+            <div class="subcategory-item">Support de formation</div>
           </div>
         </div>
       </div>
@@ -162,9 +177,17 @@
     <!-- SUPPORT DE COMMUNICATION -->
     <div class="contenu-card">
       <div class="card-header">
-        <h2 class="card-title">Support de communication</h2>
+        <h2 class="card-title">Contenus de communication et marketing</h2>
       </div>
       <div class="card-body">
+        <div class="subcategory">
+          <p class="subcategory-title">Digital</p>
+          <div class="subcategory-list">
+            <div class="subcategory-item">Site web</div>
+            <div class="subcategory-item">Newsletter</div>
+            <div class="subcategory-item">Email client</div>
+          </div>
+        </div>
         <div class="subcategory">
           <p class="subcategory-title">Print</p>
           <div class="subcategory-list">
@@ -172,22 +195,19 @@
             <div class="subcategory-item">Affiche</div>
             <div class="subcategory-item">Dépliant</div>
             <div class="subcategory-item">Plaquette</div>
-            <div class="subcategory-item">Brochure de saison culturelle</div>
+            <div class="subcategory-item">Brochure</div>
+            <div class="subcategory-item">Programme de salle</div>
+            <div class="subcategory-item">Feuille de salle</div>
           </div>
         </div>
         <div class="subcategory">
-          <p class="subcategory-title">Digital</p>
+          <p class="subcategory-title">Institutionnel et commercial</p>
           <div class="subcategory-list">
-            <div class="subcategory-item">Site internet</div>
-            <div class="subcategory-item">Newsletter</div>
-          </div>
-        </div>
-        <div class="subcategory">
-          <p class="subcategory-title">Commercial</p>
-          <div class="subcategory-list">
+            <div class="subcategory-item">Rapport d'activité</div>
             <div class="subcategory-item">Dossier de sponsoring</div>
             <div class="subcategory-item">Manifeste de marque</div>
             <div class="subcategory-item">Kit média</div>
+            <div class="subcategory-item">Proposition commerciale</div>
           </div>
         </div>
       </div>
@@ -196,23 +216,23 @@
     <!-- SUPPORT DE MÉDIATION -->
     <div class="contenu-card">
       <div class="card-header">
-        <h2 class="card-title">Support de médiation</h2>
+        <h2 class="card-title">Contenus de médiation et pédagogie</h2>
       </div>
       <div class="card-body">
         <div class="subcategory">
-          <p class="subcategory-title">Parcours de visite</p>
+          <p class="subcategory-title">Médiation culturelle et scientifique</p>
           <div class="subcategory-list">
+            <div class="subcategory-item">Panneau de médiation</div>
             <div class="subcategory-item">Propos scientifique</div>
             <div class="subcategory-item">Dispositif d'information</div>
             <div class="subcategory-item">Dispositif de signalisation</div>
-            <div class="subcategory-item">Accès multi-sensoriel aux oeuvres</div>
           </div>
         </div>
         <div class="subcategory">
-          <p class="subcategory-title">Préparation à la visite</p>
+          <p class="subcategory-title">Supports pédagogiques</p>
           <div class="subcategory-list">
+            <div class="subcategory-item">Guide pratique</div>
             <div class="subcategory-item">Dossier pédagogique</div>
-            <div class="subcategory-item">Feuille de salle</div>
             <div class="subcategory-item">Livret de visite</div>
           </div>
         </div>
@@ -220,5 +240,37 @@
     </div>
 
   </div>
+  <script>
+    function alignAll() {
+      // Aligner les headers
+      var headers = document.querySelectorAll('.card-header');
+      var maxH = 0;
+      headers.forEach(function(h) { h.style.minHeight = ''; });
+      headers.forEach(function(h) { if (h.offsetHeight > maxH) maxH = h.offsetHeight; });
+      headers.forEach(function(h) { h.style.minHeight = maxH + 'px'; });
+
+      // Aligner les cards (hauteur égale)
+      var cards = document.querySelectorAll('.contenu-card');
+      var maxC = 0;
+      cards.forEach(function(c) { c.style.minHeight = ''; });
+      cards.forEach(function(c) { if (c.offsetHeight > maxC) maxC = c.offsetHeight; });
+      cards.forEach(function(c) { c.style.minHeight = maxC + 'px'; });
+
+      // Aligner TOUS les labels à la même hauteur
+      var titles = document.querySelectorAll('.subcategory-title');
+      var maxTH = 0;
+      titles.forEach(function(t) { t.style.minHeight = ''; });
+      titles.forEach(function(t) { if (t.offsetHeight > maxTH) maxTH = t.offsetHeight; });
+      titles.forEach(function(t) {
+        t.style.minHeight = maxTH + 'px';
+        t.style.display = 'flex';
+        t.style.alignItems = 'center';
+        t.style.justifyContent = 'center';
+      });
+    }
+
+    window.addEventListener('load', alignAll);
+    window.addEventListener('resize', alignAll);
+  </script>
 </body>
 </html>
