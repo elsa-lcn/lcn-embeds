@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-night: #1A2340; --lcn-body: #0F172A; --lcn-text: #334155;
+      --lcn-navy: #344C94;  --lcn-sky: #CCEDFB;
+      --lcn-bg-main: #F8FAFC; --lcn-bg-light: #F5F6F0;
+      --lcn-cream: #F2E8DA; --lcn-white: #FFFFFF; --lcn-border: #E5E7EB;
+      --lcn-rouge: #C0392B; --lcn-kaki: #6B7F2A; --lcn-kaki-dark: #4F5E23;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      color: var(--lcn-text);
+      background: transparent;
+      padding: 0 0 64px;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 64px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--lcn-navy);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 700;
+      color: var(--lcn-night);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-body {
+      font-size: 16px;
+      color: var(--lcn-text);
+      line-height: 1.65;
+      max-width: 680px;
+    }
+
+    .section-body p + p {
+      margin-top: 12px;
+    }
+
+    /* ── ACCROCHE ── */
+    .accroche {
+      background: var(--lcn-night);
+      border-radius: 20px;
+      padding: 40px 48px;
+      margin-bottom: 64px;
+    }
+
+    .accroche-title {
+      font-size: clamp(22px, 3.5vw, 34px);
+      font-weight: 700;
+      color: var(--lcn-white);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .accroche-body {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.65;
+      max-width: 580px;
+    }
+
+    .accroche-body p + p { margin-top: 10px; }
+
+    .accroche-arrows {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .accroche-arrow {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.5;
+    }
+
+    .accroche-arrow-icon {
+      color: var(--lcn-sky);
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── AXES ── */
+    .axes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .axe-card {
+      background: var(--lcn-white);
+      border: 1px solid var(--lcn-border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .axe-card-header {
+      background: rgba(107, 127, 42, 0.06);
+      border-bottom: 1px solid var(--lcn-border);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .axe-lettre {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--lcn-navy);
+      line-height: 1;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(204, 237, 251, 0.35);
+      border: 1px solid rgba(204, 237, 251, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .axe-nom {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lcn-navy);
+    }
+
+    .axe-nom strong {
+      color: var(--lcn-night);
+      font-size: 16px;
+    }
+
+    .axe-card-body {
+      padding: 14px 18px;
+    }
+
+    .axe-desc {
+      font-size: 13.5px;
+      color: var(--lcn-text);
+      line-height: 1.55;
+    }
+
+    /* Axe web */
+    .axe-card--web {
+      grid-column: span 3;
+      background: rgba(204, 237, 251, 0.2);
+      border-color: rgba(204, 237, 251, 0.7);
+    }
+
+    .axe-card--web .axe-card-header {
+      background: rgba(204, 237, 251, 0.15);
+      border-bottom-color: rgba(204, 237, 251, 0.5);
+    }
+
+    .tag-web {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--lcn-sky);
+      color: var(--lcn-night);
+      border-radius: 100px;
+      padding: 3px 9px;
+      white-space: nowrap;
+    }
+
+    /* ── FONDEMENTS ── */
+    .fondements-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .fondement-card {
+      background: var(--lcn-white);
+      border: 1px solid var(--lcn-border);
+      border-radius: 16px;
+      padding: 20px 22px;
+    }
+
+    .fondement-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lcn-navy);
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .fondement-desc {
+      font-size: 13.5px;
+      color: var(--lcn-text);
+      line-height: 1.55;
+    }
+
+    /* Conception universelle : full width */
+    .fondement-card--full {
+      grid-column: span 2;
+      background: var(--lcn-cream);
+      border-color: rgba(242, 232, 218, 0.8);
+    }
+
+    .fondement-examples {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .fondement-example {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--lcn-text);
+      line-height: 1.5;
+    }
+
+    .fondement-example-bullet {
+      color: var(--lcn-navy);
+      font-size: 9px;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    /* ── TABLEAU CE QUE CA CHANGE ── */
+    .change-table-wrapper {
+      border: 1px solid var(--lcn-border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 24px;
+    }
+
+    .change-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .change-table thead th {
+      padding: 14px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-align: left;
+      width: 50%;
+    }
+
+    .th-lecteurs {
+      background: var(--lcn-navy);
+      color: var(--lcn-sky);
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .th-org {
+      background: var(--lcn-night);
+      color: var(--lcn-sky);
+    }
+
+    .change-table tbody td {
+      padding: 12px 20px;
+      font-size: 14px;
+      color: var(--lcn-text);
+      line-height: 1.5;
+      border-bottom: 1px solid var(--lcn-border);
+      vertical-align: top;
+    }
+
+    .change-table tbody tr:last-child td { border-bottom: 1px solid var(--lcn-border); }
+
+    .change-table tbody tr:nth-child(even) td {
+      background: var(--lcn-bg-main);
+    }
+
+    .td-lecteurs { border-right: 1px solid var(--lcn-border); }
+
+    /* ── BADGE ── */
+    .badge-section {
+      background: var(--lcn-night);
+      border-radius: 20px;
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .badge-img-wrapper {
+      flex-shrink: 0;
+      width: 100px;
+    }
+
+    .badge-img-wrapper svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .badge-text { flex: 1; min-width: 240px; }
+
+    .badge-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--lcn-white);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .badge-desc {
+      font-size: 14.5px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .badge-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(204,237,251,0.12);
+      border: 1px solid rgba(204,237,251,0.25);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 13px;
+      color: var(--lcn-sky);
+      font-weight: 500;
+    }
+
+    /* ── CTA ── */
+    .cta-block {
+      background: var(--lcn-cream);
+      border-radius: 20px;
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 48px;
+    }
+
+    .cta-text p:first-child {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--lcn-night);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .cta-text p:last-child {
+      font-size: 14px;
+      color: var(--lcn-text);
+      line-height: 1.5;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .lcn-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      border: 2px solid var(--lcn-night);
+      background: var(--lcn-night);
+      color: var(--lcn-white);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .lcn-btn--primary {
+      background: var(--lcn-night);
+      border-color: var(--lcn-night);
+      color: var(--lcn-white);
+    }
+
+    .lcn-btn--primary:hover {
+      background: transparent;
+      color: var(--lcn-night);
+    }
+
+    .lcn-btn--outline {
+      background: transparent;
+      border-color: var(--lcn-night);
+      color: var(--lcn-night);
+    }
+
+    .lcn-btn--outline:hover {
+      background: var(--lcn-night);
+      color: var(--lcn-white);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      body { padding: 0 0 40px; }
+      .accroche { padding: 28px 20px; }
+      .axes-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .axe-card--web { grid-column: span 2; }
+      .fondements-grid { grid-template-columns: 1fr; }
+      .fondement-card--full { grid-column: span 1; }
+      .change-table, .change-table thead, .change-table tbody, .change-table tr, .change-table th, .change-table td { display: block; width: 100%; } .change-table thead th { border-bottom: 1px solid rgba(255,255,255,0.2); } .td-lecteurs { border-right: none; }
+      .badge-section { padding: 28px 20px; flex-direction: column; align-items: flex-start; gap: 24px; }
+      .cta-block { padding: 28px 20px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── ACCROCHE ── -->
+  <div class="accroche">
+    <h1 class="accroche-title">Un contenu bien écrit<br>n'est pas forcément un contenu compris.</h1>
+    <div class="accroche-body">
+      <p>La plupart des organisations produisent des contenus documentés et soignés. Pourtant, ils ne sont pas toujours compris.</p>
+      <p>Des réflexes répandus freinent la compréhension : densité du texte, structure de phrase difficile à suivre, jargon d'expert.</p>
+    </div>
+    <div class="accroche-arrows">
+      <div class="accroche-arrow">
+        <span class="accroche-arrow-icon">✦</span>
+        <span>Pour le lecteur : effort de décryptage, sur-concentration, incompréhension, abandon.</span>
+      </div>
+      <div class="accroche-arrow">
+        <span class="accroche-arrow-icon">✦</span>
+        <span>Pour l'organisation : questions répétées, réclamations, non-recours, perte de crédibilité.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LES 6+1 PRINCIPES ── -->
+  <div class="section">
+    <p class="section-label">✦ Les principes</p>
+    <h2 class="section-title">Les 6 principes de la méthode CLAIRE®</h2>
+    <p class="section-body">Chaque lettre correspond à un principe fondamental. Ensemble, les 6 lettres de CLAIRE couvrent toutes les dimensions nécessaires pour qu'un contenu soit compris immédiatement, sans effort.</p>
+
+    <div class="axes-grid">
+
+      <div class="axe-card">
+        <div class="axe-card-header">
+          <span class="axe-lettre">C</span>
+          <span class="axe-nom"><strong style="color:var(--lcn-navy)">C</strong>larté</span>
+        </div>
+        <div class="axe-card-body">
+          <p class="axe-desc">Les mots choisis ont un seul sens dans leur contexte. Les tournures syntaxiques ne créent pas de confusion. Le lecteur comprend du premier coup, sans avoir à relire ou à interpréter.</p>
+        </div>
+      </div>
+
+      <div class="axe-card">
+        <div class="axe-card-header">
+          <span class="axe-lettre">L</span>
+          <span class="axe-nom"><strong style="color:var(--lcn-navy)">L</strong>isibilité</span>
+        </div>
+        <div class="axe-card-body">
+          <p class="axe-desc">La lisibilité concerne tout ce qui est visuel : la typographie, les espacements, la longueur des phrases, les contrastes. Un contenu lisible ne fatigue pas les yeux. Il permet au lecteur de lire sans effort de déchiffrage, sans perdre le fil.</p>
+        </div>
+      </div>
+
+      <div class="axe-card">
+        <div class="axe-card-header">
+          <span class="axe-lettre">A</span>
+          <span class="axe-nom"><strong style="color:var(--lcn-navy)">A</strong>ccessibilité</span>
+        </div>
+        <div class="axe-card-body">
+          <p class="axe-desc">L'accessibilité cognitive concerne la majorité des lecteurs : ceux qui ont des contraintes visuelles, neurologiques (dyslexie, TDAH, troubles dys) ou liées au vieillissement, ceux ayant des contraintes situationnelles (lire dans les transports, sous stress, en manque de temps), les personnes peu à l'aise avec l'écrit et ceux qui ne maîtrisent pas le vocabulaire spécialisé.</p>
+        </div>
+      </div>
+
+      <div class="axe-card">
+        <div class="axe-card-header">
+          <span class="axe-lettre">I</span>
+          <span class="axe-nom"><strong style="color:var(--lcn-navy)">I</strong>ntelligibilité</span>
+        </div>
+        <div class="axe-card-body">
+          <p class="axe-desc">L'intelligibilité concerne la structure du contenu : la hiérarchie des titres, le découpage en paragraphes, la logique de progression. Un contenu intelligible ne demande pas au lecteur de reconstituer l'ordre des idées. Il le guide, du début à la fin, sans effort d'orientation.</p>
+        </div>
+      </div>
+
+      <div class="axe-card">
+        <div class="axe-card-header">
+          <span class="axe-lettre">R</span>
+          <span class="axe-nom"><strong style="color:var(--lcn-navy)">R</strong>esponsabilité éditoriale</span>
+        </div>
+        <div class="axe-card-body">
+          <p class="axe-desc">La responsabilité éditoriale concerne la relation que l'auteur établit avec le lecteur. Un contenu responsable s'adresse directement à lui, anticipe ses besoins, utilise un langage inclusif et évite les formulations qui créent de la distance. L'auteur ne disparaît pas derrière un style impersonnel : il assume ce qu'il écrit et pour qui il l'écrit.</p>
+        </div>
+      </div>
+
+      <div class="axe-card">
+        <div class="axe-card-header">
+          <span class="axe-lettre">E</span>
+          <span class="axe-nom"><strong style="color:var(--lcn-navy)">E</strong>rgonomie cognitive</span>
+        </div>
+        <div class="axe-card-body">
+          <p class="axe-desc">L'ergonomie cognitive mesure l'énergie mentale que le lecteur doit dépenser pour comprendre un contenu. Un contenu mal conçu oblige le cerveau à travailler deux fois : d'abord pour déchiffrer, ensuite pour comprendre. Un contenu ergonomique élimine cette double dépense. Le lecteur consacre toute son attention au message, pas à l'effort de lecture.</p>
+        </div>
+      </div>
+
+      <div class="axe-card axe-card--web">
+        <div class="axe-card-header">
+          <span class="axe-lettre">+</span>
+          <span class="axe-nom"><strong style="color:var(--lcn-navy)">E</strong>xpérience interactive</span>
+          <span class="tag-web">Web uniquement</span>
+        </div>
+        <div class="axe-card-body">
+          <p class="axe-desc">Cet axe concerne la qualité des interactions et leur impact sur la compréhension. Il porte principalement sur : l'expérience de navigation, le rôle des composants interactifs et le confort de lecture quel que soit le format d'écran.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── FONDEMENTS SCIENTIFIQUES ── -->
+  <div class="section">
+    <p class="section-label">✦ Les fondements</p>
+    <h2 class="section-title">Une méthode ancrée dans la recherche</h2>
+    <p class="section-body">La méthode CLAIRE® s'appuie sur les règles du langage clair. Elle va aussi plus loin, en intégrant les apports de plusieurs disciplines scientifiques.</p>
+
+    <div class="fondements-grid">
+
+      <div class="fondement-card">
+        <p class="fondement-title">Neurosciences</p>
+        <p class="fondement-desc">La façon dont le cerveau traite l'information écrite guide les choix de structure, de longueur et de mise en page.</p>
+      </div>
+
+      <div class="fondement-card">
+        <p class="fondement-title">Psycholinguistique</p>
+        <p class="fondement-desc">La compréhension du langage et ses mécanismes fondent les recommandations sur le choix des mots et la construction des phrases.</p>
+      </div>
+
+      <div class="fondement-card">
+        <p class="fondement-title">Cognitive fluency</p>
+        <p class="fondement-desc">La fluidité cognitive désigne la facilité avec laquelle une information est traitée. Un contenu fluide est mieux compris, mieux retenu, et inspire davantage confiance.</p>
+      </div>
+
+      <div class="fondement-card fondement-card--full">
+        <p class="fondement-title">Conception universelle</p>
+        <p class="fondement-desc">Partir des besoins les plus contraints pour concevoir des contenus utilisables par tous. Ce principe a produit des avancées devenues universelles :</p>
+        <div class="fondement-examples">
+          <div class="fondement-example">
+            <span class="fondement-example-bullet">✦</span>
+            <span>Les SMS, conçus pour les personnes sourdes et malentendantes, sont devenus le mode de communication textuel universel.</span>
+          </div>
+          <div class="fondement-example">
+            <span class="fondement-example-bullet">✦</span>
+            <span>Les abaissements de trottoir, conçus pour les fauteuils roulants, sont adoptés par les poussettes, les vélos et les valises à roulettes.</span>
+          </div>
+          <div class="fondement-example">
+            <span class="fondement-example-bullet">✦</span>
+            <span>Les livres audio, conçus pour les personnes dyslexiques ou malvoyantes, sont devenus une nouvelle forme de pratique culturelle.</span>
+          </div>
+        </div>
+        <p class="fondement-desc" style="margin-top:14px;">En concevant pour ceux qui ont besoin d'accessibilité cognitive, on améliore l'expérience de lecture pour tous.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── CE QUE CA CHANGE ── -->
+  <div class="section">
+    <p class="section-label">✦ Les résultats</p>
+    <h2 class="section-title">Ce que ça change concrètement.</h2>
+
+    <div class="change-table-wrapper"><table class="change-table">
+      <thead>
+        <tr>
+          <th class="th-lecteurs">Pour vos lecteurs</th>
+          <th class="th-org">Pour votre organisation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-lecteurs">Un message compris dès la première lecture</td>
+          <td>Des publics plus larges et plus réceptifs</td>
+        </tr>
+        <tr>
+          <td class="td-lecteurs">Moins d'effort, moins de confusion, moins d'abandon</td>
+          <td>Une crédibilité institutionnelle qui se remarque</td>
+        </tr>
+        <tr>
+          <td class="td-lecteurs">Moins de perte de temps</td>
+          <td>Moins d'erreurs et de réclamations à gérer</td>
+        </tr>
+        <tr>
+          <td class="td-lecteurs">Plus d'autonomie</td>
+          <td>Un engagement RSE concret en faveur de l'accessibilité cognitive</td>
+        </tr>
+        <tr>
+          <td class="td-lecteurs">Une relation de confiance avec votre organisation</td>
+          <td>Des contenus internes qui allègent la charge cognitive et contribuent à la qualité de vie au travail</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <!-- ── BADGE ── -->
+  <div class="badge-section">
+    <div class="badge-img-wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 216" width="180" height="216" role="img" aria-label="Badge Méthode CLAIRE® — Langage clair et net">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;500;700&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Forme principale -->
+  <path d="M20,8 Q8,8 8,20 L8,144 L90,208 L172,144 L172,20 Q172,8 160,8 Z" fill="#344C94"/>
+
+  <!-- Bordure intérieure parallèle -->
+  <path d="M30,20 Q22,20 22,28 L22,138 L90,192 L158,138 L158,28 Q158,20 150,20 Z" fill="none" stroke="#CCEDFB" stroke-width="1"/>
+
+  <!-- LANGAGE -->
+  <text
+    x="90" y="48"
+    font-family="DM Sans, Arial, sans-serif"
+    font-size="8.5"
+    font-weight="300"
+    fill="#F2E8DA"
+    text-anchor="middle"
+    letter-spacing="2">LANGAGE</text>
+
+  <!-- CLAIR ET NET -->
+  <text
+    x="90" y="61"
+    font-family="DM Sans, Arial, sans-serif"
+    font-size="7.5"
+    font-weight="300"
+    fill="#F2E8DA"
+    text-anchor="middle"
+    letter-spacing="2">CLAIR ET NET</text>
+
+  <!-- Ligne séparatrice -->
+  <line x1="34" y1="72" x2="146" y2="72" stroke="#CCEDFB" stroke-width="0.75" opacity="0.35"/>
+
+  <!-- MÉTHODE -->
+  <text
+    x="90" y="100"
+    font-family="DM Sans, Arial, sans-serif"
+    font-size="9.5"
+    font-weight="500"
+    fill="#CCEDFB"
+    text-anchor="middle"
+    letter-spacing="3">MÉTHODE</text>
+
+  <!-- CLAIRE -->
+  <text
+    x="86" y="132"
+    font-family="DM Sans, Arial, sans-serif"
+    font-size="24"
+    font-weight="700"
+    fill="#FFFFFF"
+    text-anchor="middle"
+    letter-spacing="-0.5">CLAIRE</text>
+
+  <!-- ® -->
+  <text
+    x="131" y="117"
+    font-family="DM Sans, Arial, sans-serif"
+    font-size="12"
+    font-weight="400"
+    fill="#CCEDFB"
+    text-anchor="start">&#174;</text>
+
+  <!-- Ornement ✦ ✦ ✦ -->
+  <text
+    x="90" y="155"
+    font-family="DM Sans, Arial, sans-serif"
+    font-size="10"
+    fill="#CCEDFB"
+    text-anchor="middle"
+    opacity="0.45">&#10022;  &#10022;  &#10022;</text>
+
+</svg></div>
+    <div class="badge-text">
+      <h2 class="badge-title">Le badge CLAIRE®</h2>
+      <p class="badge-desc">Langage clair et net attribue le badge CLAIRE® aux supports conçus selon les principes du langage clair et de l'accessibilité cognitive. Le badge signale à vos lecteurs qu'un contenu clair a été pensé pour eux.</p>
+      <div class="badge-chip">✦ Score requis : 75 % et plus sur l'ensemble des axes</div>
+    </div>
+  </div>
+
+</body>
+</html>
