@@ -252,14 +252,17 @@
     }
 
     /* ── TABLEAU CE QUE CA CHANGE ── */
+    .change-table-wrapper {
+      border: 1px solid var(--lcn-border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 24px;
+    }
+
     .change-table {
       width: 100%;
       border-collapse: collapse;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--lcn-border);
       table-layout: fixed;
-      margin-top: 24px;
     }
 
     .change-table thead th {
@@ -591,7 +594,7 @@
     <p class="section-label">✦ Les résultats</p>
     <h2 class="section-title">Ce que ça change concrètement.</h2>
 
-    <table class="change-table">
+    <div class="change-table-wrapper"><table class="change-table">
       <thead>
         <tr>
           <th class="th-lecteurs">Pour vos lecteurs</th>
@@ -620,7 +623,7 @@
           <td>Des contenus internes qui allègent la charge cognitive et contribuent à la qualité de vie au travail</td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <!-- ── BADGE ── -->
