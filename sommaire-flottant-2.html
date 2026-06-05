@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-night: #1A2340; --lcn-text: #334155;
+      --lcn-navy: #344C94;
+      --lcn-white: #FFFFFF; --lcn-border: #E5E7EB;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 260px;
+      height: 500px;
+      background: transparent;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      overflow: hidden;
+    }
+
+    .wrapper {
+      position: relative;
+      width: 260px;
+      height: 500px;
+    }
+
+    /* ── BOUTON ── */
+    .sommaire-trigger {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--lcn-night);
+      color: var(--lcn-white);
+      border: none;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(26, 35, 64, 0.25);
+      transition: background 0.2s ease;
+      z-index: 2;
+    }
+
+    .sommaire-trigger:hover { background: var(--lcn-navy); }
+
+    .trigger-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .trigger-icon span {
+      display: block;
+      width: 14px;
+      height: 1.5px;
+      background: var(--lcn-white);
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .sommaire-trigger.open .trigger-icon span:nth-child(1) { transform: rotate(45deg) translate(3px, 3px); }
+    .sommaire-trigger.open .trigger-icon span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .sommaire-trigger.open .trigger-icon span:nth-child(3) { transform: rotate(-45deg) translate(3px, -3px); }
+
+    /* ── PANNEAU ── */
+    .sommaire-panel {
+      position: absolute;
+      bottom: 52px;
+      right: 0;
+      width: 260px;
+      background: var(--lcn-white);
+      border: 1px solid var(--lcn-border);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(26, 35, 64, 0.12);
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease-out;
+      z-index: 1;
+    }
+
+    .sommaire-panel.open {
+      max-height: 440px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .panel-nav { padding: 8px 0; }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      text-decoration: none;
+      transition: background 0.15s ease;
+      border-radius: 8px;
+      margin: 1px 6px;
+    }
+
+    .nav-link:hover { background: rgba(52, 76, 148, 0.1); }
+
+    .nav-num {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--lcn-navy);
+      opacity: 0.5;
+      width: 16px;
+      flex-shrink: 0;
+    }
+
+    .nav-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--lcn-night);
+      line-height: 1.3;
+    }
+
+    .nav-divider {
+      height: 1px;
+      background: var(--lcn-border);
+      margin: 4px 16px;
+    }
+
+    .nav-link--cta .nav-label { color: var(--lcn-navy); font-weight: 600; }
+    .nav-link--cta:hover { background: rgba(52, 76, 148, 0.1); }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- PANNEAU -->
+    <div class="sommaire-panel" id="panel">
+      <nav class="panel-nav">
+        <a href="javascript:void(0)" onclick="window.parent.location.hash='#difference'" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">01</span><span class="nav-label">Une différence immédiate</span>
+        </a>
+        <a href="javascript:void(0)" onclick="window.parent.location.hash='#ce-que-ca-change'" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">02</span><span class="nav-label">Ce que ça change</span>
+        </a>
+        <a href="javascript:void(0)" onclick="window.parent.location.hash='#pour-qui'" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">03</span><span class="nav-label">Pour qui ?</span>
+        </a>
+        <div class="nav-divider"></div>
+        <a href="javascript:void(0)" onclick="window.parent.location.hash='#prestations'" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">04</span><span class="nav-label">Les prestations</span>
+        </a>
+        <a href="javascript:void(0)" onclick="window.parent.location.hash='#methode-claire'" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">05</span><span class="nav-label">La méthode CLAIRE®</span>
+        </a>
+        <a href="javascript:void(0)" onclick="window.parent.location.hash='#tous-les-contenus'" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">06</span><span class="nav-label">Tous les contenus</span>
+        </a>
+        <div class="nav-divider"></div>
+        <a href="javascript:void(0)" onclick="window.parent.location.hash='#questions'" class="nav-link" onclick="closeSommaire()">
+          <span class="nav-num">07</span><span class="nav-label">Des questions ?</span>
+        </a>
+        <a href="javascript:void(0)" onclick="window.parent.location.hash='#rendez-vous'" class="nav-link nav-link--cta" onclick="closeSommaire()">
+          <span class="nav-num">08</span><span class="nav-label">Prenons rendez-vous →</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- BOUTON -->
+    <button class="sommaire-trigger" id="trigger" onclick="toggleSommaire()">
+      <span class="trigger-icon">
+        <span></span><span></span><span></span>
+      </span>
+      Sommaire
+    </button>
+
+  </div>
+
+  <script>
+    function toggleSommaire() {
+      var panel = document.getElementById('panel');
+      var trigger = document.getElementById('trigger');
+      var isOpen = panel.classList.contains('open');
+      panel.classList.toggle('open', !isOpen);
+      trigger.classList.toggle('open', !isOpen);
+    }
+
+    function closeSommaire() {
+      document.getElementById('panel').classList.remove('open');
+      document.getElementById('trigger').classList.remove('open');
+    }
+  </script>
+</body>
+</html>
