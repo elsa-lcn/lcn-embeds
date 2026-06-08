@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-bg-main: #F8FAFC;  --lcn-bg-light: #F5F6F0;
+      --lcn-cream: #F2E8DA;    --lcn-sky: #CCEDFB;
+      --lcn-white: #FFFFFF;    --lcn-body: #0F172A;
+      --lcn-night: #1A2340;    --lcn-text: #334155;
+      --lcn-border: #E5E7EB;   --lcn-navy: #344C94;
+      --lcn-kaki: #6B7F2A;     --lcn-kaki-dark: #4F5E23;
+      --lcn-rouge: #C0392B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      color: var(--lcn-text);
+      background: transparent;
+      padding: 0 0 48px;
+    }
+
+    /* ── GRILLE ── */
+    .pour-qui-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    /* ── CARD ── */
+    .profil-card {
+      background: var(--lcn-white);
+      border: 1px solid var(--lcn-border);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-header {
+      background: rgba(52, 76, 148, 0.06);
+      border-bottom: 1px solid var(--lcn-border);
+      padding: 20px 24px;
+    }
+
+    .card-numero {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--lcn-navy);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--lcn-night);
+      line-height: 1.25;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--lcn-kaki);
+      line-height: 1.4;
+    }
+
+    .card-body {
+      padding: 20px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-text {
+      font-size: 15px;
+      color: var(--lcn-text);
+      line-height: 1.65;
+    }
+
+    .card-exemples {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .exemple-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--lcn-text);
+      background: var(--lcn-bg-main);
+      border: 1px solid var(--lcn-border);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      body { padding: 0 0 32px; }
+      .pour-qui-grid { grid-template-columns: 1fr; gap: 12px; }
+      .card-header { padding: 16px 18px; }
+      .card-body { padding: 16px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pour-qui-grid">
+
+    <!-- PROFIL 1 -->
+    <div class="profil-card">
+      <div class="card-header">
+        <p class="card-numero">Profil 01</p>
+        <h2 class="card-title">Institutions et collectivités</h2>
+        <p class="card-subtitle">Garantissez l'accès aux droits et aux services à tous vos usagers.</p>
+      </div>
+      <div class="card-body">
+        <p class="card-text">L'adoption du langage clair est une priorité du programme de transformation publique.<br><br>Vos usagers doivent pouvoir comprendre vos courriers, vos formulaires et vos démarches sans effort.<br><br>Un contenu clair réduit les erreurs, les relances et les incompréhensions, et renforce la confiance envers vos services.</p>
+        <div class="card-exemples" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--lcn-border);">
+          <span class="exemple-tag">Ministères</span>
+          <span class="exemple-tag">Collectivités</span>
+          <span class="exemple-tag">Mairies</span>
+          <span class="exemple-tag">Hôpitaux</span>
+          <span class="exemple-tag">CAF</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFIL 2 -->
+    <div class="profil-card">
+      <div class="card-header">
+        <p class="card-numero">Profil 02</p>
+        <h2 class="card-title">Entreprises, ESS et associations</h2>
+        <p class="card-subtitle">Rapprochez-vous de vos publics et fidélisez votre audience.</p>
+      </div>
+      <div class="card-body">
+        <p class="card-text">Vos clients, adhérents et partenaires sont sollicités de toutes parts.<br><br>Un contenu clair capte l'attention, réduit les réclamations et renforce la fidélité.<br><br>C'est aussi un engagement RSE concret en faveur de l'accessibilité cognitive.</p>
+        <div class="card-exemples" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--lcn-border);">
+          <span class="exemple-tag">Entreprises</span>
+          <span class="exemple-tag">Mutuelles</span>
+          <span class="exemple-tag">Banques</span>
+          <span class="exemple-tag">Syndicats</span>
+          <span class="exemple-tag">Associations</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFIL 3 -->
+    <div class="profil-card">
+      <div class="card-header">
+        <p class="card-numero">Profil 03</p>
+        <h2 class="card-title">Culture, arts et éducation</h2>
+        <p class="card-subtitle">Élargissez vos publics en rendant vos contenus accessibles à tous.</p>
+      </div>
+      <div class="card-body">
+        <p class="card-text">Votre métier, c'est transmettre.<br>Sans clarté, la médiation et l'enseignement s'arrêtent à mi-chemin.<br><br>Pour que votre message atteigne tous vos publics, y compris ceux qui sont éloignés de l'écrit ou du numérique, vos contenus doivent être compris sans effort.<br><br>Le langage clair donne à vos contenus une portée réelle.</p>
+        <div class="card-exemples" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--lcn-border);">
+          <span class="exemple-tag">Musées</span>
+          <span class="exemple-tag">Médiathèques</span>
+          <span class="exemple-tag">Universités</span>
+          <span class="exemple-tag">Fondations</span>
+          <span class="exemple-tag">Festivals</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function alignHeaders() {
+      var headers = document.querySelectorAll('.card-header');
+      var maxH = 0;
+      headers.forEach(function(h) { h.style.minHeight = ''; });
+      headers.forEach(function(h) { if (h.offsetHeight > maxH) maxH = h.offsetHeight; });
+      headers.forEach(function(h) { h.style.minHeight = maxH + 'px'; });
+    }
+    window.addEventListener('load', alignHeaders);
+    window.addEventListener('resize', alignHeaders);
+  </script>
+</body>
+</html>
