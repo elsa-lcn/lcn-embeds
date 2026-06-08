@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-night:    #1A2340;
+      --lcn-body:     #0F172A;
+      --lcn-text:     #334155;
+      --lcn-navy:     #344C94;
+      --lcn-sky:      #CCEDFB;
+      --lcn-bg-main:  #F8FAFC;
+      --lcn-bg-light: #F5F6F0;
+      --lcn-cream:    #F2E8DA;
+      --lcn-white:    #FFFFFF;
+      --lcn-border:   #E5E7EB;
+      --lcn-rouge:    #C0392B;
+      --lcn-kaki:     #6B7F2A;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; list-style: none !important; }
+
+    *::before, *::after { content: none !important; }
+
+    .contenus-grid > * { min-width: 0; }
+    .formules-grid > * { min-width: 0; }
+
+    body {
+      font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+      font-size: 21px;
+      color: var(--lcn-text);
+      background: transparent;
+      padding: 0 0 48px;
+    }
+
+    /* ── GRILLE 3 COLONNES ── */
+    .contenus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto 1fr;
+      gap: 20px;
+      width: 100%;
+      min-width: 0;
+      align-items: stretch;
+    }
+
+    /* ── CARDS ── */
+    .contenu-card {
+      background: var(--lcn-white);
+      border: 1px solid var(--lcn-border);
+      border-radius: 16px;
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-header {
+      background: rgba(107, 127, 42, 0.06);
+      border-bottom: 1px solid var(--lcn-border);
+      padding: 20px 24px;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--lcn-night);
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+
+    /* Sous-catégorie */
+    .subcategory { display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center; width: 100%; padding-bottom: 20px; }
+
+    .subcategory:last-child { padding-bottom: 0; }
+
+    .subcategory-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lcn-navy);
+      margin-bottom: 8px;
+      letter-spacing: 0.03em;
+      background: rgba(52, 76, 148, 0.08);
+      border-radius: 8px;
+      padding: 6px 0;
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+
+    .subcategory-list { width: 100%; }
+
+    .subcategory-item {
+      font-size: 19px;
+      color: var(--lcn-text);
+      padding: 3px 0;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+
+
+
+    /* ── ACCORDÉON SOUS-CATÉGORIES ── */
+    .subcategory-toggle {
+      width: 100%;
+      background: rgba(52, 76, 148, 0.08);
+      border: none;
+      border-radius: 8px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lcn-navy);
+      letter-spacing: 0.03em;
+      margin-bottom: 0;
+      transition: background 0.2s ease;
+    }
+
+    .subcategory-toggle:hover {
+      background: rgba(52, 76, 148, 0.14);
+    }
+
+    .toggle-arrow {
+      font-size: 10px;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .subcategory.open .toggle-arrow {
+      transform: rotate(45deg);
+    }
+
+    .subcategory-list {
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, opacity 0.25s ease;
+      opacity: 0;
+    }
+
+    .subcategory.open .subcategory-list {
+      max-height: 400px;
+      opacity: 1;
+    }
+
+    .subcategory-item {
+      font-size: 19px;
+      color: var(--lcn-text);
+      padding: 4px 0;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    /* ── TABLET ── */
+    @media (max-width: 1199px) {
+      body { font-size: 18px; padding: 0 32px 40px; }
+      .card-title { font-size: 17px; }
+      .subcategory-item { font-size: 16px; }
+      .subcategory-title { font-size: 13px; }
+      .card-body { padding: 18px; gap: 16px; }
+      .card-header { padding: 16px 18px; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 580px) {
+      body { font-size: 17px; padding: 0 16px 32px; }
+      .contenus-grid { grid-template-columns: 1fr; }
+      .card-title { font-size: 16px; }
+      .subcategory-item { font-size: 17px; }
+      .card-body { padding: 16px; }
+      .card-header { padding: 14px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenus-grid">
+
+    <!-- DOCUMENT OPÉRATIONNEL -->
+    <div class="contenu-card">
+      <div class="card-header">
+        <h2 class="card-title">Contenus administratifs, opérationnels et internes</h2>
+      </div>
+      <div class="card-body">
+        <div class="subcategory">
+          <button class="subcategory-toggle" onclick="toggleSub(this)">
+            Courrier et communication externe
+            <span class="toggle-arrow">+</span>
+          </button>
+          <div class="subcategory-list">
+
+            <div class="subcategory-item">Courrier</div>
+            <div class="subcategory-item">Convocation</div>
+            <div class="subcategory-item">Notification de décision</div>
+            <div class="subcategory-item">Courrier de relance          </div>
+        </div>
+        </div>
+        <div class="subcategory">
+          <button class="subcategory-toggle" onclick="toggleSub(this)">
+            Documents opérationnels
+            <span class="toggle-arrow">+</span>
+          </button>
+          <div class="subcategory-list">
+
+            <div class="subcategory-item">Formulaire</div>
+            <div class="subcategory-item">Notice explicative</div>
+            <div class="subcategory-item">Contrat          </div>
+        </div>
+        </div>
+        <div class="subcategory">
+          <button class="subcategory-toggle" onclick="toggleSub(this)">
+            Vie interne
+            <span class="toggle-arrow">+</span>
+          </button>
+          <div class="subcategory-list">
+
+            <div class="subcategory-item">Livret d'accueil</div>
+            <div class="subcategory-item">Règlement intérieur</div>
+            <div class="subcategory-item">Statuts</div>
+            <div class="subcategory-item">Compte-rendu</div>
+            <div class="subcategory-item">Note de direction</div>
+            <div class="subcategory-item">Document d'onboarding</div>
+            <div class="subcategory-item">Process interne</div>
+            <div class="subcategory-item">Support de formation          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUPPORT DE COMMUNICATION -->
+    <div class="contenu-card">
+      <div class="card-header">
+        <h2 class="card-title">Contenus de communication et marketing</h2>
+      </div>
+      <div class="card-body">
+        <div class="subcategory">
+          <button class="subcategory-toggle" onclick="toggleSub(this)">
+            Digital
+            <span class="toggle-arrow">+</span>
+          </button>
+          <div class="subcategory-list">
+
+            <div class="subcategory-item">Site web</div>
+            <div class="subcategory-item">Newsletter</div>
+            <div class="subcategory-item">Email client          </div>
+        </div>
+        </div>
+        <div class="subcategory">
+          <button class="subcategory-toggle" onclick="toggleSub(this)">
+            Print
+            <span class="toggle-arrow">+</span>
+          </button>
+          <div class="subcategory-list">
+
+            <div class="subcategory-item">Flyer</div>
+            <div class="subcategory-item">Affiche</div>
+            <div class="subcategory-item">Dépliant</div>
+            <div class="subcategory-item">Plaquette</div>
+            <div class="subcategory-item">Brochure</div>
+            <div class="subcategory-item">Programme de salle</div>
+            <div class="subcategory-item">Feuille de salle          </div>
+        </div>
+        </div>
+        <div class="subcategory">
+          <button class="subcategory-toggle" onclick="toggleSub(this)">
+            Institutionnel et commercial
+            <span class="toggle-arrow">+</span>
+          </button>
+          <div class="subcategory-list">
+
+            <div class="subcategory-item">Rapport d'activité</div>
+            <div class="subcategory-item">Dossier de sponsoring</div>
+            <div class="subcategory-item">Manifeste de marque</div>
+            <div class="subcategory-item">Kit média</div>
+            <div class="subcategory-item">Proposition commerciale          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUPPORT DE MÉDIATION -->
+    <div class="contenu-card">
+      <div class="card-header">
+        <h2 class="card-title">Contenus de médiation et pédagogie</h2>
+      </div>
+      <div class="card-body">
+        <div class="subcategory">
+          <button class="subcategory-toggle" onclick="toggleSub(this)">
+            Médiation culturelle et scientifique
+            <span class="toggle-arrow">+</span>
+          </button>
+          <div class="subcategory-list">
+
+            <div class="subcategory-item">Panneau de médiation</div>
+            <div class="subcategory-item">Propos scientifique</div>
+            <div class="subcategory-item">Dispositif d'information</div>
+            <div class="subcategory-item">Dispositif de signalisation          </div>
+        </div>
+        </div>
+        <div class="subcategory">
+          <button class="subcategory-toggle" onclick="toggleSub(this)">
+            Supports pédagogiques
+            <span class="toggle-arrow">+</span>
+          </button>
+          <div class="subcategory-list">
+
+            <div class="subcategory-item">Guide pratique</div>
+            <div class="subcategory-item">Dossier pédagogique</div>
+            <div class="subcategory-item">Livret de visite          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
+  <script>
+    function toggleSub(btn) {
+      var sub = btn.parentElement;
+      sub.classList.toggle('open');
+    }
+
+    function alignAll() {
+      var headers = document.querySelectorAll('.card-header');
+      var maxH = 0;
+      headers.forEach(function(h) { h.style.minHeight = ''; });
+      headers.forEach(function(h) { if (h.offsetHeight > maxH) maxH = h.offsetHeight; });
+      headers.forEach(function(h) { h.style.minHeight = maxH + 'px'; });
+
+      var cards = document.querySelectorAll('.contenu-card');
+      var maxC = 0;
+      cards.forEach(function(c) { c.style.minHeight = ''; });
+      cards.forEach(function(c) { if (c.offsetHeight > maxC) maxC = c.offsetHeight; });
+      cards.forEach(function(c) { c.style.minHeight = maxC + 'px'; });
+    }
+    window.addEventListener('load', alignAll);
+    window.addEventListener('resize', alignAll);
+  </script>
+</body>
+</html>
