@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-night: #1A2340; --lcn-body: #0F172A; --lcn-text: #334155;
+      --lcn-navy: #344C94;  --lcn-sky: #CCEDFB;
+      --lcn-bg-main: #F8FAFC; --lcn-bg-light: #F5F6F0;
+      --lcn-cream: #F2E8DA; --lcn-white: #FFFFFF; --lcn-border: #E5E7EB;
+      --lcn-rouge: #C0392B; --lcn-kaki: #6B7F2A;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      color: var(--lcn-text);
+      background: transparent;
+      padding: 0 0 48px;
+    }
+
+    /* ── CATÉGORIES ── */
+    .faq-category { margin-bottom: 40px; }
+
+    .faq-category-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--lcn-navy);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--lcn-border);
+    }
+
+    /* ── ACCORDÉON ── */
+    .faq-item {
+      border-bottom: 1px solid var(--lcn-border);
+    }
+
+    .faq-item:first-of-type {
+      border-top: 1px solid var(--lcn-border);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      text-align: left;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--lcn-night);
+      line-height: 1.4;
+    }
+
+    .faq-question:hover { color: var(--lcn-navy); }
+
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid var(--lcn-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+      color: var(--lcn-navy);
+      transition: all 0.25s ease;
+    }
+
+    .faq-item.open .faq-icon {
+      background: var(--lcn-navy);
+      border-color: var(--lcn-navy);
+      color: var(--lcn-white);
+      transform: rotate(45deg);
+    }
+
+    /* ── RÉPONSE ── */
+    .faq-answer {
+      display: none;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    .faq-answer-inner {
+      padding: 0 0 20px;
+      font-size: 15px;
+      color: var(--lcn-text);
+      line-height: 1.7;
+    }
+
+    .faq-answer-inner p + p { margin-top: 12px; }
+
+    .faq-answer-inner ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .faq-answer-inner ul li {
+      padding: 4px 0 4px 20px;
+      position: relative;
+    }
+
+    .faq-answer-inner ul li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      font-size: 8px;
+      color: var(--lcn-navy);
+      top: 8px;
+    }
+
+    .faq-answer-inner ol {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+
+    .faq-answer-inner ol li {
+      padding: 4px 0;
+      line-height: 1.6;
+    }
+
+    .faq-answer-inner strong { color: var(--lcn-night); font-weight: 600; }
+
+    .faq-highlight {
+      background: rgba(204, 237, 251, 0.3);
+      border-left: 3px solid var(--lcn-navy);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      margin: 14px 0;
+      font-size: 14.5px;
+    }
+
+    @media (max-width: 580px) {
+      body { padding: 0 0 32px; }
+      .faq-question { font-size: 15px; }
+      .faq-answer-inner { font-size: 14px; }
+    }
+
+    /* ── COMPARATIF LC/FALC ── */
+    .comparatif-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .comp-col {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--lcn-border);
+    }
+
+    .comp-header {
+      padding: 10px 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .comp-col--admin .comp-header { background: var(--lcn-night); color: var(--lcn-sky); font-family: 'Times New Roman', serif; }
+    .comp-col--lc .comp-header { background: var(--lcn-navy); color: white; }
+    .comp-col--falc .comp-header { background: var(--lcn-kaki); color: white; font-family: 'Atkinson Hyperlegible Next', Arial, sans-serif; }
+
+    .comp-body { padding: 14px 12px; background: white; }
+
+    .comp-col--admin .comp-body {
+      font-family: 'Times New Roman', serif;
+      font-size: 12px;
+      color: var(--lcn-night);
+      line-height: 1.7;
+    }
+
+    .comp-col--lc .comp-body {
+      font-size: 13px;
+      color: var(--lcn-text);
+      line-height: 1.6;
+    }
+
+    .lc-salutation { font-size: 13px; font-weight: 600; color: var(--lcn-night); margin-bottom: 10px; }
+
+    .lc-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--lcn-bg-main);
+      font-size: 13px;
+      color: var(--lcn-night);
+      font-weight: 600;
+    }
+
+    .lc-info:last-of-type { border-bottom: none; }
+    .lc-emoji { font-size: 16px; flex-shrink: 0; }
+
+    .lc-warning {
+      margin-top: 10px;
+      padding: 8px 10px;
+      background: #FEF2F2;
+      border-left: 3px solid var(--lcn-rouge);
+      border-radius: 0 6px 6px 0;
+      font-size: 11.5px;
+      color: var(--lcn-rouge);
+      line-height: 1.5;
+    }
+
+    .comp-col--falc .comp-body {
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      color: var(--lcn-night);
+      line-height: 1.8;
+    }
+
+    .falc-block {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--lcn-bg-main);
+    }
+
+    .falc-block:last-child { border-bottom: none; }
+    .falc-picto { width: 32px; height: 32px; flex-shrink: 0; object-fit: contain; }
+    .falc-text { font-size: 13px; line-height: 1.6; color: var(--lcn-night); }
+    .falc-text strong { font-weight: 700; }
+
+    .falc-warning {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      margin-top: 2px;
+    }
+
+    .falc-warning .falc-text { color: var(--lcn-rouge); font-weight: 700; }
+
+    .comp-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lcn-text);
+      opacity: 0.5;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 580px) {
+      .comparatif-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+      Le langage clair, c'est simplifier à l'extrême ?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+          <p>Le langage clair, c'est bien plus que choisir des mots simples ou raccourcir des phrases. C'est une démarche qui travaille simultanément :</p>
+          <ul>
+            <li>le fond : le choix des informations à inclure et à exclure, l'ordre de présentation des idées et le ton</li>
+            <li>la forme : la construction des phrases, la hiérarchie des informations, la mise en page, et l'appui du design visuel</li>
+          </ul>
+          <p>Le message initial reste intact. Le lecteur comprend mieux, pas parce qu'on lui en dit moins, mais parce qu'on lui dit mieux.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+      Est-ce que le langage clair convient aux contenus techniques ou juridiques ?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+          <p>Oui.</p>
+          <p>Le langage clair ne supprime pas la complexité technique ou juridique : il la rend accessible. Un contrat, une notice réglementaire ou un document médical peuvent être rédigés en langage clair sans perdre leur rigueur ni leur valeur juridique.</p>
+          <p>Ce qui change, c'est que le lecteur comprend :</p>
+          <ul>
+            <li>ce qu'on lui demande</li>
+            <li>ce à quoi il s'engage</li>
+            <li>ce qu'il peut faire</li>
+          </ul>
+          <p>La précision reste. L'opacité disparaît.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+      On peut faire ça en interne avec l'IA, non ?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+          <p>L'IA peut reformuler un texte. Par contre, elle ne peut pas déterminer si votre lecteur va vraiment pouvoir le comprendre.</p>
+          <p>Le langage clair ne consiste pas à simplifier mécaniquement des phrases. C'est une démarche qui demande de connaître le contexte de lecture de vos publics et d'appliquer une méthode rigoureuse, axe par axe. Cela demande des compétences linguistiques, créatives, un jugement éditorial, une lecture critique de la mise en page et du parcours visuel, et la maîtrise des mécanismes cognitifs de lecture. Car il s'agit de décisions qui touchent au sens, pas des corrections de style.</p>
+          <p>L'IA produit du plausible, pas du juste. Elle peut halluciner, approximer, reformuler de façon convaincante mais inexacte. Quand on reformule un contenu juridique, administratif ou technique, on engage la responsabilité de l'organisation. Un professionnel du langage clair valide chaque reformulation en s'assurant que le sens original est préservé. L'IA ne peut pas en faire autant.</p>
+          <p>Demander à vos équipes de faire ce travail en plus de leurs missions, c'est leur ajouter de la charge cognitive. Or l'un des principes fondateurs du langage clair, c'est précisément de réduire la charge cognitive pour vos publics comme pour vos équipes, pas de la déplacer.</p>
+          <p>L'IA peut être un outil ponctuellement utile pour reformuler un texte complexe. Mais elle produit souvent des textes plus courts, pas nécessairement plus clairs. Nous utilisons nous-mêmes des outils technologiques dans notre activité. Ce qui fait la différence, c'est l'expertise humaine et le sens linguistique forgé par l'expérience.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+      Nos équipes écrivent déjà bien. Est-ce vraiment nécessaire ?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+          <p>Bien écrire et écrire pour être compris, ce n'est pas la même chose.</p>
+          <p>Dans vos équipes, certains maîtrisent la grammaire, la précision et le style. C'est une qualité réelle. Mais cela ne garantit pas que le lecteur comprendra, ni qu'il saura comment agir à partir de ce qu'il a lu.</p>
+          <p>Le langage clair apporte une dimension fondamentale : des contenus que le lecteur comprend immédiatement, sans effort. C'est une compétence spécifique, comme le sont le design ou la traduction.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+      Le langage clair ne risque-t-il pas de nuire à notre image professionnelle ?
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+          <p>C'est l'objection la plus fréquente. Et la recherche en sciences cognitives la contredit.</p>
+          <p>Des études montrent que plus un contenu est facile à lire, plus il est perçu comme vrai et crédible par le lecteur. La complexité du langage n'inspire pas confiance : elle crée de la distance.</p>
+          <p>Un contenu clair dit à vos lecteurs : nous respectons votre temps et votre attention. C'est un signal de professionnalisme, pas un signe de faiblesse.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleFaq(btn) {
+      var item = btn.closest('.faq-item') || btn.parentElement;
+      while (item && !item.classList.contains('faq-item')) {
+        item = item.parentElement;
+      }
+      if (!item) return;
+      var isOpen = item.classList.contains('open');
+      if (isOpen) {
+        item.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+  </script>
+</body>
+</html>
