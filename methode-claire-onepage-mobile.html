@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-bg-main: #F8FAFC;  --lcn-bg-light: #F5F6F0;
+      --lcn-cream: #F2E8DA;    --lcn-sky: #CCEDFB;
+      --lcn-white: #FFFFFF;    --lcn-body: #0F172A;
+      --lcn-night: #1A2340;    --lcn-text: #334155;
+      --lcn-border: #E5E7EB;   --lcn-navy: #344C94;
+      --lcn-kaki: #6B7F2A;     --lcn-kaki-dark: #4F5E23;
+      --lcn-rouge: #C0392B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      color: var(--lcn-text);
+      background: transparent;
+      padding: 0 0 32px;
+    }
+
+    /* ── INTRO ── */
+    .methode-intro {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .methode-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--lcn-night);
+      color: var(--lcn-sky);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      align-self: flex-start;
+    }
+
+    .methode-intro-text {
+      font-size: 15px;
+      color: var(--lcn-text);
+      line-height: 1.6;
+    }
+
+    .axes-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--lcn-navy);
+      margin-bottom: 12px;
+    }
+
+    /* ── GRILLE MOBILE : 1 colonne ── */
+    .axes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .axe-card {
+      background: var(--lcn-white);
+      border: 1px solid var(--lcn-border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Titre : lettre + nom empilés verticalement */
+    .axe-lettre-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .axe-lettre {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--lcn-night);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .axe-nom {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lcn-navy);
+      letter-spacing: 0.01em;
+      line-height: 1.3;
+    }
+
+    .axe-desc {
+      font-size: 13px;
+      color: var(--lcn-text);
+      line-height: 1.5;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    /* Axe web (7e) */
+    .axe-card--web {
+      background: rgba(204, 237, 251, 0.25);
+      border-color: rgba(204, 237, 251, 0.7);
+    }
+
+    .axe-card--web .axe-lettre-row {
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .axe-card--web .axe-lettre {
+      font-size: 20px;
+    }
+
+    .tag-web {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--lcn-sky);
+      color: var(--lcn-night);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INTRO -->
+  <div class="methode-intro">
+    <span class="methode-badge">Méthode CLAIRE®</span>
+    <p class="methode-intro-text">Ce référentiel s'appuie sur 6 principes fondamentaux de la communication claire. Il regroupe une centaine de critères, qui structurent chaque prestation de l'agence, de l'analyse à la conception des contenus.</p>
+  </div>
+
+  <p class="axes-label">Ce que garantit la méthode CLAIRE®</p>
+
+  <div class="axes-grid">
+
+    <div class="axe-card">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">C</span>
+        <span class="axe-nom">Clarté</span>
+      </div>
+      <p class="axe-desc">Aucune ambiguïté. Pas besoin d'une deuxième lecture.</p>
+    </div>
+
+    <div class="axe-card">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">L</span>
+        <span class="axe-nom">Lisibilité</span>
+      </div>
+      <p class="axe-desc">Typographie, espacements, contrastes : rien ne freine la lecture.</p>
+    </div>
+
+    <div class="axe-card">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">A</span>
+        <span class="axe-nom">Accessibilité</span>
+      </div>
+      <p class="axe-desc">Conçu pour tous les profils de lecteurs : en situation de handicap, personnes peu à l'aise avec l'écrit, lecteurs pressés, non-spécialistes.</p>
+    </div>
+
+    <div class="axe-card">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">I</span>
+        <span class="axe-nom">Intelligibilité</span>
+      </div>
+      <p class="axe-desc">Le lecteur se repère immédiatement. La structure (titres, paragraphes, progression des idées) apporte du sens avant même de lire le texte.</p>
+    </div>
+
+    <div class="axe-card">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">R</span>
+        <span class="axe-nom">Responsabilité éditoriale</span>
+      </div>
+      <p class="axe-desc">Un ton direct et humain. Le lecteur est traité en interlocuteur, pas en lecteur anonyme.</p>
+    </div>
+
+    <div class="axe-card">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">E</span>
+        <span class="axe-nom">Ergonomie cognitive</span>
+      </div>
+      <p class="axe-desc">Le cerveau ne gaspille pas d'énergie. Il va droit au message.</p>
+    </div>
+
+    <div class="axe-card axe-card--web">
+      <div class="axe-lettre-row">
+        <span class="axe-lettre">+</span>
+        <span class="axe-nom">Expérience interactive</span>
+        <span class="tag-web">Web uniquement</span>
+      </div>
+      <p class="axe-desc">Chaque interaction est fluide et intuitive pour le lecteur. Pas de rupture de navigation. Le lecteur avance sans se poser de questions.</p>
+    </div>
+
+  </div>
+</body>
+</html>
