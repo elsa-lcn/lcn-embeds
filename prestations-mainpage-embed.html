@@ -50,84 +50,102 @@
       margin-top: 2px;
     }
 
-    .methode-text {
-      font-size: 14px;
-      color: var(--lcn-text);
-      line-height: 1.55;
-    }
+    .methode-text { font-size: 14px; color: var(--lcn-text); line-height: 1.55; }
 
-    /* Cards prestations */
-    .prestations-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    /* Cards */
+    .prestations-list { display: flex; flex-direction: column; gap: 20px; }
 
+    /* Même fond que les en-têtes de cartes de la page Prestations */
     .prestation-card {
-      background: var(--lcn-white);
+      background: rgba(107, 127, 42, 0.06);
       border: 1px solid var(--lcn-border);
       border-radius: 16px;
       padding: 20px 24px;
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
     }
 
-    .prestation-num {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--lcn-night);
-      color: var(--lcn-white);
-      font-size: 11px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+    /* Score CLAIRE® : point de départ */
+    .prestation-card--start {
+      background: rgba(204, 237, 251, 0.2);
+      border-color: rgba(204, 237, 251, 0.9);
+    }
+
+    /* Nom de la prestation : étiquette pleine, bien visible */
+    .card-eyebrow {
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 600;
       letter-spacing: 0.02em;
+      color: #FFFFFF;
+      background: #4F5E23; /* kaki foncé : distinct du badge Méthode CLAIRE® (contraste 7:1) */
+      border-radius: 100px;
+      padding: 5px 14px;
+      margin-bottom: 12px;
     }
 
-    .prestation-content { flex: 1; }
+    /* Deux étiquettes reliées par « + » (audit + charte) */
+    .eyebrow-group { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .eyebrow-group .card-eyebrow { margin-bottom: 0; }
+    .eyebrow-plus { font-size: 20px; font-weight: 700; line-height: 1; color: #4F5E23; }
+
 
     .prestation-header {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .prestation-title {
-      font-size: 18px;
+      font-size: 23px;
       font-weight: 700;
       color: var(--lcn-night);
       letter-spacing: -0.01em;
-      line-height: 1.2;
+      line-height: 1.25;
     }
 
-    .tag-gratuit {
+    .tag-gratuit, .tag-nouveau {
       display: inline-flex;
       align-items: center;
       padding: 2px 10px;
       border-radius: 100px;
       font-size: 11px;
       font-weight: 600;
-      background: rgba(107, 127, 42, 0.12);
-      color: var(--lcn-kaki);
-      border: 1px solid rgba(107, 127, 42, 0.2);
       white-space: nowrap;
     }
 
-    .prestation-tagline {
+    .tag-gratuit {
+      background: rgba(107, 127, 42, 0.12);
+      color: var(--lcn-kaki);
+      border: 1px solid rgba(107, 127, 42, 0.2);
+    }
+
+    /* Étiquette « Nouveau » : fond plein rouge de la palette (--lcn-rouge) */
+    .tag-nouveau {
+      background: #C0392B;
+      color: #FFFFFF;
+      border: 1px solid #C0392B;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      box-shadow: 0 2px 8px rgba(192, 57, 43, 0.25);
+    }
+
+    .prestation-tagline { font-size: 15px; color: var(--lcn-text); line-height: 1.55; }
+
+    .group-label {
       font-size: 15px;
-      color: var(--lcn-text);
-      line-height: 1.55;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--lcn-navy);
+      text-align: left;
+      margin: 12px 0 0;
     }
 
     @media (max-width: 580px) {
-      .prestation-card { padding: 16px 18px; gap: 12px; }
-      .prestation-title { font-size: 16px; }
+      .prestation-card { padding: 16px 18px; }
+      .prestation-title { font-size: 20px; }
       .prestation-tagline { font-size: 14px; }
+      .methode-banner { flex-direction: column; gap: 10px; }
     }
   </style>
 </head>
@@ -140,35 +158,35 @@
 
   <div class="prestations-list">
 
+    <p class="group-label">Nos prestations</p>
+
     <div class="prestation-card">
-      <div class="prestation-num">01</div>
-      <div class="prestation-content">
-        <div class="prestation-header">
-          <h2 class="prestation-title">Score CLAIRE®</h2>
-          <span class="tag-gratuit">Gratuit</span>
-        </div>
-        <p class="prestation-tagline">Avant toute prestation, mesurez la clarté de vos contenus axe par axe. Un score global, des scores par axe, trois recommandations prioritaires.</p>
+      <p class="card-eyebrow">Conception de contenus</p>
+      <div class="prestation-header">
+        <h2 class="prestation-title">Transformer vos contenus, du texte à la mise en page, pour réduire l'effort de lecture</h2>
       </div>
+      <p class="prestation-tagline">Nous créons des contenus qui se lisent vite et se comprennent sans effort. Résultat : moins de questions, d'erreurs et de relances.</p>
     </div>
 
     <div class="prestation-card">
-      <div class="prestation-num">02</div>
-      <div class="prestation-content">
-        <div class="prestation-header">
-          <h2 class="prestation-title">Conception de contenus en langage clair</h2>
-        </div>
-        <p class="prestation-tagline">Vos supports sont retravaillés en profondeur, ou créés entièrement, pour être compris dès la première lecture.</p>
+      <p class="card-eyebrow">Formations</p>
+      <div class="prestation-header">
+        <h2 class="prestation-title">Former vos équipes au langage clair</h2>
+       
       </div>
+      <p class="prestation-tagline">Nous apprenons à vos équipes à écrire pour que les lecteurs comprennent sans avoir à relire. Objectif : réduire la surcharge d'information en interne, ainsi que pour vos publics.</p>
     </div>
 
-    <div class="prestation-card">
-      <div class="prestation-num">03</div>
-      <div class="prestation-content">
-        <div class="prestation-header">
-          <h2 class="prestation-title">Charte éditoriale en langage clair</h2>
-        </div>
-        <p class="prestation-tagline">Un guide opérationnel pour que tous vos collaborateurs produisent des contenus cohérents et accessibles, en autonomie.</p>
+
+    <p class="group-label">Faire le point</p>
+
+    <div class="prestation-card prestation-card--start">
+      <p class="card-eyebrow">Score CLAIRE®</p>
+      <div class="prestation-header">
+        <h2 class="prestation-title">Mesurer la clarté de vos contenus</h2>
+        <span class="tag-gratuit">Gratuit</span>
       </div>
+      <p class="prestation-tagline">Vous vous demandez si vos contenus sont vraiment clairs&nbsp;? Nous mesurons leur clarté, axe par axe. Un score global, des scores par axe, trois recommandations prioritaires.</p>
     </div>
 
   </div>
