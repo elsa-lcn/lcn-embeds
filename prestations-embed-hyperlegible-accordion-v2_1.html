@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lcn-bg-main:   #F8FAFC;
+      --lcn-bg-light:  #F5F6F0;
+      --lcn-cream:     #F2E8DA;
+      --lcn-sky:       #CCEDFB;
+      --lcn-white:     #FFFFFF;
+      --lcn-body:      #0F172A;
+      --lcn-night:     #1A2340;
+      --lcn-text:      #334155;
+      --lcn-border:    #E5E7EB;
+      --lcn-navy:      #344C94;
+      --lcn-kaki:      #6B7F2A;
+      --lcn-kaki-dark: #4F5E23;
+      --lcn-rouge:     #C0392B;
+      --claire-navy:   #2B4590;
+      --claire-gold:   #E8B84B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; word-break: break-word; overflow-wrap: break-word; }
+
+    body {
+      font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+      font-size: 16px;
+      color: var(--lcn-text);
+      background: transparent;
+      padding: 48px 20px;
+    }
+
+    .lcn-wrapper { font-size: 21px; width: 100%; }
+
+    /* ── BANNIÈRE MÉTHODE ── */
+    .methode-banner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(204, 237, 251, 0.35);
+      border: 1px solid rgba(204, 237, 251, 0.7);
+      border-radius: 12px;
+      padding: 14px 20px;
+      margin: 0 auto 40px;
+      max-width: 680px;
+    }
+
+    .methode-banner .badge {
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--lcn-navy);
+      color: var(--lcn-white);
+      border-radius: 100px;
+      padding: 4px 12px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .methode-banner p { font-size: 17px; color: var(--lcn-text); line-height: 1.5; }
+
+    /* ── GRILLE ── */
+    .prestations-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* Séparateur entre Score CLAIRE® et les 3 prestations */
+    .group-label {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--lcn-navy);
+      text-align: left;
+      margin: 20px 0 0;
+    }
+
+    /* ── CARDS ── */
+    .prestation-card {
+      background: var(--lcn-white);
+      border: 1px solid var(--lcn-border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    /* Score CLAIRE® : point de départ, visuellement distinct */
+    .prestation-card--start {
+      border-color: rgba(204,237,251,0.9);
+    }
+
+    .prestation-card--start .card-header {
+      background: rgba(204,237,251,0.25);
+    }
+
+    .card-header {
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--lcn-border);
+      background: rgba(107, 127, 42, 0.06);
+    }
+
+    /* Nom de la prestation : étiquette pleine, bien visible */
+    .card-eyebrow {
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #FFFFFF;
+      background: #4F5E23; /* kaki foncé : distinct du badge Méthode CLAIRE® (contraste 7:1) */
+      border-radius: 100px;
+      padding: 5px 14px;
+      margin-bottom: 12px;
+    }
+
+    /* Deux étiquettes reliées par « + » (audit + charte) */
+    .eyebrow-group { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .eyebrow-group .card-eyebrow { margin-bottom: 0; }
+    .eyebrow-plus { font-size: 20px; font-weight: 700; line-height: 1; color: #4F5E23; }
+
+
+    .card-header h2 {
+      font-size: clamp(23px, 3vw, 30px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      color: var(--lcn-night);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tag-gratuit, .tag-nouveau {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .tag-gratuit {
+      background: rgba(107,127,42,0.12);
+      color: var(--lcn-kaki);
+      border: 1px solid rgba(107,127,42,0.22);
+    }
+
+    /* Étiquette « Nouveau » : fond plein rouge de la palette (--lcn-rouge) */
+    .tag-nouveau {
+      background: #C0392B;
+      color: #FFFFFF;
+      border: 1px solid #C0392B;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      box-shadow: 0 2px 8px rgba(192, 57, 43, 0.25);
+    }
+
+    .card-tagline { font-size: 13.5px; color: var(--lcn-text); line-height: 1.5; }
+
+    .card-body { padding: 16px 24px; }
+
+    /* Colonnes contenu */
+    .content-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .content-block h3,
+    .block-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--lcn-navy);
+      margin-bottom: 10px;
+    }
+
+    .content-block ul, .item-list { list-style: none; }
+
+    .content-block ul li {
+      font-size: 17px;
+      color: var(--lcn-text);
+      padding: 5px 0 5px 20px;
+      position: relative;
+      line-height: 1.45;
+    }
+
+    .content-block ul li::before,
+    .item-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      font-size: 7px;
+      color: var(--lcn-navy);
+      top: 7px;
+    }
+
+    .item-list li {
+      font-size: 17px;
+      color: var(--lcn-text);
+      padding: 9px 0 9px 20px;
+      position: relative;
+      border-bottom: 1px solid var(--lcn-border);
+      line-height: 1.4;
+    }
+
+    .item-list li:last-child { border-bottom: none; }
+    .item-list li::before { top: 12px; }
+
+    .step-block + .step-block { margin-top: 24px; }
+    .charte-block { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--lcn-border); }
+    .charte-intro { font-size: 16px; line-height: 1.5; color: var(--lcn-text); margin-bottom: 8px; }
+
+    /* Footer chips */
+    .card-footer {
+      padding: 12px 24px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-top: 1px solid var(--lcn-border);
+    }
+
+    .info-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--lcn-bg-main);
+      border: 1px solid var(--lcn-border);
+      border-radius: 100px;
+      padding: 6px 14px;
+    }
+
+    .chip-label {
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--lcn-text);
+      opacity: 0.55;
+    }
+
+    .chip-sep { width: 1px; height: 11px; background: var(--lcn-border); }
+
+    .chip-value { font-size: 15px; font-weight: 500; color: var(--lcn-night); }
+
+    /* ── FORMATIONS ── */
+    .formation-intro { font-size: 17px; line-height: 1.55; color: var(--lcn-text); margin-bottom: 24px; }
+
+    .formation-axe { margin-bottom: 28px; }
+
+    .formation-axe > h3 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--lcn-navy);
+      margin-bottom: 4px;
+    }
+
+    .axe-titre { font-size: 18px; font-weight: 700; color: var(--lcn-night); line-height: 1.35; margin-bottom: 4px; }
+    .axe-ref { font-size: 14px; color: var(--lcn-text); opacity: 0.75; margin-bottom: 12px; }
+
+    .formation-list { list-style: none; }
+    .formation-item { padding: 14px 0; border-bottom: 1px solid var(--lcn-border); }
+    .formation-item:first-child { border-top: 1px solid var(--lcn-border); }
+
+    .formation-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 6px; }
+    .formation-nom { font-size: 17px; font-weight: 600; color: var(--lcn-night); line-height: 1.4; }
+    .formation-type { display: block; font-size: 13px; font-weight: 600; color: var(--lcn-kaki-dark); margin-top: 2px; }
+
+    .formation-duree {
+      flex-shrink: 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--lcn-navy);
+      background: rgba(204,237,251,0.35);
+      border: 1px solid rgba(204,237,251,0.9);
+      border-radius: 100px;
+      padding: 3px 12px;
+      white-space: nowrap;
+    }
+
+    .formation-desc { font-size: 16px; color: var(--lcn-text); line-height: 1.5; }
+
+    .formation-legal {
+      margin-top: 28px;
+      padding: 16px 18px;
+      background: var(--lcn-bg-main);
+      border: 1px solid var(--lcn-border);
+      border-radius: 12px;
+    }
+
+    .formation-legal h3 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--lcn-text);
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+
+    .formation-legal p { font-size: 14px; color: var(--lcn-text); line-height: 1.5; margin-bottom: 6px; }
+    .formation-legal p:last-child { margin-bottom: 0; }
+
+    /* Repère des éléments à compléter. À SUPPRIMER une fois les numéros renseignés. */
+    .a-completer { background: #FFF3C4; outline: 1px dashed #C9A227; border-radius: 4px; padding: 0 4px; }
+
+    /* Demande de programme (formations) */
+    .formation-cta {
+      margin-top: 20px;
+      padding: 16px 18px;
+      background: rgba(204,237,251,0.25);
+      border: 1px solid rgba(204,237,251,0.9);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .formation-cta p { font-size: 16px; line-height: 1.5; color: var(--lcn-text); flex: 1 1 260px; }
+    .formation-cta-link {
+      display: inline-flex;
+      padding: 8px 18px;
+      border-radius: 100px;
+      background: var(--lcn-navy);
+      color: var(--lcn-white);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .formation-cta-link:hover { background: var(--lcn-night); }
+    .item-list strong { color: var(--lcn-night); font-weight: 600; }
+
+    /* ── PROCESSUS (dans le détail de chaque carte) ── */
+    .card-process {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--lcn-border);
+    }
+
+    .process-label {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--lcn-navy);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; position: relative; }
+
+    .process-connector { position: absolute; height: 1px; background: var(--lcn-border); z-index: 0; top: 0; left: 0; }
+
+    .process-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 6px; }
+
+    .step-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #EEF8FD;
+      border: 1px solid rgba(204, 237, 251, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--lcn-navy);
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+
+    .step-title { font-size: 16px; font-weight: 600; color: var(--lcn-night); margin-bottom: 6px; line-height: 1.3; }
+    .step-desc { font-size: 14px; color: var(--lcn-text); line-height: 1.5; opacity: 0.75; }
+
+    /* ── ACCORDÉON ── */
+    .card-body, .card-footer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+      opacity: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .card-body { display: block; }
+    .card-footer { display: flex; flex-wrap: wrap; }
+
+    .card-body.open, .card-footer.open {
+      max-height: 2500px;
+      opacity: 1;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .card-body.card-body--long.open { max-height: 6000px; }
+
+    .accordion-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1px solid var(--lcn-navy);
+      background: transparent;
+      color: var(--lcn-navy);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .accordion-btn:hover, .accordion-btn.open { background: var(--lcn-navy); color: var(--lcn-white); }
+    .accordion-btn .btn-arrow { font-size: 18px; line-height: 1; font-weight: 700; transition: transform 0.2s ease; }
+    .accordion-btn.open .btn-arrow { transform: rotate(180deg); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      body { padding: 32px 12px; }
+      .content-columns { grid-template-columns: 1fr; }
+      .card-header { padding: 18px 16px 14px; }
+      .card-body { padding-left: 16px; padding-right: 16px; }
+      .card-footer { padding-left: 16px; padding-right: 16px; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 20px 10px; }
+      .process-connector { display: none; }
+      .methode-banner { flex-direction: column; align-items: flex-start; }
+      .formation-top { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body><div class="lcn-wrapper">
+
+  <!-- ── BANNIÈRE MÉTHODE ── -->
+  <div class="methode-banner">
+    <span class="badge">Méthode CLAIRE®</span>
+    <p>Toutes nos prestations s'appuient sur la méthode CLAIRE®, notre référentiel d'analyse de la clarté et de l'accessibilité cognitive des contenus.</p>
+  </div>
+
+  <div class="prestations-grid">
+
+    <p class="group-label">Nos prestations</p>
+
+    <!-- ── CONCEPTION DE CONTENUS ── -->
+    <div class="prestation-card">
+      <div class="card-header">
+        <p class="card-eyebrow">Conception de contenus</p>
+        <h2>Transformer vos contenus, du texte à la mise en page, pour réduire l'effort de lecture</h2>
+        <p class="card-tagline">Nous créons des contenus qui se lisent vite et se comprennent sans effort. Résultat : moins de questions, d'erreurs et de relances.</p>
+        <button class="accordion-btn" onclick="toggleCard(this)" aria-expanded="false">Voir le détail <span class="btn-arrow">↓</span></button>
+      </div>
+      <div class="card-body">
+        <div class="content-columns">
+          <div class="content-block">
+            <h3>Au choix</h3>
+            <ul>
+              <li>Refonte de contenus existants</li>
+              <li>Création de nouveaux contenus</li>
+            </ul>
+          </div>
+          <div class="content-block">
+            <h3>Supports concernés</h3>
+            <ul>
+              <li>Sites web, pages de destination</li>
+              <li>Documents PDF, formulaires, courriers</li>
+              <li>Supports print et numérique</li>
+              <li>Contenus internes (onboarding, RH, process)</li>
+              <li>Signalétique et médiation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step-block charte-block">
+          <p class="block-title">En complément ✦ charte éditoriale</p>
+          <p class="charte-intro">Sur demande, nous rédigeons une charte propre à votre organisation : une référence commune pour que vos équipes écrivent de façon claire et cohérente.</p>
+          <ul class="item-list">
+            <li>Éléments de langage propres à l'organisation</li>
+            <li>Ton et mode d'adresse</li>
+            <li>Vocabulaire privilégié et termes à éviter</li>
+            <li>Règles de structure, de mise en page et de lisibilité</li>
+          </ul>
+        </div>
+
+        <div class="card-process">
+          <p class="process-label">Comment ça se passe ✦ 4 étapes</p>
+          <div class="process-steps">
+            <div class="process-step"><div class="step-dot">1</div><p class="step-title">Questionnaire de cadrage</p><p class="step-desc">Ensemble, nous définissons vos objectifs, vos publics et vos contraintes.</p></div>
+            <div class="process-step"><div class="step-dot">2</div><p class="step-title">Première version complète</p><p class="step-desc">Nous vous livrons une version aboutie, pas une ébauche.</p></div>
+            <div class="process-step"><div class="step-dot">3</div><p class="step-title">Vos annotations</p><p class="step-desc">Vous annotez directement le document : remarques, questions, ajustements.</p></div>
+            <div class="process-step"><div class="step-dot">4</div><p class="step-title">Version définitive</p><p class="step-desc">Nous intégrons vos retours. Vous recevez la version définitive.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="info-chip">
+          <span class="chip-label">Livrable</span><span class="chip-sep"></span>
+          <span class="chip-value">Support retravaillé ou créé, prêt à diffuser</span>
+        </div>
+        <div class="info-chip">
+          <span class="chip-label">Délai</span><span class="chip-sep"></span>
+          <span class="chip-value">Défini ensemble en début de mission</span>
+        </div>
+        <div class="info-chip">
+          <span class="chip-label">Option</span><span class="chip-sep"></span>
+          <span class="chip-value">Création de nouveaux visuels par un graphiste, si besoin</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FORMATIONS ── -->
+    <div class="prestation-card">
+      <div class="card-header">
+        <p class="card-eyebrow">Formations</p>
+        <h2>Former vos équipes au langage clair</h2>
+        <p class="card-tagline">Nous apprenons à vos équipes à écrire pour que les lecteurs comprennent sans avoir à relire. Objectif : réduire la surcharge d'information en interne, ainsi que pour vos publics.</p>
+        <button class="accordion-btn" onclick="toggleCard(this)" aria-expanded="false">Voir le détail <span class="btn-arrow">↓</span></button>
+      </div>
+      <div class="card-body card-body--long">
+
+        <p class="formation-intro">Toutes nos formations sont conçues à partir de la méthode CLAIRE®. Elles se déroulent au sein de votre organisation, pour vos équipes uniquement.</p>
+
+        <p class="block-title">Nos thématiques</p>
+        <ul class="item-list">
+          <li><strong>Communication interne</strong> : réduire la charge cognitive au travail</li>
+          <li><strong>Communication externe</strong> : des contenus compris par tous vos publics, y compris les lecteurs dys, TDAH ou peu à l'aise avec l'écrit</li>
+          <li><strong>Communication chiffrée</strong> : des rapports et des tableaux de bord où vos lecteurs voient tout de suite l'essentiel, avec la norme ISO 24896</li>
+          <li><strong>Réunions à distance</strong> : des visioconférences et des webinaires qui gardent l'attention de vos participants jusqu'au bout</li>
+        </ul>
+
+        <div class="formation-cta">
+          <p>Vous voulez le programme détaillé d'une formation&nbsp;? Écrivez-nous, nous vous l'envoyons par email.</p>
+          <a class="formation-cta-link" href="mailto:contact@langageclairetnet.fr?subject=Demande%20de%20programme%20de%20formation">Demander un programme</a>
+        </div>
+
+        <div class="card-process">
+          <p class="process-label">Comment ça se passe ✦ 4 étapes</p>
+          <div class="process-steps">
+            <div class="process-step"><div class="step-dot">1</div><p class="step-title">Analyse du besoin</p><p class="step-desc">Nous échangeons sur vos objectifs, vos équipes et leurs écrits du quotidien.</p></div>
+            <div class="process-step"><div class="step-dot">2</div><p class="step-title">Programme ajusté</p><p class="step-desc">Le programme s'adapte à votre secteur et à vos contenus réels.</p></div>
+            <div class="process-step"><div class="step-dot">3</div><p class="step-title">Formation</p><p class="step-desc">En présentiel ou à distance. Vos équipes pratiquent sur des cas concrets.</p></div>
+            <div class="process-step"><div class="step-dot">4</div><p class="step-title">Évaluation et bilan</p><p class="step-desc">Les acquis sont évalués en fin de formation. Vous recevez un bilan.</p></div>
+          </div>
+        </div>
+
+        <!-- MENTIONS LÉGALES : À COMPLÉTER AVANT MISE EN LIGNE -->
+        <div class="formation-legal">
+          <h3>Informations légales</h3>
+          <p>Déclaration d'activité enregistrée sous le numéro <span class="a-completer">[N° de déclaration d'activité]</span> auprès du préfet de région <span class="a-completer">[région]</span>. Cet enregistrement ne vaut pas agrément de l'État.</p>
+          <p>La certification qualité Qualiopi a été délivrée au titre de la catégorie d'action suivante : actions de formation. <span class="a-completer">[n° de certificat, organisme certificateur]</span></p>
+          <p>Nos formations peuvent être prises en charge par votre opérateur de compétences (OPCO), selon ses critères de financement.</p>
+        </div>
+
+      </div>
+      <div class="card-footer">
+        <div class="info-chip">
+          <span class="chip-label">Format</span><span class="chip-sep"></span>
+          <span class="chip-value">Dans votre organisation, en présentiel ou à distance</span>
+        </div>
+        <div class="info-chip">
+          <span class="chip-label">Durée</span><span class="chip-sep"></span>
+          <span class="chip-value">De ½ journée à 5 jours, selon la formation</span>
+        </div>
+        <div class="info-chip">
+          <span class="chip-label">Financement</span><span class="chip-sep"></span>
+          <span class="chip-value">Prise en charge possible par votre OPCO</span>
+        </div>
+      </div>
+    </div>
+
+
+    <p class="group-label">Faire le point</p>
+
+    <!-- ── POINT DE DÉPART : SCORE CLAIRE® ── -->
+    <div class="prestation-card prestation-card--start">
+      <div class="card-header">
+        <p class="card-eyebrow">Score CLAIRE®</p>
+        <h2>Mesurer la clarté de vos contenus <span class="tag-gratuit">Gratuit</span></h2>
+        <p class="card-tagline">Vous vous demandez si vos contenus sont vraiment clairs&nbsp;? Nous mesurons leur clarté, axe par axe. Un score global, des scores par axe, trois recommandations prioritaires.</p>
+        <button class="accordion-btn" onclick="toggleCard(this)" aria-expanded="false">Voir le détail <span class="btn-arrow">↓</span></button>
+      </div>
+      <div class="card-body">
+        <div class="content-columns">
+          <div class="content-block">
+            <h3>Ce que vous recevez</h3>
+            <ul>
+              <li>Un score global sur 10</li>
+              <li>Un score par axe CLAIRE®</li>
+              <li>Trois recommandations prioritaires et actionnables</li>
+            </ul>
+          </div>
+          <div class="content-block">
+            <h3>Supports analysés</h3>
+            <ul>
+              <li>Site web : soumettez une URL</li>
+              <li>Document : envoyez un PDF ou Word</li>
+              <li>Tout autre support sur demande</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="info-chip">
+          <span class="chip-label">Livrable</span><span class="chip-sep"></span>
+          <span class="chip-value">Rapport de score ✦ une page, lisible en 3 minutes</span>
+        </div>
+        <div class="info-chip">
+          <span class="chip-label">Délai</span><span class="chip-sep"></span>
+          <span class="chip-value">48 à 72 heures ouvrées</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function drawConnector() {
+      document.querySelectorAll('.process-steps').forEach(function(container) {
+        container.querySelectorAll('.process-connector').forEach(function(el) { el.remove(); });
+        var dots = container.querySelectorAll('.step-dot');
+        if (dots.length < 2) return;
+        var c = container.getBoundingClientRect();
+        for (var i = 0; i < dots.length - 1; i++) {
+          var a = dots[i].getBoundingClientRect();
+          var b = dots[i + 1].getBoundingClientRect();
+          if (Math.abs(a.top - b.top) > 2) continue; /* pas de trait entre deux lignes (mobile) */
+          var line = document.createElement('div');
+          line.className = 'process-connector';
+          line.style.top = (a.top - c.top + a.height / 2) + 'px';
+          line.style.left = (a.right - c.left) + 'px';
+          line.style.width = (b.left - a.right) + 'px';
+          container.appendChild(line);
+        }
+      });
+    }
+
+    function toggleCard(btn) {
+      var card = btn.closest('.prestation-card');
+      var body = card.querySelector('.card-body');
+      var footer = card.querySelector('.card-footer');
+      var isOpen = btn.classList.contains('open');
+
+      btn.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      btn.innerHTML = (isOpen ? 'Voir le détail' : 'Refermer') + ' <span class="btn-arrow">↓</span>';
+      body.classList.toggle('open', !isOpen);
+      if (footer) footer.classList.toggle('open', !isOpen);
+      if (!isOpen) setTimeout(drawConnector, 50);
+    }
+
+    window.addEventListener('load', drawConnector);
+    window.addEventListener('resize', drawConnector);
+  </script>
+</div></body>
+</html>
