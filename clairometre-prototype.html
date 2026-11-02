@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Le Clairomètre ✦ prototype</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#F2E8DA; --texte:#334155; --titre:#1A2340; --bouton-fond:#1A2340; --bouton-texte:#FFFFFF; --focus:#344C94; --ombre:rgba(26,35,64,.18);
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --fond:#0F172A; --texte:#CBD5E1; --titre:#F8FAFC; --bouton-fond:#CCEDFB; --bouton-texte:#0F172A; --focus:#CCEDFB; --ombre:rgba(0,0,0,.5); color-scheme: dark; }
+}
+:root[data-theme="dark"]{ --fond:#0F172A; --texte:#CBD5E1; --titre:#F8FAFC; --bouton-fond:#CCEDFB; --bouton-texte:#0F172A; --focus:#CCEDFB; --ombre:rgba(0,0,0,.5); color-scheme: dark; }
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0; background:var(--fond); color:var(--texte); font-family:'Atkinson Hyperlegible Next','Atkinson Hyperlegible',Verdana,sans-serif; min-height:100%}
+main{display:flex; flex-direction:column; align-items:center; gap:20px; padding:32px 16px 40px}
+.consigne{margin:0; font-size:17px; line-height:1.5; color:var(--titre); text-align:center; max-width:34ch}
+.scene{perspective:1600px; width:302px; height:794px; flex-shrink:0}
+.carte{display:block; position:relative; width:302px; height:794px; cursor:pointer; transform-style:preserve-3d; transition:transform .7s cubic-bezier(.3,.7,.2,1); border-radius:6px}
+.carte.retournee{transform:rotateY(180deg)}
+.face{position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:6px; overflow:hidden; box-shadow:0 10px 30px var(--ombre); text-align:left}
+.face.dos{transform:rotateY(180deg)}
+.face a{color:#344C94}
+.bouton{font:inherit; font-size:17px; font-weight:700; color:var(--bouton-texte); background:var(--bouton-fond); border:0; border-radius:999px; padding:12px 22px; cursor:pointer; display:inline-flex; align-items:center; gap:10px}
+.bouton:focus-visible{outline:3px solid var(--focus); outline-offset:3px}
+.bouton svg{flex-shrink:0}
+@media (prefers-reduced-motion: reduce){ .carte{transition:none} }
+</style>
+</head>
+<body>
+<main>
+<p class="consigne" id="consigne">Cliquez sur le marque-page pour voir l’autre face.</p>
+<div class="scene">
+<div class="carte" id="carte" role="region" aria-label="Le Clairomètre, recto">
+<div class="face recto" id="recto">
+<div style="width: 302px; height: 794px; box-sizing: border-box; background: #FFFFFF; font-family: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', Verdana, sans-serif; color: #0F172A; padding: 18px 12px 14px; display: flex; flex-direction: column; gap: 12px">
+<div style="margin: -18px -12px -12px; padding: 18px 16px 0; background: #E2E8CF; display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-size: 34px; line-height: 1.1; font-weight: 800; color: #1A2340; white-space: nowrap">Le Clairomètre</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.3; color: #334155">L’outil qui vous aide à écrire clairement.</p>
+</div>
+<div style="margin: 0 -12px; display: flex; flex-direction: column">
+<div style="background: linear-gradient(to bottom, #E2E8CF 0, #E2E8CF calc(100% - 16px), #EDE6C6 100%); padding: 20px 16px 16px; display: flex">
+<section style="flex-grow: 1; background: #FFFFFF; border-radius: 10px; padding: 7px 8px 9px; display: flex; flex-direction: column; gap: 5px">
+<h2 style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 18px; line-height: 1.2; font-weight: 700; color: #1A2340">
+<span style="width: 24px; height: 24px; flex-shrink: 0; border-radius: 12px; background: #4F5E23; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 7.5 L5.5 10.5 L11.5 3.5" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span>Recommandé</span>
+</h2>
+<ul style="margin: 0; padding: 0 0 0 16px; list-style: disc; display: flex; flex-direction: column; gap: 3px">
+<li style="font-size: 16px; line-height: 1.4">Mettre l’essentiel en premier</li>
+<li style="font-size: 16px; line-height: 1.4">Donner un titre à chaque partie</li>
+<li style="font-size: 16px; line-height: 1.4">Utiliser des mots courants</li>
+<li style="font-size: 16px; line-height: 1.4">Écrire une idée par phrase</li>
+<li style="font-size: 16px; line-height: 1.4">Dire au lecteur quoi faire</li>
+</ul>
+</section>
+</div>
+<div style="background: linear-gradient(to bottom, #EDE6C6 0, #F8E6BC 16px, #F8E6BC calc(100% - 16px), #F5DAC4 100%); padding: 16px 16px; display: flex">
+<section style="flex-grow: 1; background: #FFFFFF; border-radius: 10px; padding: 7px 8px 9px; display: flex; flex-direction: column; gap: 5px">
+<h2 style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 18px; line-height: 1.2; font-weight: 700; color: #1A2340">
+<span style="width: 24px; height: 24px; flex-shrink: 0; border-radius: 12px; background: #E8B84B; border: 2px solid #9A7020; box-sizing: border-box; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><line x1="7" y1="2.5" x2="7" y2="8" stroke="#1A2340" stroke-width="2.2" stroke-linecap="round"/><circle cx="7" cy="11.2" r="1.3" fill="#1A2340"/></svg></span>
+<span>Essayer de s’en passer</span>
+</h2>
+<ul style="margin: 0; padding: 0 0 0 16px; list-style: disc; display: flex; flex-direction: column; gap: 3px">
+<li style="font-size: 16px; line-height: 1.4">Mettre des mots en italique</li>
+<li style="font-size: 16px; line-height: 1.4">Écrire entre parenthèses</li>
+<li style="font-size: 16px; line-height: 1.4">Employer des mots techniques</li>
+<li style="font-size: 16px; line-height: 1.4">Ajouter des notes de bas de page</li>
+<li style="font-size: 16px; line-height: 1.4">Écrire à la voix passive</li>
+</ul>
+</section>
+</div>
+<div style="background: linear-gradient(to bottom, #F5DAC4 0, #F2D2CD 16px, #F2D2CD 100%); padding: 16px 16px 14px; display: flex">
+<section style="flex-grow: 1; background: #FFFFFF; border-radius: 10px; padding: 7px 8px 9px; display: flex; flex-direction: column; gap: 5px">
+<h2 style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 18px; line-height: 1.2; font-weight: 700; color: #1A2340">
+<span style="width: 24px; height: 24px; flex-shrink: 0; border-radius: 12px; background: #C0392B; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 3.5 L10.5 10.5 M10.5 3.5 L3.5 10.5" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+<span>À ne pas faire</span>
+</h2>
+<ul style="margin: 0; padding: 0 0 0 16px; list-style: disc; display: flex; flex-direction: column; gap: 3px">
+<li style="font-size: 16px; line-height: 1.4">Écrire en majuscules</li>
+<li style="font-size: 16px; line-height: 1.4">Laisser des sigles inexpliqués</li>
+<li style="font-size: 16px; line-height: 1.4">Écrire de longs paragraphes</li>
+<li style="font-size: 16px; line-height: 1.4">Aligner le texte en mode « justifié »</li>
+<li style="font-size: 16px; line-height: 1.4">Employer une double négation</li>
+</ul>
+</section>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; margin-top: auto; padding: 0 4px; font-size: 14px; font-weight: 700">
+<div style="align-self: center; color: #1A2340">✦ Langage clair et net ✦</div>
+<div style="align-self: flex-end; display: flex; align-items: center; gap: 5px; color: #344C94"><span>Plus d’infos</span><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="transform: rotate(30deg)" fill="none" stroke="#344C94" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg></div>
+</div>
+</div>
+</div>
+<div class="face dos" id="verso" aria-hidden="true">
+<div style="width: 302px; height: 794px; box-sizing: border-box; background: #FFFFFF; font-family: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', Verdana, sans-serif; color: #0F172A; padding: 18px 12px 14px; display: flex; flex-direction: column; gap: 11px; justify-content: space-between">
+<div style="margin: -18px -12px 0; padding: 18px 12px 14px; background: #E2E8CF; display: flex; flex-direction: column; gap: 8px">
+<p style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 700; color: #1A2340">Le Clairomètre vous dit quoi garder et quoi corriger dans vos&nbsp;textes.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.4">Avant de diffuser votre texte, relisez-le pour repérer&nbsp;:</p>
+<div style="display: flex; gap: 8px; align-items: flex-start">
+<span style="width: 24px; height: 24px; flex-shrink: 0; border-radius: 12px; background: #4F5E23; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 7.5 L5.5 10.5 L11.5 3.5" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+<div style="display: flex; flex-direction: column; gap: 2px; padding-top: 1px">
+<p style="margin: 0; font-size: 16px; line-height: 1.4; font-weight: 700; color: #1A2340">Ce qui facilite la lecture.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.4"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align: -1px; margin-right: 5px" fill="none" stroke="#1A2340" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>Appliquez ces conseils à chacun de vos textes.</p>
+</div>
+</div>
+<div style="display: flex; gap: 8px; align-items: flex-start">
+<span style="width: 24px; height: 24px; flex-shrink: 0; border-radius: 12px; background: #E8B84B; border: 2px solid #9A7020; box-sizing: border-box; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><line x1="7" y1="2.5" x2="7" y2="8" stroke="#1A2340" stroke-width="2.2" stroke-linecap="round"></line><circle cx="7" cy="11.2" r="1.3" fill="#1A2340"></circle></svg></span>
+<div style="display: flex; flex-direction: column; gap: 2px; padding-top: 1px">
+<p style="margin: 0; font-size: 16px; line-height: 1.4; font-weight: 700; color: #1A2340">Ce qui ralentit la lecture.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.4"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align: -1px; margin-right: 5px" fill="none" stroke="#1A2340" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>Retravaillez les passages concernés quand vous le&nbsp;pouvez.</p>
+</div>
+</div>
+<div style="display: flex; gap: 8px; align-items: flex-start">
+<span style="width: 24px; height: 24px; flex-shrink: 0; border-radius: 12px; background: #C0392B; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 3.5 L10.5 10.5 M10.5 3.5 L3.5 10.5" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"></path></svg></span>
+<div style="display: flex; flex-direction: column; gap: 2px; padding-top: 1px">
+<p style="margin: 0; font-size: 16px; line-height: 1.4; font-weight: 700; color: #1A2340">Ce qui demande le plus d’effort au&nbsp;lecteur.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.4"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align: -1px; margin-right: 5px" fill="none" stroke="#1A2340" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>Réécrivez ces passages.</p>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<p style="margin: 0; font-size: 16px; line-height: 1.4; color: #0F172A"><strong style="color: #1A2340">Trop d’emails, de comptes rendus et de rapports à&nbsp;lire&nbsp;?</strong> La surcharge informationnelle fatigue tout le&nbsp;monde.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.4; color: #0F172A">En écrivant clairement, vous aidez vos collègues et vos publics à lire avec moins d’effort.</p>
+</div>
+<div style="background: #1A2340; border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; gap: 12px; align-items: center">
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<p style="margin: 0; font-size: 16px; line-height: 1.4; color: #FFFFFF"><strong>Vous manquez de temps&nbsp;?</strong> <span style="white-space: nowrap">Confiez-nous</span> vos&nbsp;textes.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.4; color: #FFFFFF"><strong>Envie de former vos équipes&nbsp;?</strong> Écrivez-nous.</p>
+</div>
+<div style="width: 64px; height: 64px; flex-shrink: 0; background: #FFFFFF; border-radius: 6px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; line-height: 1.2; color: #334155; padding: 4px; box-sizing: border-box">[QR code page contact]</div>
+</div>
+<p style="margin: 0; font-size: 15px; line-height: 1.4; color: #FFFFFF">contact@langageclairetnet.fr</p>
+</div>
+
+
+<div style="display: flex; justify-content: center">
+<p style="margin: 0; font-size: 14px; font-weight: 700; color: #1A2340">✦ Langage clair et net ✦</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<button class="bouton" id="bouton" type="button" aria-controls="carte"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg><span id="libelle">Voir le verso</span></button>
+</main>
+<script>
+(function(){
+  var carte=document.getElementById('carte'), bouton=document.getElementById('bouton'), libelle=document.getElementById('libelle');
+  var recto=document.getElementById('recto'), verso=document.getElementById('verso');
+  var auDos=false;
+  function retourner(){
+    auDos=!auDos;
+    carte.classList.toggle('retournee',auDos);
+    recto.setAttribute('aria-hidden',auDos?'true':'false');
+    verso.setAttribute('aria-hidden',auDos?'false':'true');
+    libelle.textContent=auDos?'Voir le recto':'Voir le verso';
+    carte.setAttribute('aria-label','Le Clairomètre, '+(auDos?'verso':'recto'));
+  }
+  carte.addEventListener('click',retourner);
+  bouton.addEventListener('click',retourner);
+})();
+</script>
+</body>
+</html>
